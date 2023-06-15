@@ -1,9 +1,10 @@
-package com.example.mfaella.physicsapp;
+package com.example.mfaella.physicsapp.joints;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.example.mfaella.physicsapp.GameWorld;
 import com.google.fpl.liquidfun.Body;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
@@ -32,7 +33,7 @@ public class MyRevoluteJoint
         jointDef.setEnableMotor(true);
         jointDef.setMotorSpeed(1.5f);
         jointDef.setMaxMotorTorque(80f);
-        joint = gw.world.createJoint(jointDef);
+        joint = gw.getWorld().createJoint(jointDef);
 
         jointDef.delete();
     }

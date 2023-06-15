@@ -1,4 +1,4 @@
-package com.example.mfaella.physicsapp;
+package com.example.mfaella.physicsapp.gameObjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 
+import com.example.mfaella.physicsapp.GameWorld;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.FixtureDef;
@@ -25,7 +26,7 @@ public class DynamicTriangleGO extends GameObject {
 
         instances++;
 
-        this.canvas = new Canvas(gw.buffer); // Is this needed?
+        this.canvas = new Canvas(gw.getBuffer()); // Is this needed?
         this.screen_semi_width = gw.toPixelsXLength(semi_width);
 
         // a body definition: position and type
@@ -33,7 +34,7 @@ public class DynamicTriangleGO extends GameObject {
         bdef.setPosition(x, y);
         bdef.setType(BodyType.dynamicBody);
         // a body
-        this.body = gw.world.createBody(bdef);
+        this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
         this.name = "Triangle" + instances;
         body.setUserData(this);

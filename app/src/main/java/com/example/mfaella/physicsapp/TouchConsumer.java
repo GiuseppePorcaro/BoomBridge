@@ -3,6 +3,8 @@ package com.example.mfaella.physicsapp;
 import android.util.Log;
 
 import com.badlogic.androidgames.framework.Input;
+import com.example.mfaella.physicsapp.gameObjects.DynamicBoxGO;
+import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.google.fpl.liquidfun.Body;
 import com.google.fpl.liquidfun.Fixture;
 import com.google.fpl.liquidfun.MouseJoint;
@@ -66,7 +68,7 @@ public class TouchConsumer {
         Log.d("MultiTouchHandler", "touch down at " + x + ", " + y);
 
         touchedFixture = null;
-        gw.world.queryAABB(touchQueryCallback, x - POINTER_SIZE, y - POINTER_SIZE, x + POINTER_SIZE, y + POINTER_SIZE);
+        gw.getWorld().queryAABB(touchQueryCallback, x - POINTER_SIZE, y - POINTER_SIZE, x + POINTER_SIZE, y + POINTER_SIZE);
         if (touchedFixture != null) {
             // From fixture to GO
             Body touchedBody = touchedFixture.getBody();
@@ -74,7 +76,7 @@ public class TouchConsumer {
             if (userData != null) {
                 GameObject touchedGO = (GameObject) userData;
                 activePointerID = pointerId;
-                Log.d("MultiTouchHandler", "touched game object " + touchedGO.name);
+                Log.d("MultiTouchHandler", "touched game object " + touchedGO.getName());
                 setupMouseJoint(x, y, touchedBody);
                 // splitBox(touchedGO, touchedBody);
             }
@@ -84,7 +86,7 @@ public class TouchConsumer {
     // If a DynamicBox is touched, it splits into two
     private void splitBox(GameObject touchedGO, Body touchedBody) {
         if (touchedGO instanceof DynamicBoxGO) {
-            gw.world.destroyBody(touchedBody);
+            gw.getWorld().destroyBody(touchedBody);
             gw.objects.remove(touchedGO);
             gw.addGameObject(new DynamicBoxGO(gw, touchedBody.getPositionX(), touchedBody.getPositionY()));
             gw.addGameObject(new DynamicBoxGO(gw, touchedBody.getPositionX(), touchedBody.getPositionY()));
@@ -98,13 +100,13 @@ public class TouchConsumer {
         mouseJointDef.setBodyB(touchedBody);
         mouseJointDef.setMaxForce(500 * touchedBody.getMass());
         mouseJointDef.setTarget(x, y);
-        mouseJoint = gw.world.createMouseJoint(mouseJointDef);
+        mouseJoint = gw.getWorld().createMouseJoint(mouseJointDef);
     }
 
     private void consumeTouchUp(Input.TouchEvent event) {
         if (mouseJoint != null && event.pointer == activePointerID) {
             Log.d("MultiTouchHandler", "Releasing joint");
-            gw.world.destroyJoint(mouseJoint);
+            gw.getWorld().destroyJoint(mouseJoint);
             mouseJoint = null;
             activePointerID = 0;
         }

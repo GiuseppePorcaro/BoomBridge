@@ -4,19 +4,15 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.os.Build;
-import android.util.Log;
 
 import com.badlogic.androidgames.framework.Input;
 import com.badlogic.androidgames.framework.Sound;
 import com.badlogic.androidgames.framework.impl.TouchHandler;
-import com.google.fpl.liquidfun.ContactListener;
+import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.google.fpl.liquidfun.ParticleSystem;
 import com.google.fpl.liquidfun.ParticleSystemDef;
 import com.google.fpl.liquidfun.World;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,14 +25,17 @@ import java.util.List;
 public class GameWorld {
     // Rendering
     final static int bufferWidth = 400, bufferHeight = 600;    // actual pixels
-    Bitmap buffer;
+    private Bitmap buffer;
     private Canvas canvas;
     private Paint particlePaint;
 
     // Simulation
     List<GameObject> objects;
-    World world;
-    final Box physicalSize, screenSize, currentView;
+    private World world;
+    final Box physicalSize;
+    final Box screenSize;
+
+    final Box currentView;
     private MyContactListener contactListener;
     private TouchConsumer touchConsumer;
     private TouchHandler touchHandler;
@@ -154,6 +153,26 @@ public class GameWorld {
     public synchronized void setGravity(float x, float y)
     {
         world.setGravity(x, y);
+    }
+
+    public Bitmap getBuffer() {
+        return buffer;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public Box getCurrentView() {
+        return currentView;
+    }
+
+    public ParticleSystem getParticleSystem() {
+        return particleSystem;
+    }
+
+    public Activity getActivity() {
+        return activity;
     }
 
     @Override

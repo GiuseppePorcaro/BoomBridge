@@ -1,4 +1,4 @@
-package com.example.mfaella.physicsapp;
+package com.example.mfaella.physicsapp.gameObjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -6,9 +6,7 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.util.Log;
 
-import com.google.fpl.liquidfun.BodyDef;
-import com.google.fpl.liquidfun.BodyType;
-import com.google.fpl.liquidfun.FixtureDef;
+import com.example.mfaella.physicsapp.GameWorld;
 import com.google.fpl.liquidfun.ParticleFlag;
 import com.google.fpl.liquidfun.ParticleGroup;
 import com.google.fpl.liquidfun.ParticleGroupDef;
@@ -49,8 +47,8 @@ public class MarblesGO extends GameObject
     {
         super(gw);
 
-        this.canvas = new Canvas(gw.buffer);
-        this.psys = gw.particleSystem;
+        this.canvas = new Canvas(gw.getBuffer());
+        this.psys = gw.getParticleSystem();
 
         paint.setARGB(255, 0, 255, 0);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -63,7 +61,7 @@ public class MarblesGO extends GameObject
         // NEW:
         groupDef.setGroupFlags(ParticleGroupFlag.solidParticleGroup);
         groupDef.setFlags(ParticleFlag.elasticParticle);
-        group = gw.particleSystem.createParticleGroup(groupDef);
+        group = gw.getParticleSystem().createParticleGroup(groupDef);
         this.particleCount = group.getParticleCount();
 
         particlePositionsBuffer = ByteBuffer.allocateDirect(particleCount * BYTESPERPARTICLE);

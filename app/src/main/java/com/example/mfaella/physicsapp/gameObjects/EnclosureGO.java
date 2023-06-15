@@ -1,12 +1,11 @@
-package com.example.mfaella.physicsapp;
+package com.example.mfaella.physicsapp.gameObjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.google.fpl.liquidfun.Body;
+import com.example.mfaella.physicsapp.GameWorld;
 import com.google.fpl.liquidfun.BodyDef;
-import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.PolygonShape;
 
 /**
@@ -34,7 +33,7 @@ public class EnclosureGO extends GameObject
         // a body definition: position and type
         BodyDef bdef = new BodyDef();
         // default position is (0,0) and default type is staticBody
-        this.body = gw.world.createBody(bdef);
+        this.body = gw.getWorld().createBody(bdef);
         this.name = "Enclosure";
         body.setUserData(this);
 

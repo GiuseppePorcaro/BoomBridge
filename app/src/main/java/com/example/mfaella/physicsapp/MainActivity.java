@@ -16,12 +16,18 @@ import com.badlogic.androidgames.framework.Audio;
 import com.badlogic.androidgames.framework.Music;
 import com.badlogic.androidgames.framework.impl.AndroidAudio;
 import com.badlogic.androidgames.framework.impl.MultiTouchHandler;
+import com.example.mfaella.physicsapp.gameObjects.DynamicBoxGO;
+import com.example.mfaella.physicsapp.gameObjects.DynamicTriangleGO;
+import com.example.mfaella.physicsapp.gameObjects.EnclosureGO;
+import com.example.mfaella.physicsapp.gameObjects.GameObject;
+import com.example.mfaella.physicsapp.gameObjects.MarblesGO;
+import com.example.mfaella.physicsapp.joints.MyRevoluteJoint;
 
 import java.nio.ByteOrder;
 
 public class MainActivity extends Activity {
 
-    private MyThread t; // just for fun, unrelated to the rest
+    private GameLoop t; // just for fun, unrelated to the rest
     private AndroidFastRenderView renderView;
     private Audio audio;
     private Music backgroundMusic;
@@ -67,7 +73,7 @@ public class MainActivity extends Activity {
 
         GameObject a = gw.addGameObject(new DynamicBoxGO(gw, 0, -2));
         GameObject b = gw.addGameObject(new DynamicBoxGO(gw, 1, -3));
-        new MyRevoluteJoint(gw, a.body, b.body);
+        new MyRevoluteJoint(gw, a.getBody(), b.getBody());
         // new MyPrismaticJoint(gw, a.body, b.body);
 
         //gw.addGameObject(new DynamicCircleGO(gw,0,0));
@@ -97,7 +103,7 @@ public class MainActivity extends Activity {
         gw.setTouchHandler(touch);
 
         // Unrelated to the rest, just to show interaction with another thread
-        t = new MyThread(gw);
+        t = new GameLoop(gw);
         t.start();
 
         Log.i(getString(R.string.app_name), "onCreate complete, Endianness = " +

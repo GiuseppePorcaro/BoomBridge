@@ -1,5 +1,6 @@
-package com.example.mfaella.physicsapp;
+package com.example.mfaella.physicsapp.joints;
 
+import com.example.mfaella.physicsapp.GameWorld;
 import com.google.fpl.liquidfun.Body;
 import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.PrismaticJointDef;
@@ -25,7 +26,7 @@ public class MyPrismaticJoint
         jointDef.setEnableMotor(true);
         jointDef.setMotorSpeed(2f);
         jointDef.setMaxMotorForce(10f);
-        joint = gw.world.createJoint(jointDef);
+        joint = gw.getWorld().createJoint(jointDef);
 
         jointDef.delete();
     }

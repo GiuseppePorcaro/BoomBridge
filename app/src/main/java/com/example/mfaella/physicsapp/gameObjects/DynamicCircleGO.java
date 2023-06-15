@@ -1,21 +1,17 @@
-package com.example.mfaella.physicsapp;
+package com.example.mfaella.physicsapp.gameObjects;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 
-import androidx.core.content.res.ResourcesCompat;
-
+import com.example.mfaella.physicsapp.GameWorld;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.CircleShape;
 import com.google.fpl.liquidfun.FixtureDef;
-import com.google.fpl.liquidfun.PolygonShape;
 
-public class DynamicCircleGO extends GameObject{
+public class DynamicCircleGO extends GameObject {
 
     private static float screen_semi_width;
     private static final float semi_width = 2f;
@@ -32,7 +28,7 @@ public class DynamicCircleGO extends GameObject{
 
         instances++;
 
-        canvas = new Canvas(gw.buffer);
+        canvas = new Canvas(gw.getBuffer());
         this.screen_semi_width = gw.toPixelsXLength(semi_width);
 
         //definisco il body dell'oggetto
@@ -41,7 +37,7 @@ public class DynamicCircleGO extends GameObject{
         bodyDef.setType(BodyType.staticBody);
 
         //Creo il body dell'oggetto nel mondo
-        this.body = gw.world.createBody(bodyDef);
+        this.body = gw.getWorld().createBody(bodyDef);
         body.setSleepingAllowed(false);
         this.name = "Cerchio" + instances;
         body.setUserData(this);

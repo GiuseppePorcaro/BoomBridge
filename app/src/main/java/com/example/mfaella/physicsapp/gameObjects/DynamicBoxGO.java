@@ -1,4 +1,4 @@
-package com.example.mfaella.physicsapp;
+package com.example.mfaella.physicsapp.gameObjects;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,10 +7,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 
+import com.example.mfaella.physicsapp.GameWorld;
+import com.example.mfaella.physicsapp.R;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.Fixture;
@@ -37,7 +36,7 @@ public class DynamicBoxGO extends GameObject
 
         instances++;
 
-        this.canvas = new Canvas(gw.buffer); // Is this needed?
+        this.canvas = new Canvas(gw.getBuffer()); // Is this needed?
         this.screen_semi_width = gw.toPixelsXLength(width)/2;
         this.screen_semi_height = gw.toPixelsYLength(height)/2;
 
@@ -46,7 +45,7 @@ public class DynamicBoxGO extends GameObject
         bdef.setPosition(x, y);
         bdef.setType(BodyType.dynamicBody);
         // a body
-        this.body = gw.world.createBody(bdef);
+        this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
         this.name = "Box" + instances;
         body.setUserData(this);
@@ -75,7 +74,7 @@ public class DynamicBoxGO extends GameObject
         // Prevents scaling
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inScaled = false;
-        bitmap = BitmapFactory.decodeResource(gw.activity.getResources(), R.drawable.icona, o);
+        bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.icona, o);
 
         // Log.i("Dragme", "size: " + bitmap.getWidth() + ", " + bitmap.getHeight());
         // Note: top <= bottom

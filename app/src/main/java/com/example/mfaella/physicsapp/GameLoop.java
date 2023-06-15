@@ -2,6 +2,7 @@ package com.example.mfaella.physicsapp;
 
 import android.util.Log;
 
+import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.google.fpl.liquidfun.Fixture;
 import com.google.fpl.liquidfun.RayCastCallback;
 import com.google.fpl.liquidfun.Vec2;
@@ -10,11 +11,11 @@ import com.google.fpl.liquidfun.Vec2;
 /**
  * Created by mfaella on 08/02/16.
  */
-public class MyThread extends Thread {
+public class GameLoop extends Thread {
     public volatile int counter;
     private GameWorld gw;
 
-    public MyThread(GameWorld gw)
+    public GameLoop(GameWorld gw)
     {
         this.gw = gw;
     }
@@ -24,11 +25,11 @@ public class MyThread extends Thread {
         RayCastCallback listener = new RayCastCallback() {
           @Override
           public float reportFixture(Fixture f, Vec2 point, Vec2 normal, float fraction) {
-              Log.i("MyThread", ((GameObject)f.getBody().getUserData()).name + " (" + fraction + ")");
+              Log.i("MyThread", ((GameObject)f.getBody().getUserData()).getName() + " (" + fraction + ")");
               return 1;
           }
         };
-        gw.world.rayCast(listener, -10, 0, 10, 0);
+        gw.getWorld().rayCast(listener, -10, 0, 10, 0);
     }
 
     @Override

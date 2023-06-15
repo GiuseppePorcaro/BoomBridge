@@ -1,5 +1,7 @@
 package com.example.mfaella.physicsapp;
 
+import com.example.mfaella.physicsapp.gameObjects.GameObject;
+
 /** An unordered pair of game objects.
  *
  */

@@ -1,14 +1,16 @@
-package com.example.mfaella.physicsapp;
+package com.example.mfaella.physicsapp.gameObjects;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
+import com.example.mfaella.physicsapp.Box;
+import com.example.mfaella.physicsapp.GameWorld;
 import com.google.fpl.liquidfun.Body;
 
 /**
  * Created by mfaella on 27/02/16.
  */
 public abstract class GameObject {
+
     Body body;
     protected String name;
     protected GameWorld gw;
@@ -27,7 +29,7 @@ public abstract class GameObject {
                   angle = body.getAngle();
             // Log.d("GameObject", "x=" + x + "\t y=" + y);
             // Cropping
-            Box view = gw.currentView;
+            Box view = gw.getCurrentView();
             if (x > view.xmin && x < view.xmax &&
                 y > view.ymin && y < view.ymax) {
                 // Screen position
@@ -44,6 +46,14 @@ public abstract class GameObject {
     }
 
     public abstract void draw(Bitmap buf, float x, float y, float angle);
+
+    public String getName() {
+        return name;
+    }
+
+    public Body getBody() {
+        return body;
+    }
 
     @Override
     public String toString() {

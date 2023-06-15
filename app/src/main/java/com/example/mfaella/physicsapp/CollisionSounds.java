@@ -4,6 +4,8 @@ import android.util.SparseArray;
 
 import com.badlogic.androidgames.framework.Audio;
 import com.badlogic.androidgames.framework.Sound;
+import com.example.mfaella.physicsapp.gameObjects.DynamicBoxGO;
+import com.example.mfaella.physicsapp.gameObjects.EnclosureGO;
 
 
 /**
@@ -27,7 +29,7 @@ public class CollisionSounds {
         map = new SparseArray<>();
 
         map.put(myHash(DynamicBoxGO.class,DynamicBoxGO.class), metallicSound);
-        map.put(myHash(DynamicBoxGO.class,EnclosureGO.class), dumbSound);
+        map.put(myHash(DynamicBoxGO.class, EnclosureGO.class), dumbSound);
     }
 
     public static Sound getSound(Class<?> a, Class<?> b)
