@@ -59,6 +59,7 @@ public class DynamicTriangleGO extends GameObject {
         triangle.delete();
     }
 
+
     private Path path = new Path();
 
     @Override

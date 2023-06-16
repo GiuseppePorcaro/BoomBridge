@@ -11,7 +11,7 @@ import android.util.Log;
 public class AccelerometerListener implements SensorEventListener {
 
     private final GameWorld gw;
-
+    private static float prevX = 0.0f, prevY = 0.0f;
     public AccelerometerListener(GameWorld gw)
     {
         this.gw = gw;
@@ -20,7 +20,9 @@ public class AccelerometerListener implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         float x = event.values[0], y = event.values[1], z = event.values[2];
-        gw.setGravity(y, x); //mi permette di impostare il punto di gravità
+
+        //Per ora non fa nulla
+
         // Log.i("AccelerometerListener", "new gravity x= " + -x + "\t y= " + y);
     }
 

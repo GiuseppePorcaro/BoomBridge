@@ -46,6 +46,12 @@ public class MainActivity extends Activity {
 
         System.loadLibrary("liquidfun");
         System.loadLibrary("liquidfun_jni");
+        
+        createGame();
+
+    }
+
+    private void createGame(){
 
         TAG = getString(R.string.app_name);
 
@@ -63,8 +69,9 @@ public class MainActivity extends Activity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         Box physicalSize = new Box(XMIN, YMIN, XMAX, YMAX),
-            screenSize   = new Box(0, 0, metrics.widthPixels, metrics.heightPixels);
+                screenSize   = new Box(0, 0, metrics.widthPixels, metrics.heightPixels);
         GameWorld gw = new GameWorld(physicalSize, screenSize, this);
+        gw.setGravity(0.0f, 9.8f); //mi permette di impostare il punto di gravità. Con questi valori di x e y riesco ad avere sempre lo stesso punto di gravità indipendentemente dall'orientamento del telefono
 
         gw.addGameObject(new EnclosureGO(gw, XMIN, XMAX, YMIN, YMAX));
         gw.addGameObject(new DynamicBoxGO(gw, 0, 0));
