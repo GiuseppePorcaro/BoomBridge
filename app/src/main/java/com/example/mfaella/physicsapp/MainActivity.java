@@ -21,6 +21,7 @@ import com.example.mfaella.physicsapp.gameObjects.DynamicTriangleGO;
 import com.example.mfaella.physicsapp.gameObjects.EnclosureGO;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.example.mfaella.physicsapp.gameObjects.MarblesGO;
+import com.example.mfaella.physicsapp.gameObjects.TerrainGO;
 import com.example.mfaella.physicsapp.joints.MyRevoluteJoint;
 
 import java.nio.ByteOrder;
@@ -77,6 +78,9 @@ public class MainActivity extends Activity {
         // new MyPrismaticJoint(gw, a.body, b.body);
 
         //gw.addGameObject(new DynamicCircleGO(gw,0,0));
+        gw.addGameObject(new TerrainGO(gw,-20.5f,10f));
+        gw.addGameObject(new TerrainGO(gw,20.5f,10f));
+
 
         // Just for info
         Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -109,6 +113,8 @@ public class MainActivity extends Activity {
         Log.i(getString(R.string.app_name), "onCreate complete, Endianness = " +
                 (ByteOrder.nativeOrder()==ByteOrder.BIG_ENDIAN? "Big Endian" : "Little Endian"));
     }
+
+
 
     @Override
     public void onPause() {
