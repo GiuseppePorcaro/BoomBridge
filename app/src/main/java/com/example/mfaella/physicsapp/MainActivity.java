@@ -2,9 +2,11 @@ package com.example.mfaella.physicsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.badlogic.androidgames.framework.Game;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +19,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void playButtonPressed(View view){
+        Intent intent = new Intent(this, ChooseLevelActivity.class);
+        startActivity(intent);
+    }
+
+    public void aboutButtonPressed(View view){
+        //To do
+    }
 
     private void hideNotificationBar(){
         View decorView = getWindow().getDecorView();

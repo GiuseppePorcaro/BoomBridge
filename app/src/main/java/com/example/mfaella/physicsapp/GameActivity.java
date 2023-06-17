@@ -12,30 +12,36 @@ import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
+
 import com.badlogic.androidgames.framework.Audio;
 import com.badlogic.androidgames.framework.Music;
 import com.badlogic.androidgames.framework.impl.AndroidAudio;
 import com.badlogic.androidgames.framework.impl.MultiTouchHandler;
-import com.example.mfaella.physicsapp.gameObjects.DynamicBoxGO;
-import com.example.mfaella.physicsapp.gameObjects.DynamicTriangleGO;
+import com.example.mfaella.physicsapp.Levels.Level;
+import com.example.mfaella.physicsapp.Levels.FirstLevel;
+import com.example.mfaella.physicsapp.Levels.SecondLevel;
+import com.example.mfaella.physicsapp.Levels.ThirdLevel;
+import com.example.mfaella.physicsapp.Levels.Tutorial;
 import com.example.mfaella.physicsapp.gameObjects.EnclosureGO;
-import com.example.mfaella.physicsapp.gameObjects.GameObject;
-import com.example.mfaella.physicsapp.gameObjects.MarblesGO;
 import com.example.mfaella.physicsapp.gameObjects.TerrainGO;
-import com.example.mfaella.physicsapp.joints.MyRevoluteJoint;
 
 import java.nio.ByteOrder;
 
 public class GameActivity extends Activity {
 
-    private GameLoop t; // just for fun, unrelated to the rest
+    private GameLoop t;
     private AndroidFastRenderView renderView;
     private Audio audio;
     private Music backgroundMusic;
     private MultiTouchHandler touch;
 
+    private Level level;
+
     // boundaries of the physical simulation
     private static final float XMIN = -25, XMAX = 25, YMIN = -15, YMAX = 15;
+
+    private int gameLevel;
 
     // the tag used for logging
     public static String TAG;
@@ -55,35 +61,68 @@ public class GameActivity extends Activity {
         backgroundMusic.play();
 
         // Game world
+        GameWorld gw = createGameWorld();
+
+        gw.addGameObject(new TerrainGO(gw,-20.5f,10f));
+        gw.addGameObject(new TerrainGO(gw,20.5f,10f));
+
+        //Create world based on level
+        factoryLevel();
+        level.createLevel(gw);
+
+        // Just for info
+        logRefreshRate();
+
+        // Accelerometer
+        logAccelerometerStatus(gw);
+
+        // View
+        renderView = new AndroidFastRenderView(this, gw);
+        setContentView(renderView);
+
+        // Touch
+        touch = new MultiTouchHandler(renderView, 1, 1);
+        gw.setTouchHandler(touch); // Setter needed due to cyclic dependency
+
+        //Start game thread
+        t = new GameLoop(gw);
+        t.start();
+
+        Log.i(getString(R.string.app_name), "onCreate complete, Endianness = " +
+                (ByteOrder.nativeOrder()==ByteOrder.BIG_ENDIAN? "Big Endian" : "Little Endian"));
+    }
+
+    private void factoryLevel() {
+        switch (gameLevel){
+            case 0:
+                level = new Tutorial();
+                break;
+            case 1:
+                level = new FirstLevel();
+                break;
+            case 2:
+                level = new SecondLevel();
+                break;
+            case 3:
+                level = new ThirdLevel();
+                break;
+        }
+    }
+
+    @NonNull
+    private GameWorld createGameWorld() {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         Box physicalSize = new Box(XMIN, YMIN, XMAX, YMAX),
                 screenSize   = new Box(0, 0, metrics.widthPixels, metrics.heightPixels);
+
         GameWorld gw = new GameWorld(physicalSize, screenSize, this);
-        gw.setGravity(0.0f, 9.8f); //mi permette di impostare il punto di gravità. Con questi valori di x e y riesco ad avere sempre lo stesso punto di gravità indipendentemente dall'orientamento del telefono
+        gw.setGravity(0.0f, 9.8f);
+        gw.addGameObject(new EnclosureGO(gw, XMIN, XMAX, YMIN, YMAX)); //
+        return gw;
+    }
 
-        gw.addGameObject(new EnclosureGO(gw, XMIN, XMAX, YMIN, YMAX));
-        gw.addGameObject(new DynamicBoxGO(gw, 0, 0));
-        gw.addGameObject(new DynamicBoxGO(gw, 5, 0));
-        gw.addGameObject(new DynamicTriangleGO(gw, 7, 3));
-        gw.addGameObject(new MarblesGO(gw, 0, 5));
-
-        GameObject a = gw.addGameObject(new DynamicBoxGO(gw, 0, -2));
-        GameObject b = gw.addGameObject(new DynamicBoxGO(gw, 1, -3));
-        new MyRevoluteJoint(gw, a.getBody(), b.getBody());
-        // new MyPrismaticJoint(gw, a.body, b.body);
-
-        //gw.addGameObject(new DynamicCircleGO(gw,0,0));
-        gw.addGameObject(new TerrainGO(gw,-20.5f,10f));
-        gw.addGameObject(new TerrainGO(gw,20.5f,10f));
-
-
-        // Just for info
-        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        float refreshRate = display.getRefreshRate();
-        Log.i(getString(R.string.app_name), "Refresh rate =" + refreshRate);
-
-        // Accelerometer
+    private void logAccelerometerStatus(GameWorld gw) {
         SensorManager smanager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (smanager.getSensorList(Sensor.TYPE_ACCELEROMETER).isEmpty()) {
             Log.i(getString(R.string.app_name), "No accelerometer");
@@ -92,22 +131,12 @@ public class GameActivity extends Activity {
             if (!smanager.registerListener(new AccelerometerListener(gw), accelerometer, SensorManager.SENSOR_DELAY_NORMAL))
                 Log.i(getString(R.string.app_name), "Could not register accelerometer listener");
         }
+    }
 
-        // View
-        renderView = new AndroidFastRenderView(this, gw);
-        setContentView(renderView);
-
-        // Touch
-        touch = new MultiTouchHandler(renderView, 1, 1);
-        // Setter needed due to cyclic dependency
-        gw.setTouchHandler(touch);
-
-        // Unrelated to the rest, just to show interaction with another thread
-        t = new GameLoop(gw);
-        t.start();
-
-        Log.i(getString(R.string.app_name), "onCreate complete, Endianness = " +
-                (ByteOrder.nativeOrder()==ByteOrder.BIG_ENDIAN? "Big Endian" : "Little Endian"));
+    private void logRefreshRate() {
+        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        float refreshRate = display.getRefreshRate();
+        Log.i(getString(R.string.app_name), "Refresh rate =" + refreshRate);
     }
 
     @Override
@@ -117,6 +146,7 @@ public class GameActivity extends Activity {
         System.loadLibrary("liquidfun");
         System.loadLibrary("liquidfun_jni");
 
+        this.gameLevel = getIntent().getExtras().getInt("level");
         createGame();
 
     }
@@ -157,3 +187,15 @@ public class GameActivity extends Activity {
         t.counter = counter;
     }
 }
+
+
+/*gw.addGameObject(new DynamicBoxGO(gw, 0, 0));
+        gw.addGameObject(new DynamicTriangleGO(gw, 7, 3));
+        gw.addGameObject(new MarblesGO(gw, 0, 5));
+
+        GameObject a = gw.addGameObject(new DynamicBoxGO(gw, 0, -2));
+        GameObject b = gw.addGameObject(new DynamicBoxGO(gw, 1, -3));
+        new MyRevoluteJoint(gw, a.getBody(), b.getBody());*/
+// new MyPrismaticJoint(gw, a.body, b.body);
+
+//gw.addGameObject(new DynamicCircleGO(gw,0,0));

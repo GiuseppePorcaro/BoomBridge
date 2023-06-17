@@ -7,10 +7,6 @@ import com.google.fpl.liquidfun.Fixture;
 import com.google.fpl.liquidfun.RayCastCallback;
 import com.google.fpl.liquidfun.Vec2;
 
-
-/**
- * Created by mfaella on 08/02/16.
- */
 public class GameLoop extends Thread {
     public volatile int counter;
     private GameWorld gw;
