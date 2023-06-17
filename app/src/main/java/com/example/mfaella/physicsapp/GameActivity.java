@@ -35,7 +35,6 @@ public class GameActivity extends Activity {
     private Audio audio;
     private Music backgroundMusic;
     private MultiTouchHandler touch;
-
     private Level level;
 
     // boundaries of the physical simulation
@@ -62,9 +61,6 @@ public class GameActivity extends Activity {
 
         // Game world
         GameWorld gw = createGameWorld();
-
-        gw.addGameObject(new TerrainGO(gw,-20.5f,10f));
-        gw.addGameObject(new TerrainGO(gw,20.5f,10f));
 
         //Create world based on level
         factoryLevel();

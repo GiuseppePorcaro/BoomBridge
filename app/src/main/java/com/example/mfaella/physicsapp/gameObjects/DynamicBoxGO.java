@@ -8,6 +8,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import androidx.annotation.NonNull;
+
 import com.example.mfaella.physicsapp.GameWorld;
 import com.example.mfaella.physicsapp.R;
 import com.google.fpl.liquidfun.BodyDef;
@@ -41,22 +43,10 @@ public class DynamicBoxGO extends GameObject
         this.screen_semi_height = gw.toPixelsYLength(height)/2;
 
         // a body definition: position and type
-        BodyDef bdef = new BodyDef();
-        bdef.setPosition(x, y);
-        bdef.setType(BodyType.dynamicBody);
-        // a body
-        this.body = gw.getWorld().createBody(bdef);
-        body.setSleepingAllowed(false);
-        this.name = "Box" + instances;
-        body.setUserData(this);
+        BodyDef bdef = createBodyDef(gw, x, y);
 
-        PolygonShape box = new PolygonShape();
-        box.setAsBox(width / 2, height / 2);
-        FixtureDef fixturedef = new FixtureDef();
-        fixturedef.setShape(box);
-        fixturedef.setFriction(0.1f);       // default 0.2
-        fixturedef.setRestitution(0.4f);    // default 0
-        fixturedef.setDensity(density);     // default 0. Density is used to compute the mass properties of the parent body
+        PolygonShape box = createPolygonShape();
+        FixtureDef fixturedef = createFixtureDef(box);
         body.createFixture(fixturedef);
 
         int green = (int)(255*Math.random());
@@ -79,6 +69,35 @@ public class DynamicBoxGO extends GameObject
         // Log.i("Dragme", "size: " + bitmap.getWidth() + ", " + bitmap.getHeight());
         // Note: top <= bottom
         src.set(0, 0, 76, 76);
+    }
+
+    @NonNull
+    private static PolygonShape createPolygonShape() {
+        PolygonShape box = new PolygonShape();
+        box.setAsBox(width / 2, height / 2);
+        return box;
+    }
+
+    @NonNull
+    private static FixtureDef createFixtureDef(PolygonShape box) {
+        FixtureDef fixturedef = new FixtureDef();
+        fixturedef.setShape(box);
+        fixturedef.setFriction(0.1f);       // default 0.2
+        fixturedef.setRestitution(0.4f);    // default 0
+        fixturedef.setDensity(density);     // default 0. Density is used to compute the mass properties of the parent body
+        return fixturedef;
+    }
+
+    @NonNull
+    private BodyDef createBodyDef(GameWorld gw, float x, float y) {
+        BodyDef bdef = new BodyDef();
+        bdef.setPosition(x, y);
+        bdef.setType(BodyType.dynamicBody);
+        this.body = gw.getWorld().createBody(bdef);
+        body.setSleepingAllowed(false);
+        this.name = "Box" + instances;
+        body.setUserData(this);
+        return bdef;
     }
 
     private final Rect src = new Rect();
