@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import com.example.mfaella.physicsapp.GameWorld;
+import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.google.fpl.liquidfun.Body;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
@@ -22,13 +23,13 @@ public class MyRevoluteJoint
 {
     Joint joint;
 
-    public MyRevoluteJoint(GameWorld gw, Body a, Body b)
+    public MyRevoluteJoint(GameWorld gw, GameObject a, GameObject b)
     {
         RevoluteJointDef jointDef = new RevoluteJointDef();
-        jointDef.setBodyA(a);
-        jointDef.setBodyB(b);
-        jointDef.setLocalAnchorA(-1f, -1f);
-        jointDef.setLocalAnchorB(-1f, -1f);
+        jointDef.setBodyA(a.getBody());
+        jointDef.setBodyB(b.getBody());
+        jointDef.setLocalAnchorA(a.getPosX()+(b.getWidth()/2)+a.getWidth()/2, a.getPosY()-a.getHeight()/2);
+        jointDef.setLocalAnchorB(b.getPosX()-b.getWidth(), b.getPosY()-b.getHeight());
         // add friction
         jointDef.setEnableMotor(true);
         jointDef.setMotorSpeed(1.5f);

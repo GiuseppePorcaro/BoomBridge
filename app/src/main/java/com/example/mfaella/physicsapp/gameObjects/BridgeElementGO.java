@@ -1,6 +1,7 @@
 package com.example.mfaella.physicsapp.gameObjects;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -9,6 +10,7 @@ import android.graphics.RectF;
 import androidx.annotation.NonNull;
 
 import com.example.mfaella.physicsapp.GameWorld;
+import com.example.mfaella.physicsapp.R;
 import com.example.mfaella.physicsapp.joints.MyDistanceJoint;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
@@ -22,22 +24,23 @@ public class BridgeElementGO extends GameObject{
     private BridgeElementType bridgeElementType;
     private float density, friction, restitution;
 
-    private static final float width = 4.5f, height = 0.5f;
-    private static float screen_semi_width, screen_semi_height;
     private static int instances = 0;
 
     private final Canvas canvas;
     private final Paint paint = new Paint();
     private Bitmap bitmap;
+    private final RectF dest = new RectF();
 
-    public BridgeElementGO(GameWorld gw, int price, BridgeElementType bridgeElementType, float x, float y, float density, float friction, float restitution) {
+    public BridgeElementGO(GameWorld gw, int price, BridgeElementType bridgeElementType, float x, float y, float density, float friction, float restitution, float width,float height) {
         super(gw);
         this.price = price;
         this.bridgeElementType = bridgeElementType;
         this.density = density;
         this.friction = friction;
         this.restitution = restitution;
-        setElementImage(bridgeElementType);
+        this.width = width;
+        this.height = height;
+
 
         instances++;
         this.canvas = new Canvas(gw.getBuffer());
@@ -52,6 +55,8 @@ public class BridgeElementGO extends GameObject{
         // clean up native objects
         deleteAllObjects(bodyDef, polygon, fixtureDef);
 
+        setElementImage(bridgeElementType);
+
     }
 
 
@@ -59,13 +64,20 @@ public class BridgeElementGO extends GameObject{
     public void draw(Bitmap buf, float x, float y, float angle) {
         canvas.save();
 
+        this.posX = x;
+        this.posY = y;
+
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(1);
-
-        // Sprite
-        //canvas.drawBitmap(bitmap, src, dest, null);
         canvas.rotate((float) Math.toDegrees(angle), x, y);
+        dest.left = x - screen_semi_width;
+        dest.bottom = y + screen_semi_height;
+        dest.right = x + screen_semi_width;
+        dest.top = y - screen_semi_height;
+
         canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
+
+        canvas.drawBitmap(bitmap, null, dest, null);
 
         canvas.restore();
     }
@@ -100,9 +112,12 @@ public class BridgeElementGO extends GameObject{
     }
 
     private void setElementImage(BridgeElementType bridgeElementType) {
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inScaled = false;
         switch (bridgeElementType){
             case ROAD:
-                paint.setARGB(255,255,0,0);
+                //paint.setARGB(255,255,0,0);
+                bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.road1, o);
                 break;
             case BEAM:
                 paint.setARGB(255,204,204,0);
@@ -119,5 +134,4 @@ public class BridgeElementGO extends GameObject{
         polygon.delete();
 
     }
-
 }

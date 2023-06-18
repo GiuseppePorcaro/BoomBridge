@@ -21,9 +21,7 @@ public class TerrainGO extends GameObject{
     private final float density = 0.5f;
     private final float friction = 0.1f;
     private final float restitution = 0.1f;
-
-    private static float screen_semi_width, screen_semi_height;
-    private static final float width = 10.0f, height = 10.0f;
+    private final float width = 10.0f, height = 10.0f;
 
 
     private Canvas canvas;
@@ -34,7 +32,8 @@ public class TerrainGO extends GameObject{
         super(gw);
 
         instances++;
-
+        this.posX = x;
+        this.posY = y;
         canvas = new Canvas(gw.getBuffer());
         this.screen_semi_width = gw.toPixelsXLength(width)/2;
         this.screen_semi_height = gw.toPixelsYLength(height)/2;
@@ -72,6 +71,8 @@ public class TerrainGO extends GameObject{
 
         //Bisogna disegnare una immagine
 
+
+        System.out.println(x+" "+y +" -- "+posX+" "+posY);
         canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
 
     }

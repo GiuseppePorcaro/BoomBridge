@@ -14,6 +14,10 @@ public abstract class GameObject {
     Body body;
     protected String name;
     protected GameWorld gw;
+    protected float screen_semi_width, screen_semi_height;
+    protected float posX,posY;
+
+    protected float width , height;
 
     public GameObject(GameWorld gw)
     {
@@ -58,5 +62,29 @@ public abstract class GameObject {
     @Override
     public String toString() {
         return name;
+    }
+
+    public float getScreen_semi_width() {
+        return screen_semi_width;
+    }
+
+    public float getScreen_semi_height() {
+        return screen_semi_height;
+    }
+
+    public float getPosX() {
+        return posX;
+    }
+
+    public float getPosY() {
+        return posY;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
     }
 }

@@ -9,19 +9,22 @@ import com.example.mfaella.physicsapp.GameWorld;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.CircleShape;
+import com.google.fpl.liquidfun.Fixture;
 import com.google.fpl.liquidfun.FixtureDef;
+import com.google.fpl.liquidfun.Shape;
 
 public class DynamicCircleGO extends GameObject {
 
     private static float screen_semi_width;
     private static final float semi_width = 2f;
+
+    private static final float width = 5.0f, height = 5.0f;
     private final Canvas canvas;
     private final Paint paint = new Paint();
     private static final float density = 0.5f;
     private int instances = 0;
 
-    private float posX = 100.0f;
-    private float posY = 100.0f;
+    private CircleShape circle;
 
     public DynamicCircleGO(GameWorld gw, float x, float y) {
         super(gw);
@@ -29,7 +32,8 @@ public class DynamicCircleGO extends GameObject {
         instances++;
 
         canvas = new Canvas(gw.getBuffer());
-        this.screen_semi_width = gw.toPixelsXLength(semi_width);
+        this.screen_semi_width = gw.toPixelsXLength(width)/2;
+        this.screen_semi_height = gw.toPixelsYLength(height)/2;
 
         //definisco il body dell'oggetto
         BodyDef bodyDef = new BodyDef();
@@ -42,7 +46,8 @@ public class DynamicCircleGO extends GameObject {
         this.name = "Cerchio" + instances;
         body.setUserData(this);
 
-        CircleShape circle = new CircleShape();
+
+        circle = new CircleShape();
         circle.setPosition(x,y);
 
         FixtureDef fixturedef = new FixtureDef();
@@ -51,6 +56,8 @@ public class DynamicCircleGO extends GameObject {
         fixturedef.setRestitution(0.6f);    // default 0
         fixturedef.setDensity(1.0f);     // default 0
         body.createFixture(fixturedef);
+
+
 
         int color = Color.argb(200, 255, 0, 0);
         paint.setColor(color);
@@ -61,12 +68,17 @@ public class DynamicCircleGO extends GameObject {
 
     }
 
+    public CircleShape getShape() {
+        return circle;
+    }
 
     @Override
     public void draw(Bitmap buffer, float x, float y, float angle) {
         canvas.save();
 
-        canvas.drawCircle(x,y,40,paint);
+        this.posX = x;
+        this.posY = y;
+        canvas.drawCircle(x,y,5,paint);
 
         canvas.restore();
     }
