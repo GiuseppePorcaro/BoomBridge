@@ -113,9 +113,9 @@ public class DynamicBoxGO extends GameObject
         dest.right = x + screen_semi_width;
         dest.top = y - screen_semi_height;
         // Sprite
-        canvas.drawBitmap(bitmap, src, dest, null);
+        //canvas.drawBitmap(bitmap, src, dest, null);
         // Simple box
-        // canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
+        canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
         canvas.restore();
     }
 }
