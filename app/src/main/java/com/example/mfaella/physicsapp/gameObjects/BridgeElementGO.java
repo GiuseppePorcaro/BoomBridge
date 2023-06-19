@@ -86,7 +86,7 @@ public class BridgeElementGO extends GameObject{
     private BodyDef createBodyDef(GameWorld gw, float x, float y) {
         BodyDef bdef = new BodyDef();
         bdef.setPosition(x, y);
-        bdef.setType(BodyType.dynamicBody);
+        bdef.setType(BodyType.staticBody);
         this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
         this.name = bridgeElementType + "N° "+instances;

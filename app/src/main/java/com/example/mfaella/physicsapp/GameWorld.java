@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.widget.ImageView;
 
 import com.badlogic.androidgames.framework.Input;
 import com.badlogic.androidgames.framework.Sound;
@@ -24,7 +25,8 @@ import java.util.List;
  */
 public class GameWorld {
     // Rendering
-    final static int bufferWidth = 400, bufferHeight = 600;    // actual pixels
+    ImageView screenImageView;
+    static int bufferWidth = 1920, bufferHeight = 1080;    // actual pixels
     private Bitmap buffer;
     private Canvas canvas;
     private Paint particlePaint;
@@ -58,9 +60,8 @@ public class GameWorld {
         this.physicalSize = physicalSize;
         this.screenSize = screenSize;
         this.activity = theActivity;
-        this.buffer = Bitmap.createBitmap(bufferWidth, bufferHeight, Bitmap.Config.ARGB_8888);
         this.world = new World(0, 0);  // gravity vector
-
+        this.buffer = Bitmap.createBitmap(bufferWidth, bufferHeight, Bitmap.Config.ARGB_8888);
         this.currentView = physicalSize;
         // Start with half the world
         // new Box(physicalSize.xmin, physicalSize.ymin, physicalSize.xmax, physicalSize.ymin + physicalSize.height/2);
@@ -77,11 +78,9 @@ public class GameWorld {
         world.setContactListener(contactListener);
 
         touchConsumer = new TouchConsumer(this);
-
-        this.objects = new ArrayList<>();
         this.canvas = new Canvas(buffer);
+        this.objects = new ArrayList<>();
     }
-
 
     public synchronized GameObject addGameObject(GameObject obj)
     {

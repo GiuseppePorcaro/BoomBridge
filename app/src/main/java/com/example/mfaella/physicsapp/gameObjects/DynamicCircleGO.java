@@ -16,9 +16,6 @@ import com.google.fpl.liquidfun.Shape;
 public class DynamicCircleGO extends GameObject {
 
     private static float screen_semi_width;
-    private static final float semi_width = 2f;
-
-    private static final float width = 5.0f, height = 5.0f;
     private final Canvas canvas;
     private final Paint paint = new Paint();
     private static final float density = 0.5f;
