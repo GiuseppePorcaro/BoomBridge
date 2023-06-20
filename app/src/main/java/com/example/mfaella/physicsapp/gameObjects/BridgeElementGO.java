@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 
@@ -15,6 +16,7 @@ import com.example.mfaella.physicsapp.joints.MyDistanceJoint;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.FixtureDef;
+import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.PolygonShape;
 
 
@@ -40,7 +42,6 @@ public class BridgeElementGO extends GameObject{
         this.restitution = restitution;
         this.width = width;
         this.height = height;
-
 
         instances++;
         this.canvas = new Canvas(gw.getBuffer());
@@ -86,7 +87,7 @@ public class BridgeElementGO extends GameObject{
     private BodyDef createBodyDef(GameWorld gw, float x, float y) {
         BodyDef bdef = new BodyDef();
         bdef.setPosition(x, y);
-        bdef.setType(BodyType.staticBody);
+        bdef.setType(BodyType.dynamicBody);
         this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
         this.name = bridgeElementType + "N° "+instances;
@@ -117,7 +118,7 @@ public class BridgeElementGO extends GameObject{
         switch (bridgeElementType){
             case ROAD:
                 //paint.setARGB(255,255,0,0);
-                bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.road1, o);
+                bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.road, o);
                 break;
             case BEAM:
                 paint.setARGB(255,204,204,0);

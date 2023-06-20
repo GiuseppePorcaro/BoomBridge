@@ -1,10 +1,12 @@
 package com.example.mfaella.physicsapp.gameObjects;
 
 import android.graphics.Bitmap;
+import android.util.SparseArray;
 
 import com.example.mfaella.physicsapp.Box;
 import com.example.mfaella.physicsapp.GameWorld;
 import com.google.fpl.liquidfun.Body;
+import com.google.fpl.liquidfun.Joint;
 
 /**
  * Created by mfaella on 27/02/16.
@@ -18,6 +20,7 @@ public abstract class GameObject {
     protected float posX,posY;
 
     protected float width , height;
+
 
     public GameObject(GameWorld gw)
     {

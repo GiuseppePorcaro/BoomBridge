@@ -54,14 +54,13 @@ public class DynamicCircleGO extends GameObject {
         fixturedef.setDensity(1.0f);     // default 0
         body.createFixture(fixturedef);
 
-
-
         int color = Color.argb(200, 255, 0, 0);
         paint.setColor(color);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         // clean up native objects
-
+        fixturedef.delete();
+        bodyDef.delete();
 
     }
 
