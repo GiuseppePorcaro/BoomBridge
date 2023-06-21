@@ -38,11 +38,8 @@ public class MyRevoluteJoint
         jointDef.setCollideConnected(true);
         jointDef.setEnableLimit(false);
 
-        joint = gw.getWorld().createJoint(jointDef);
+        joint =gw.getWorld().createJoint(jointDef);
 
-
-
-        System.out.println("Added a joint!");
         gw.addJoint(joint);
 
 

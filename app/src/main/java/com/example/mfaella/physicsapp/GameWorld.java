@@ -4,19 +4,23 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.SparseArray;
 import android.widget.ImageView;
 
 import com.badlogic.androidgames.framework.Input;
 import com.badlogic.androidgames.framework.Sound;
 import com.badlogic.androidgames.framework.impl.TouchHandler;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
+import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.ParticleSystem;
 import com.google.fpl.liquidfun.ParticleSystemDef;
+import com.google.fpl.liquidfun.RevoluteJoint;
 import com.google.fpl.liquidfun.World;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * The game objects and the viewport.
@@ -33,6 +37,7 @@ public class GameWorld {
 
     // Simulation
     List<GameObject> objects;
+    List<Joint> joints;
     private World world;
     final Box physicalSize;
     final Box screenSize;
@@ -80,6 +85,7 @@ public class GameWorld {
         touchConsumer = new TouchConsumer(this);
         this.canvas = new Canvas(buffer);
         this.objects = new ArrayList<>();
+        this.joints = new ArrayList<>();
     }
 
     public synchronized GameObject addGameObject(GameObject obj)
@@ -107,6 +113,28 @@ public class GameWorld {
         // Handle touch events
         for (Input.TouchEvent event: touchHandler.getTouchEvents())
             touchConsumer.consumeTouchEvent(event);
+
+        for(int i = 0; i < joints.size(); i++){
+            Joint j = joints.get(i);
+            //RevoluteJoint revj = (RevoluteJoint) j;
+            //float reactionTorque = revj.getReactionTorque(elapsedTime);
+            double reactionForce = getReactionForce(j);
+            System.out.println("Reaction force: "+reactionForce);
+            if(reactionForce > 1.5){
+                joints.remove(i);
+                this.getWorld().destroyJoint(j);
+                j = null;
+            }
+        }
+
+    }
+
+    public double getReactionForce(Joint joint){
+        float massA = joint.getBodyA().getMass();
+        float acc = 9.81f;
+        double angleDeg = joint.getBodyA().getAngle() * 180 / Math.PI;
+
+        return massA*acc*Math.cos(angleDeg);
     }
 
     public synchronized void render()
@@ -182,5 +210,9 @@ public class GameWorld {
 
     public void setTouchHandler(TouchHandler touchHandler) {
         this.touchHandler = touchHandler;
+    }
+
+    public void addJoint(Joint joint) {
+        joints.add(joint);
     }
 }
