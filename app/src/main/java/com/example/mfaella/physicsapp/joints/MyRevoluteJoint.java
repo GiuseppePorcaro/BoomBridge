@@ -33,8 +33,10 @@ public class MyRevoluteJoint
         RevoluteJointDef jointDef = new RevoluteJointDef();
         jointDef.setBodyA(a);
         jointDef.setBodyB(b);
-        jointDef.setLocalAnchorA(xA,yA);
-        jointDef.setLocalAnchorB(xB,yB);
+        Vec2 p1 = new Vec2(xA,yA);
+        Vec2 p2 = new Vec2(xB,yB);
+        jointDef.setLocalAnchorA(p1);
+        jointDef.setLocalAnchorB(p2);
         jointDef.setCollideConnected(true);
         jointDef.setEnableLimit(false);
 

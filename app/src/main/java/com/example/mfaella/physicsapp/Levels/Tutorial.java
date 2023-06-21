@@ -45,7 +45,7 @@ public class Tutorial implements Level{
         b= gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD, roadWidth/2,0,0.1f, 0.3f, 0.5f,roadWidth,roadHeigth));
         new MyRevoluteJoint(gw,a,b,roadWidth/2,0,-roadWidth/2,0);*/
 
-        gw.addGameObject(new DynamicBoxGO(gw,-10f,-10f));
+        //gw.addGameObject(new DynamicBoxGO(gw,-10f,-10f));
 
         //b = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,terrainSx.getBody().getPositionX()+(4.0f/2)+terrainSx.getWidth()/2, terrainSx.getBody().getPositionY()+(0.5f/2)-terrainSx.getHeight()/2,0.1f, 0.3f, 0.5f,4.0f,0.5f));
 

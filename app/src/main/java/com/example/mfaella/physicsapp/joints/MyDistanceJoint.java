@@ -6,6 +6,7 @@ import com.google.fpl.liquidfun.DistanceJointDef;
 import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.RopeJoint;
 import com.google.fpl.liquidfun.RopeJointDef;
+import com.google.fpl.liquidfun.Vec2;
 
 public class MyDistanceJoint {
 
@@ -19,8 +20,11 @@ public class MyDistanceJoint {
         ropeJointDef.setBodyB(b);
         ropeJointDef.setMaxLength(5);
 
-        ropeJointDef.setLocalAnchorA(a.getPositionX(), a.getPositionY());
-        ropeJointDef.setLocalAnchorB(b.getPositionX(), b.getPositionY());
+
+        Vec2 p1 = new Vec2(a.getPositionX(), a.getPositionY());
+        Vec2 p2 = new Vec2(b.getPositionX(), b.getPositionY());
+        ropeJointDef.setLocalAnchorA(p1);
+        ropeJointDef.setLocalAnchorB(p2);
 
         joint = gw.getWorld().createJoint(ropeJointDef);
         ropeJointDef.delete();

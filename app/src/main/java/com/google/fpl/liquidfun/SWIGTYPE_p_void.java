@@ -15,7 +15,7 @@ public class SWIGTYPE_p_void {
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_void() {
+  public SWIGTYPE_p_void() {
     swigCPtr = 0;
   }
 

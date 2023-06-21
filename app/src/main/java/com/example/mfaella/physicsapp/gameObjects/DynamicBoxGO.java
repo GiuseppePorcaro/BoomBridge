@@ -17,6 +17,7 @@ import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.Fixture;
 import com.google.fpl.liquidfun.FixtureDef;
 import com.google.fpl.liquidfun.PolygonShape;
+import com.google.fpl.liquidfun.SWIGTYPE_p_void;
 
 /**
  * A moving box.
@@ -96,7 +97,8 @@ public class DynamicBoxGO extends GameObject
         this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
         this.name = "Box" + instances;
-        body.setUserData(this);
+        SWIGTYPE_p_void swigtype_p_void = new SWIGTYPE_p_void();
+        body.setUserData(swigtype_p_void);
         return bdef;
     }
 

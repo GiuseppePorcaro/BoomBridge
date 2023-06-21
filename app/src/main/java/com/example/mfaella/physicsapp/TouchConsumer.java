@@ -10,6 +10,7 @@ import com.google.fpl.liquidfun.Fixture;
 import com.google.fpl.liquidfun.MouseJoint;
 import com.google.fpl.liquidfun.MouseJointDef;
 import com.google.fpl.liquidfun.QueryCallback;
+import com.google.fpl.liquidfun.SWIGTYPE_p_b2AABB;
 
 /**
  * Takes care of user interaction: pulls objects using a Mouse Joint.
@@ -68,7 +69,8 @@ public class TouchConsumer {
         Log.d("MultiTouchHandler", "touch down at " + x + ", " + y);
 
         touchedFixture = null;
-        gw.getWorld().queryAABB(touchQueryCallback, x - POINTER_SIZE, y - POINTER_SIZE, x + POINTER_SIZE, y + POINTER_SIZE);
+        SWIGTYPE_p_b2AABB aabb = new SWIGTYPE_p_b2AABB();
+        gw.getWorld().queryAABB(touchQueryCallback, aabb);
         if (touchedFixture != null) {
             // From fixture to GO
             Body touchedBody = touchedFixture.getBody();
@@ -99,8 +101,8 @@ public class TouchConsumer {
         mouseJointDef.setBodyA(touchedBody); // irrelevant but necessary
         mouseJointDef.setBodyB(touchedBody);
         mouseJointDef.setMaxForce(500 * touchedBody.getMass());
-        mouseJointDef.setTarget(x, y);
-        mouseJoint = gw.getWorld().createMouseJoint(mouseJointDef);
+        //mouseJointDef.setTarget(x, y);
+        //mouseJoint = gw.getWorld().createMouseJoint(mouseJointDef);
     }
 
     private void consumeTouchUp(Input.TouchEvent event) {
@@ -116,7 +118,7 @@ public class TouchConsumer {
         float x = gw.toMetersX(event.x), y = gw.toMetersY(event.y);
         if (mouseJoint!=null && event.pointer == activePointerID) {
             Log.d("MultiTouchHandler", "active pointer moved to " + x + ", " + y);
-            mouseJoint.setTarget(x, y);
+            //mouseJoint.setTarget(x, y);
         }
     }
 }

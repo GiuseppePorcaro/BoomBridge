@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import com.example.mfaella.physicsapp.GameWorld;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.PolygonShape;
+import com.google.fpl.liquidfun.SWIGTYPE_p_void;
 
 /**
  * A static box, usually encloses the whole world.
@@ -35,7 +36,8 @@ public class EnclosureGO extends GameObject
         // default position is (0,0) and default type is staticBody
         this.body = gw.getWorld().createBody(bdef);
         this.name = "Enclosure";
-        body.setUserData(this);
+        SWIGTYPE_p_void swigtype_p_void = new SWIGTYPE_p_void();
+        body.setUserData(swigtype_p_void);
 
         PolygonShape box = new PolygonShape();
         // top

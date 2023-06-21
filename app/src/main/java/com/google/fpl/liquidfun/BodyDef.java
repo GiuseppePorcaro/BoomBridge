@@ -140,7 +140,7 @@ public class BodyDef {
   }
 
   public void setUserData(Object value) {
-    liquidfunJNI.BodyDef_userData_set(swigCPtr, this, value);
+    liquidfunJNI.BodyDef_userData_set(swigCPtr, this, (Long) value);
   }
 
   public Object getUserData() {

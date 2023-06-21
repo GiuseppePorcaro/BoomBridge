@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.google.fpl.liquidfun.Fixture;
-import com.google.fpl.liquidfun.RayCastCallback;
+import com.google.fpl.liquidfun.SWIGTYPE_p_b2RayCastCallback;
 import com.google.fpl.liquidfun.Vec2;
 
 public class GameLoop extends Thread {
@@ -18,14 +18,16 @@ public class GameLoop extends Thread {
 
     private void testRayCasting() {
         Log.i("MyThread", "Objects across the short middle line:");
-        RayCastCallback listener = new RayCastCallback() {
-          @Override
+        SWIGTYPE_p_b2RayCastCallback listener = new SWIGTYPE_p_b2RayCastCallback() {
+
           public float reportFixture(Fixture f, Vec2 point, Vec2 normal, float fraction) {
-              Log.i("MyThread", ((GameObject)f.getBody().getUserData()).getName() + " (" + fraction + ")");
+              //Log.i("MyThread", ((GameObject)f.getBody().getUserData()).getName() + " (" + fraction + ")");
               return 1;
           }
         };
-        gw.getWorld().rayCast(listener, -10, 0, 10, 0);
+        Vec2 p1 = new Vec2(-10,0);
+        Vec2 p2 = new Vec2(10,0);
+        gw.getWorld().rayCast(listener, p1,p2);
     }
 
     @Override

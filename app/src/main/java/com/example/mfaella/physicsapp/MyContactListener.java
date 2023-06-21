@@ -3,8 +3,8 @@ package com.example.mfaella.physicsapp;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.google.fpl.liquidfun.Body;
 import com.google.fpl.liquidfun.Contact;
-import com.google.fpl.liquidfun.ContactListener;
 import com.google.fpl.liquidfun.Fixture;
+import com.google.fpl.liquidfun.SWIGTYPE_p_b2ContactListener;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -12,7 +12,7 @@ import java.util.HashSet;
 /**
  * Created by mfaella on 01/03/16.
  */
-public class MyContactListener extends ContactListener {
+public class MyContactListener extends SWIGTYPE_p_b2ContactListener {
 
     private Collection<Collision> cache = new HashSet<>();
 
@@ -25,7 +25,7 @@ public class MyContactListener extends ContactListener {
     /** Warning: this method runs inside world.step
      *  Hence, it cannot change the physical world.
      */
-    @Override
+
     public void beginContact(Contact contact) {
         //Log.d("MyContactListener", "Begin contact");
         Fixture fa = contact.getFixtureA(),

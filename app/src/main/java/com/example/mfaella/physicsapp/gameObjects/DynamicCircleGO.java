@@ -11,6 +11,7 @@ import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.CircleShape;
 import com.google.fpl.liquidfun.Fixture;
 import com.google.fpl.liquidfun.FixtureDef;
+import com.google.fpl.liquidfun.SWIGTYPE_p_void;
 import com.google.fpl.liquidfun.Shape;
 
 public class DynamicCircleGO extends GameObject {
@@ -41,7 +42,8 @@ public class DynamicCircleGO extends GameObject {
         this.body = gw.getWorld().createBody(bodyDef);
         body.setSleepingAllowed(false);
         this.name = "Cerchio" + instances;
-        body.setUserData(this);
+        SWIGTYPE_p_void swigtype_p_void = new SWIGTYPE_p_void();
+        body.setUserData(swigtype_p_void);
 
 
         circle = new CircleShape();

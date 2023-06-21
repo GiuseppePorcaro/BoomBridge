@@ -114,6 +114,8 @@ public class GameWorld {
         for (Input.TouchEvent event: touchHandler.getTouchEvents())
             touchConsumer.consumeTouchEvent(event);
 
+
+        //Provare a fare il wrap di solo la classe Join e mettere le librerie nuove compilate
         for(int i = 0; i < joints.size(); i++){
             Joint j = joints.get(i);
             //RevoluteJoint revj = (RevoluteJoint) j;

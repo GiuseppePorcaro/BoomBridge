@@ -18,6 +18,7 @@ import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.FixtureDef;
 import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.PolygonShape;
+import com.google.fpl.liquidfun.SWIGTYPE_p_void;
 
 
 public class BridgeElementGO extends GameObject{
@@ -91,7 +92,8 @@ public class BridgeElementGO extends GameObject{
         this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
         this.name = bridgeElementType + "N° "+instances;
-        body.setUserData(this);
+        SWIGTYPE_p_void swigtype_p_void = new SWIGTYPE_p_void();
+        body.setUserData(swigtype_p_void);
         return bdef;
     }
 

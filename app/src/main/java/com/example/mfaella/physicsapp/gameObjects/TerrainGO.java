@@ -13,6 +13,8 @@ import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.Fixture;
 import com.google.fpl.liquidfun.FixtureDef;
 import com.google.fpl.liquidfun.PolygonShape;
+import com.google.fpl.liquidfun.SWIGTYPE_p_b2AABB;
+import com.google.fpl.liquidfun.SWIGTYPE_p_void;
 
 import java.security.cert.PolicyNode;
 
@@ -46,7 +48,8 @@ public class TerrainGO extends GameObject{
         this.body = gw.getWorld().createBody(bodyDef);
         body.setSleepingAllowed(false);
         this.name = "Terreno "+ instances;
-        body.setUserData(this);
+        SWIGTYPE_p_void swigtype_p_void = new SWIGTYPE_p_void();
+        body.setUserData(swigtype_p_void);
 
 
         PolygonShape box = new PolygonShape();
