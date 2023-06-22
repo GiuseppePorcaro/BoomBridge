@@ -114,17 +114,22 @@ public class GameWorld {
         for (Input.TouchEvent event: touchHandler.getTouchEvents())
             touchConsumer.consumeTouchEvent(event);
 
+
         for(int i = 0; i < joints.size(); i++){
             Joint j = joints.get(i);
             //RevoluteJoint revj = (RevoluteJoint) j;
             //float reactionTorque = revj.getReactionTorque(elapsedTime);
             double reactionForce = getReactionForce(j);
+            float maxMass = 5000;
+            float maxForce = maxMass * 9.8f;
             System.out.println("Reaction force: "+reactionForce);
-            if(reactionForce > 1.5){
+            if(Math.abs(reactionForce) > Math.abs(maxForce)){
                 joints.remove(i);
                 this.getWorld().destroyJoint(j);
                 j = null;
-            }
+            } //potrei prendere la velocità del RavoluteJoint e poi moltiplicarla alla x e alla y della posizione del joint (?)
+            //Prima cosa da provare è se buttandoci un corpo sopra si riesce a modificare la reaction force così calcolata. In più si può provare a vedere se si può
+            //calcolare qualche tipo di forza applicata al corpo quando si vanno a gestire le collisioni.
         }
 
     }

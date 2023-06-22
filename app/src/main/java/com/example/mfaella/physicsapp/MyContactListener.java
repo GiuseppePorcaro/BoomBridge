@@ -35,6 +35,8 @@ public class MyContactListener extends ContactListener {
         GameObject a = (GameObject)userdataA,
                    b = (GameObject)userdataB;
 
+
+
         // TO DO: use an object pool instead
         cache.add(new Collision(a, b));
 

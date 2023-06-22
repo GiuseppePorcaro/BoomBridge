@@ -37,7 +37,7 @@ public class Tutorial implements Level{
         GameObject terrainSx = gw.addGameObject(new TerrainGO(gw,-20,10));
         GameObject terrainDx = gw.addGameObject(new TerrainGO(gw,20,10));
 
-        b = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD, terrainSx.getBody().getPositionX()+(roadWidth/2)+ terrainSx.getWidth()/2, terrainSx.getBody().getPositionY()+(roadHeigth/2)- terrainSx.getHeight()/2,0.1f, 0.3f, 0.5f,roadWidth,roadHeigth));
+        b = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD, terrainSx.getBody().getPositionX()+(roadWidth/2)+ terrainSx.getWidth()/2, terrainSx.getBody().getPositionY()+(roadHeigth/2)- terrainSx.getHeight()/2,0.1f, 0.3f, 0.1f,roadWidth,roadHeigth));
         new MyRevoluteJoint(gw, terrainSx, b,terrainSx.getWidth()/2, -terrainSx.getHeight()/2,-roadWidth/2,-roadHeigth/2);
         createBridge(gw, terrainDx);
 
@@ -61,10 +61,10 @@ public class Tutorial implements Level{
 
         for(int i = 0; i < 3; i++){
 
-            a = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,b.getBody().getPositionX()+(roadWidth/2)+b.getWidth()/2, b.getBody().getPositionY(),0.1f, 0.3f, 0.5f,roadWidth,roadHeigth));
+            a = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,b.getBody().getPositionX()+(roadWidth/2)+b.getWidth()/2, b.getBody().getPositionY(),2200f, 0.3f, 0.1f,roadWidth,roadHeigth));
             new MyRevoluteJoint(gw,a,b,-roadWidth/2,0,roadWidth/2,0);
 
-            b = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,a.getBody().getPositionX()+(roadWidth/2)+a.getWidth()/2, a.getBody().getPositionY(),0.1f, 0.3f, 0.5f,roadWidth,roadHeigth));
+            b = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,a.getBody().getPositionX()+(roadWidth/2)+a.getWidth()/2, a.getBody().getPositionY(),2200f, 0.3f, 0.1f,roadWidth,roadHeigth));
 
             new MyRevoluteJoint(gw,a,b,roadWidth/2,0,-roadWidth/2,0);
         }

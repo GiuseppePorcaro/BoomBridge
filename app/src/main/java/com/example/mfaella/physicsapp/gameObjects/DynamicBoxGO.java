@@ -25,7 +25,7 @@ import com.google.fpl.liquidfun.PolygonShape;
  */
 public class DynamicBoxGO extends GameObject
 {
-    private static final float width = 2.5f, height = 2.5f, density = 0.5f;
+    private static final float width = 2.5f, height = 2.5f, density = 7000f;
     private static float screen_semi_width, screen_semi_height;
     private static int instances = 0;
 
