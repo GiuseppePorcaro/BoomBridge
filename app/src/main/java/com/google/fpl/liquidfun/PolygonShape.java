@@ -52,8 +52,13 @@ public class PolygonShape extends Shape {
     this(liquidfunJNI.new_PolygonShape(), true);
   }
 
+<<<<<<< Updated upstream
   public Shape clone(SWIGTYPE_p_b2BlockAllocator allocator) {
     long cPtr = liquidfunJNI.PolygonShape_clone(swigCPtr, this, SWIGTYPE_p_b2BlockAllocator.getCPtr(allocator));
+=======
+  public Shape clone(BlockAllocator allocator) {
+    long cPtr = liquidfunJNI.PolygonShape_clone(swigCPtr, this, BlockAllocator.getCPtr(allocator), allocator);
+>>>>>>> Stashed changes
     return (cPtr == 0) ? null : new Shape(cPtr, false);
   }
 
@@ -81,12 +86,21 @@ public class PolygonShape extends Shape {
     liquidfunJNI.PolygonShape_computeDistance(swigCPtr, this, Transform.getCPtr(xf), xf, Vec2.getCPtr(p), p, SWIGTYPE_p_float.getCPtr(distance), Vec2.getCPtr(normal), normal, childIndex);
   }
 
+<<<<<<< Updated upstream
   public boolean rayCast(SWIGTYPE_p_b2RayCastOutput output, SWIGTYPE_p_b2RayCastInput input, Transform transform, int childIndex) {
     return liquidfunJNI.PolygonShape_rayCast(swigCPtr, this, SWIGTYPE_p_b2RayCastOutput.getCPtr(output), SWIGTYPE_p_b2RayCastInput.getCPtr(input), Transform.getCPtr(transform), transform, childIndex);
   }
 
   public void computeAABB(SWIGTYPE_p_b2AABB aabb, Transform transform, int childIndex) {
     liquidfunJNI.PolygonShape_computeAABB(swigCPtr, this, SWIGTYPE_p_b2AABB.getCPtr(aabb), Transform.getCPtr(transform), transform, childIndex);
+=======
+  public boolean rayCast(RayCastOutput output, RayCastInput input, Transform transform, int childIndex) {
+    return liquidfunJNI.PolygonShape_rayCast(swigCPtr, this, RayCastOutput.getCPtr(output), output, RayCastInput.getCPtr(input), input, Transform.getCPtr(transform), transform, childIndex);
+  }
+
+  public void computeAABB(AABB aabb, Transform transform, int childIndex) {
+    liquidfunJNI.PolygonShape_computeAABB(swigCPtr, this, AABB.getCPtr(aabb), aabb, Transform.getCPtr(transform), transform, childIndex);
+>>>>>>> Stashed changes
   }
 
   public void computeMass(MassData massData, float density) {

@@ -104,8 +104,13 @@ public class Fixture {
     liquidfunJNI.Fixture_computeDistance(swigCPtr, this, Vec2.getCPtr(p), p, SWIGTYPE_p_float.getCPtr(distance), Vec2.getCPtr(normal), normal, childIndex);
   }
 
+<<<<<<< Updated upstream
   public boolean rayCast(SWIGTYPE_p_b2RayCastOutput output, SWIGTYPE_p_b2RayCastInput input, int childIndex) {
     return liquidfunJNI.Fixture_rayCast(swigCPtr, this, SWIGTYPE_p_b2RayCastOutput.getCPtr(output), SWIGTYPE_p_b2RayCastInput.getCPtr(input), childIndex);
+=======
+  public boolean rayCast(RayCastOutput output, RayCastInput input, int childIndex) {
+    return liquidfunJNI.Fixture_rayCast(swigCPtr, this, RayCastOutput.getCPtr(output), output, RayCastInput.getCPtr(input), input, childIndex);
+>>>>>>> Stashed changes
   }
 
   public void getMassData(MassData massData) {
@@ -136,8 +141,13 @@ public class Fixture {
     liquidfunJNI.Fixture_setRestitution(swigCPtr, this, restitution);
   }
 
+<<<<<<< Updated upstream
   public SWIGTYPE_p_b2AABB getAABB(int childIndex) {
     return new SWIGTYPE_p_b2AABB(liquidfunJNI.Fixture_getAABB(swigCPtr, this, childIndex), false);
+=======
+  public AABB getAABB(int childIndex) {
+    return new AABB(liquidfunJNI.Fixture_getAABB(swigCPtr, this, childIndex), false);
+>>>>>>> Stashed changes
   }
 
   public void dump(int bodyIndex) {

@@ -243,9 +243,9 @@ public class Body {
     return (cPtr == 0) ? null : new JointEdge(cPtr, false);
   }
 
-  public SWIGTYPE_p_b2ContactEdge getContactList() {
+  public ContactEdge getContactList() {
     long cPtr = liquidfunJNI.Body_getContactList__SWIG_0(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_b2ContactEdge(cPtr, false);
+    return (cPtr == 0) ? null : new ContactEdge(cPtr, false);
   }
 
   public Body getNext() {

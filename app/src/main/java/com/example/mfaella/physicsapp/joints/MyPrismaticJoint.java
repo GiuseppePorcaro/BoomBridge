@@ -20,8 +20,15 @@ public class MyPrismaticJoint
         PrismaticJointDef jointDef = new PrismaticJointDef();
         jointDef.setBodyA(a);
         jointDef.setBodyB(b);
+<<<<<<< Updated upstream
         Vec2 p1 = new Vec2(-1f,-1f);
         Vec2 p2 = new Vec2(1f,1f);
+=======
+
+        Vec2 p1 = new Vec2(-1f, -1f);
+        Vec2 p2 = new Vec2(1f,1f);
+
+>>>>>>> Stashed changes
         jointDef.setLocalAnchorA(p1);
         jointDef.setLocalAnchorB(p1);
         jointDef.setLocalAxisA(p2);

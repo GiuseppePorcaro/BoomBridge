@@ -48,12 +48,21 @@ public class FixtureProxy {
     }
   }
 
+<<<<<<< Updated upstream
   public void setAabb(SWIGTYPE_p_b2AABB value) {
     liquidfunJNI.FixtureProxy_aabb_set(swigCPtr, this, SWIGTYPE_p_b2AABB.getCPtr(value));
   }
 
   public SWIGTYPE_p_b2AABB getAabb() {
     return new SWIGTYPE_p_b2AABB(liquidfunJNI.FixtureProxy_aabb_get(swigCPtr, this), false);
+=======
+  public void setAabb(AABB value) {
+    liquidfunJNI.FixtureProxy_aabb_set(swigCPtr, this, AABB.getCPtr(value), value);
+  }
+
+  public AABB getAabb() {
+    return new AABB(liquidfunJNI.FixtureProxy_aabb_get(swigCPtr, this), false);
+>>>>>>> Stashed changes
   }
 
   public void setFixture(Fixture value) {

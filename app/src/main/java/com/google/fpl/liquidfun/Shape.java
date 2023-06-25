@@ -48,6 +48,7 @@ public class Shape {
     }
   }
 
+<<<<<<< Updated upstream
   public Shape clone(SWIGTYPE_p_b2BlockAllocator allocator) {
     long cPtr = liquidfunJNI.Shape_clone(swigCPtr, this, SWIGTYPE_p_b2BlockAllocator.getCPtr(allocator));
     return (cPtr == 0) ? null : new Shape(cPtr, false);
@@ -56,6 +57,16 @@ public class Shape {
   /*public Shape.Type getType() {
     return Shape.Type.swigToEnum(liquidfunJNI.Shape_getType(swigCPtr, this));
   }*/
+=======
+  public Shape clone(BlockAllocator allocator) {
+    long cPtr = liquidfunJNI.Shape_clone(swigCPtr, this, BlockAllocator.getCPtr(allocator), allocator);
+    return (cPtr == 0) ? null : new Shape(cPtr, false);
+  }
+
+  public Shape.Type getType() {
+    return Shape.Type.swigToEnum(liquidfunJNI.Shape_getType(swigCPtr, this));
+  }
+>>>>>>> Stashed changes
 
   public int getChildCount() {
     return liquidfunJNI.Shape_getChildCount(swigCPtr, this);
@@ -69,12 +80,21 @@ public class Shape {
     liquidfunJNI.Shape_computeDistance(swigCPtr, this, Transform.getCPtr(xf), xf, Vec2.getCPtr(p), p, SWIGTYPE_p_float.getCPtr(distance), Vec2.getCPtr(normal), normal, childIndex);
   }
 
+<<<<<<< Updated upstream
   public boolean rayCast(SWIGTYPE_p_b2RayCastOutput output, SWIGTYPE_p_b2RayCastInput input, Transform transform, int childIndex) {
     return liquidfunJNI.Shape_rayCast(swigCPtr, this, SWIGTYPE_p_b2RayCastOutput.getCPtr(output), SWIGTYPE_p_b2RayCastInput.getCPtr(input), Transform.getCPtr(transform), transform, childIndex);
   }
 
   public void computeAABB(SWIGTYPE_p_b2AABB aabb, Transform xf, int childIndex) {
     liquidfunJNI.Shape_computeAABB(swigCPtr, this, SWIGTYPE_p_b2AABB.getCPtr(aabb), Transform.getCPtr(xf), xf, childIndex);
+=======
+  public boolean rayCast(RayCastOutput output, RayCastInput input, Transform transform, int childIndex) {
+    return liquidfunJNI.Shape_rayCast(swigCPtr, this, RayCastOutput.getCPtr(output), output, RayCastInput.getCPtr(input), input, Transform.getCPtr(transform), transform, childIndex);
+  }
+
+  public void computeAABB(AABB aabb, Transform xf, int childIndex) {
+    liquidfunJNI.Shape_computeAABB(swigCPtr, this, AABB.getCPtr(aabb), aabb, Transform.getCPtr(xf), xf, childIndex);
+>>>>>>> Stashed changes
   }
 
   public void computeMass(MassData massData, float density) {
@@ -83,10 +103,6 @@ public class Shape {
 
   public void setType(Shape.Type value) {
     liquidfunJNI.Shape_type_set(swigCPtr, this, value.swigValue());
-  }
-
-  public Shape.Type getType() {
-    return Shape.Type.swigToEnum(liquidfunJNI.Shape_type_get(swigCPtr, this));
   }
 
   public void setRadius(float value) {

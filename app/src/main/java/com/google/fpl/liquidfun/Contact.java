@@ -43,6 +43,7 @@ public class Contact {
     }
   }
 
+<<<<<<< Updated upstream
   public SWIGTYPE_p_b2Manifold getManifold() {
     long cPtr = liquidfunJNI.Contact_getManifold__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new SWIGTYPE_p_b2Manifold(cPtr, false);
@@ -50,6 +51,15 @@ public class Contact {
 
   public void getWorldManifold(SWIGTYPE_p_b2WorldManifold worldManifold) {
     liquidfunJNI.Contact_getWorldManifold(swigCPtr, this, SWIGTYPE_p_b2WorldManifold.getCPtr(worldManifold));
+=======
+  public Manifold getManifold() {
+    long cPtr = liquidfunJNI.Contact_getManifold__SWIG_0(swigCPtr, this);
+    return (cPtr == 0) ? null : new Manifold(cPtr, false);
+  }
+
+  public void getWorldManifold(WorldManifold worldManifold) {
+    liquidfunJNI.Contact_getWorldManifold(swigCPtr, this, WorldManifold.getCPtr(worldManifold), worldManifold);
+>>>>>>> Stashed changes
   }
 
   public boolean isTouching() {
@@ -119,8 +129,13 @@ public class Contact {
     return liquidfunJNI.Contact_getTangentSpeed(swigCPtr, this);
   }
 
+<<<<<<< Updated upstream
   public void evaluate(SWIGTYPE_p_b2Manifold manifold, Transform xfA, Transform xfB) {
     liquidfunJNI.Contact_evaluate(swigCPtr, this, SWIGTYPE_p_b2Manifold.getCPtr(manifold), Transform.getCPtr(xfA), xfA, Transform.getCPtr(xfB), xfB);
+=======
+  public void evaluate(Manifold manifold, Transform xfA, Transform xfB) {
+    liquidfunJNI.Contact_evaluate(swigCPtr, this, Manifold.getCPtr(manifold), manifold, Transform.getCPtr(xfA), xfA, Transform.getCPtr(xfB), xfB);
+>>>>>>> Stashed changes
   }
 
 }

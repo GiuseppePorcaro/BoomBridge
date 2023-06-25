@@ -52,6 +52,7 @@ public class World {
     this(liquidfunJNI.new_World__SWIG_0(Vec2.getCPtr(gravity), gravity), true);
   }
 
+<<<<<<< Updated upstream
   public void setDestructionListener(SWIGTYPE_p_b2DestructionListener listener) {
     liquidfunJNI.World_setDestructionListener(swigCPtr, this, SWIGTYPE_p_b2DestructionListener.getCPtr(listener));
   }
@@ -62,6 +63,18 @@ public class World {
 
   public void setContactListener(SWIGTYPE_p_b2ContactListener listener) {
     liquidfunJNI.World_setContactListener(swigCPtr, this, SWIGTYPE_p_b2ContactListener.getCPtr(listener));
+=======
+  public void setDestructionListener(DestructionListener listener) {
+    liquidfunJNI.World_setDestructionListener(swigCPtr, this, DestructionListener.getCPtr(listener), listener);
+  }
+
+  public void setContactFilter(ContactFilter filter) {
+    liquidfunJNI.World_setContactFilter(swigCPtr, this, ContactFilter.getCPtr(filter), filter);
+  }
+
+  public void setContactListener(ContactListener listener) {
+    liquidfunJNI.World_setContactListener(swigCPtr, this, ContactListener.getCPtr(listener), listener);
+>>>>>>> Stashed changes
   }
 
   public void setDebugDraw(Draw debugDraw) {
@@ -115,16 +128,26 @@ public class World {
     liquidfunJNI.World_drawDebugData(swigCPtr, this);
   }
 
+<<<<<<< Updated upstream
   public void queryAABB(QueryCallback callback, SWIGTYPE_p_b2AABB aabb) {
     liquidfunJNI.World_queryAABB(swigCPtr, this, QueryCallback.getCPtr(callback), callback, SWIGTYPE_p_b2AABB.getCPtr(aabb));
+=======
+  public void queryAABB(QueryCallback callback, AABB aabb) {
+    liquidfunJNI.World_queryAABB(swigCPtr, this, QueryCallback.getCPtr(callback), callback, AABB.getCPtr(aabb), aabb);
+>>>>>>> Stashed changes
   }
 
   public void queryShapeAABB(QueryCallback callback, Shape shape, Transform xf) {
     liquidfunJNI.World_queryShapeAABB(swigCPtr, this, QueryCallback.getCPtr(callback), callback, Shape.getCPtr(shape), shape, Transform.getCPtr(xf), xf);
   }
 
+<<<<<<< Updated upstream
   public void rayCast(SWIGTYPE_p_b2RayCastCallback callback, Vec2 point1, Vec2 point2) {
     liquidfunJNI.World_rayCast(swigCPtr, this, SWIGTYPE_p_b2RayCastCallback.getCPtr(callback), Vec2.getCPtr(point1), point1, Vec2.getCPtr(point2), point2);
+=======
+  public void rayCast(RayCastCallback callback, Vec2 point1, Vec2 point2) {
+    liquidfunJNI.World_rayCast(swigCPtr, this, RayCastCallback.getCPtr(callback), callback, Vec2.getCPtr(point1), point1, Vec2.getCPtr(point2), point2);
+>>>>>>> Stashed changes
   }
 
   public Body getBodyList() {
@@ -142,9 +165,15 @@ public class World {
     return (cPtr == 0) ? null : new ParticleSystem(cPtr, false);
   }
 
+<<<<<<< Updated upstream
   public SWIGTYPE_p_b2Contact getContactList() {
     long cPtr = liquidfunJNI.World_getContactList__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new SWIGTYPE_p_b2Contact(cPtr, false);
+=======
+  public Contact getContactList() {
+    long cPtr = liquidfunJNI.World_getContactList__SWIG_0(swigCPtr, this);
+    return (cPtr == 0) ? null : new Contact(cPtr, false);
+>>>>>>> Stashed changes
   }
 
   public void setAllowSleeping(boolean flag) {
@@ -231,12 +260,21 @@ public class World {
     liquidfunJNI.World_shiftOrigin(swigCPtr, this, Vec2.getCPtr(newOrigin), newOrigin);
   }
 
+<<<<<<< Updated upstream
   public SWIGTYPE_p_b2ContactManager getContactManager() {
     return new SWIGTYPE_p_b2ContactManager(liquidfunJNI.World_getContactManager(swigCPtr, this), false);
   }
 
   public SWIGTYPE_p_b2Profile getProfile() {
     return new SWIGTYPE_p_b2Profile(liquidfunJNI.World_getProfile(swigCPtr, this), false);
+=======
+  public ContactManager getContactManager() {
+    return new ContactManager(liquidfunJNI.World_getContactManager(swigCPtr, this), false);
+  }
+
+  public Profile getProfile() {
+    return new Profile(liquidfunJNI.World_getProfile(swigCPtr, this), false);
+>>>>>>> Stashed changes
   }
 
   public void dump() {

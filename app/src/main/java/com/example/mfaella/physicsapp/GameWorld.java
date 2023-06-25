@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.text.BoringLayout;
+import android.util.DisplayMetrics;
 import android.util.SparseArray;
 import android.widget.ImageView;
 
@@ -15,6 +17,7 @@ import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.ParticleSystem;
 import com.google.fpl.liquidfun.ParticleSystemDef;
 import com.google.fpl.liquidfun.RevoluteJoint;
+import com.google.fpl.liquidfun.Vec2;
 import com.google.fpl.liquidfun.World;
 
 import java.util.ArrayList;
@@ -66,6 +69,12 @@ public class GameWorld {
         this.screenSize = screenSize;
         this.activity = theActivity;
         this.world = new World(0, 0);  // gravity vector
+
+        // Qui devo andare a trovare la dimensione dello schermo per poter settare il buffer in base alla dimensione dello schermo
+        DisplayMetrics metrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+
         this.buffer = Bitmap.createBitmap(bufferWidth, bufferHeight, Bitmap.Config.ARGB_8888);
         this.currentView = physicalSize;
         // Start with half the world
@@ -118,11 +127,18 @@ public class GameWorld {
         //Provare a fare il wrap di solo la classe Join e mettere le librerie nuove compilate
         for(int i = 0; i < joints.size(); i++){
             Joint j = joints.get(i);
+<<<<<<< Updated upstream
             //RevoluteJoint revj = (RevoluteJoint) j;
             //float reactionTorque = revj.getReactionTorque(elapsedTime);
             double reactionForce = getReactionForce(j);
             System.out.println("Reaction force: "+reactionForce);
             if(reactionForce > 1.5){
+=======
+            Vec2 rForce  = j.getReactionForce(1/elapsedTime);
+            float reactionForce = rForce.lengthSquared();
+            System.out.println("Reaction force: "+reactionForce);
+            if(Math.abs(reactionForce) > Math.abs(10)){
+>>>>>>> Stashed changes
                 joints.remove(i);
                 this.getWorld().destroyJoint(j);
                 j = null;

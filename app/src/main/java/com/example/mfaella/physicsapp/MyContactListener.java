@@ -4,7 +4,11 @@ import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.google.fpl.liquidfun.Body;
 import com.google.fpl.liquidfun.Contact;
 import com.google.fpl.liquidfun.Fixture;
+<<<<<<< Updated upstream
 import com.google.fpl.liquidfun.SWIGTYPE_p_b2ContactListener;
+=======
+import com.google.fpl.liquidfun.Vec2;
+>>>>>>> Stashed changes
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -35,6 +39,10 @@ public class MyContactListener extends SWIGTYPE_p_b2ContactListener {
         GameObject a = (GameObject)userdataA,
                    b = (GameObject)userdataB;
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         // TO DO: use an object pool instead
         cache.add(new Collision(a, b));
 
@@ -43,4 +51,5 @@ public class MyContactListener extends SWIGTYPE_p_b2ContactListener {
         //    sound.play(0.7f);
         // Log.d("MyContactListener", "contact bwt " + a.name + " and " + b.name);
     }
+
 }

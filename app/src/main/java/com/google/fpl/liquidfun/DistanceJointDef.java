@@ -8,11 +8,12 @@
 
 package com.google.fpl.liquidfun;
 
-public class DistanceJointDef extends JointDef {
+public class DistanceJointDef {
   private transient long swigCPtr;
+  protected transient boolean swigCMemOwn;
 
   protected DistanceJointDef(long cPtr, boolean cMemoryOwn) {
-    super(liquidfunJNI.DistanceJointDef_SWIGUpcast(cPtr), cMemoryOwn);
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
@@ -45,7 +46,6 @@ public class DistanceJointDef extends JointDef {
       }
       swigCPtr = 0;
     }
-    super.delete();
   }
 
   public DistanceJointDef() {

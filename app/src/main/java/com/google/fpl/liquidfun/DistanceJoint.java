@@ -8,11 +8,12 @@
 
 package com.google.fpl.liquidfun;
 
-public class DistanceJoint extends Joint {
+public class DistanceJoint {
   private transient long swigCPtr;
+  protected transient boolean swigCMemOwn;
 
   protected DistanceJoint(long cPtr, boolean cMemoryOwn) {
-    super(liquidfunJNI.DistanceJoint_SWIGUpcast(cPtr), cMemoryOwn);
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
@@ -45,7 +46,18 @@ public class DistanceJoint extends Joint {
       }
       swigCPtr = 0;
     }
-    super.delete();
+  }
+
+  public Vec2 getAnchorA() {
+    return new Vec2(liquidfunJNI.DistanceJoint_getAnchorA(swigCPtr, this), true);
+  }
+
+  public Vec2 getAnchorB() {
+    return new Vec2(liquidfunJNI.DistanceJoint_getAnchorB(swigCPtr, this), true);
+  }
+
+  public Vec2 getReactionForce(float inv_dt) {
+    return new Vec2(liquidfunJNI.DistanceJoint_getReactionForce(swigCPtr, this, inv_dt), true);
   }
 
   public Vec2 getAnchorA() {

@@ -8,22 +8,22 @@
 
 package com.google.fpl.liquidfun;
 
-public class SWIGTYPE_p_b2ContactListener {
+public class SWIGTYPE_p_b2PointState {
   private transient long swigCPtr;
 
-  protected SWIGTYPE_p_b2ContactListener(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
+  protected SWIGTYPE_p_b2PointState(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_b2ContactListener() {
+  protected SWIGTYPE_p_b2PointState() {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_b2ContactListener obj) {
+  protected static long getCPtr(SWIGTYPE_p_b2PointState obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
-  protected static long swigRelease(SWIGTYPE_p_b2ContactListener obj) {
+  protected static long swigRelease(SWIGTYPE_p_b2PointState obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

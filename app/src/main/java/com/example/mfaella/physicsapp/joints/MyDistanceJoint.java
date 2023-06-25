@@ -20,9 +20,15 @@ public class MyDistanceJoint {
         ropeJointDef.setBodyB(b);
         ropeJointDef.setMaxLength(5);
 
+<<<<<<< Updated upstream
 
         Vec2 p1 = new Vec2(a.getPositionX(), a.getPositionY());
         Vec2 p2 = new Vec2(b.getPositionX(), b.getPositionY());
+=======
+        Vec2 p1 = new Vec2(a.getPositionX(), a.getPositionY());
+        Vec2 p2 = new Vec2(b.getPositionX(), b.getPositionY());
+
+>>>>>>> Stashed changes
         ropeJointDef.setLocalAnchorA(p1);
         ropeJointDef.setLocalAnchorB(p2);
 

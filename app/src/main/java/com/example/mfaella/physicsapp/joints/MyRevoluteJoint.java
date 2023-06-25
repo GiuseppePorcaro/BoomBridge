@@ -33,6 +33,10 @@ public class MyRevoluteJoint
         RevoluteJointDef jointDef = new RevoluteJointDef();
         jointDef.setBodyA(a);
         jointDef.setBodyB(b);
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         Vec2 p1 = new Vec2(xA,yA);
         Vec2 p2 = new Vec2(xB,yB);
         jointDef.setLocalAnchorA(p1);
