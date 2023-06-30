@@ -5,6 +5,7 @@ import com.google.fpl.liquidfun.Body;
 import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.PrismaticJointDef;
 import com.google.fpl.liquidfun.RevoluteJointDef;
+import com.google.fpl.liquidfun.Vec2;
 
 /**
  *
@@ -19,9 +20,11 @@ public class MyPrismaticJoint
         PrismaticJointDef jointDef = new PrismaticJointDef();
         jointDef.setBodyA(a);
         jointDef.setBodyB(b);
-        jointDef.setLocalAnchorA(-1f, -1f);
-        jointDef.setLocalAnchorB(-1f, -1f);
-        jointDef.setLocalAxisA(1f,1f);
+        Vec2 p1 = new Vec2(-1f, -1f);
+        Vec2 p2 = new Vec2(1f,1f);
+        jointDef.setLocalAnchorA(p1);
+        jointDef.setLocalAnchorB(p1);
+        jointDef.setLocalAxisA(p2);
         // add friction
         jointDef.setEnableMotor(true);
         jointDef.setMotorSpeed(2f);

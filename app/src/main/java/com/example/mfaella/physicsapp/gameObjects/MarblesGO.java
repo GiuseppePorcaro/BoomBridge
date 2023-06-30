@@ -59,8 +59,8 @@ public class MarblesGO extends GameObject
         groupDef.setShape(box);
         groupDef.setPosition(x, y);
         // NEW:
-        groupDef.setGroupFlags(ParticleGroupFlag.solidParticleGroup);
-        groupDef.setFlags(ParticleFlag.elasticParticle);
+        //groupDef.setGroupFlags(ParticleGroupFlag.solidParticleGroup);
+        //groupDef.setFlags(ParticleFlag.elasticParticle);
         group = gw.getParticleSystem().createParticleGroup(groupDef);
         this.particleCount = group.getParticleCount();
 
@@ -86,7 +86,7 @@ public class MarblesGO extends GameObject
             canvas.drawCircle(gw.toPixelsX(x), gw.toPixelsY(y), 6, paint);
         } */
 
-        psys.copyPositionBuffer(0, particleCount, particlePositionsBuffer);
+        psys.copyPositionBuffer(0, particleCount, particlePositionsBuffer,particleCount*2);
 
         for (int i = 0; i < particleCount; i++) {
             int xint, yint;

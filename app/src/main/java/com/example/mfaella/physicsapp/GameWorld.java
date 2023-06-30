@@ -15,6 +15,7 @@ import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.ParticleSystem;
 import com.google.fpl.liquidfun.ParticleSystemDef;
 import com.google.fpl.liquidfun.RevoluteJoint;
+import com.google.fpl.liquidfun.Vec2;
 import com.google.fpl.liquidfun.World;
 
 import java.util.ArrayList;
@@ -119,7 +120,8 @@ public class GameWorld {
             Joint j = joints.get(i);
             //RevoluteJoint revj = (RevoluteJoint) j;
             //float reactionTorque = revj.getReactionTorque(elapsedTime);
-            double reactionForce = getReactionForce(j);
+            Vec2 reactionForceVec = j.getReactionForce(1/elapsedTime);
+            float reactionForce = reactionForceVec.lengthSquared();
             float maxMass = 5000;
             float maxForce = maxMass * 9.8f;
             System.out.println("Reaction force: "+reactionForce);
@@ -127,19 +129,9 @@ public class GameWorld {
                 joints.remove(i);
                 this.getWorld().destroyJoint(j);
                 j = null;
-            } //potrei prendere la velocità del RavoluteJoint e poi moltiplicarla alla x e alla y della posizione del joint (?)
-            //Prima cosa da provare è se buttandoci un corpo sopra si riesce a modificare la reaction force così calcolata. In più si può provare a vedere se si può
-            //calcolare qualche tipo di forza applicata al corpo quando si vanno a gestire le collisioni.
+            } 
         }
 
-    }
-
-    public double getReactionForce(Joint joint){
-        float massA = joint.getBodyA().getMass();
-        float acc = 9.81f;
-        double angleDeg = joint.getBodyA().getAngle() * 180 / Math.PI;
-
-        return massA*acc*Math.cos(angleDeg);
     }
 
     public synchronized void render()

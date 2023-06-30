@@ -5,11 +5,14 @@ import android.util.Log;
 import com.badlogic.androidgames.framework.Input;
 import com.example.mfaella.physicsapp.gameObjects.DynamicBoxGO;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
+import com.google.fpl.liquidfun.AABB;
 import com.google.fpl.liquidfun.Body;
 import com.google.fpl.liquidfun.Fixture;
+import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.MouseJoint;
 import com.google.fpl.liquidfun.MouseJointDef;
 import com.google.fpl.liquidfun.QueryCallback;
+import com.google.fpl.liquidfun.Vec2;
 
 /**
  * Takes care of user interaction: pulls objects using a Mouse Joint.
@@ -68,7 +71,12 @@ public class TouchConsumer {
         Log.d("MultiTouchHandler", "touch down at " + x + ", " + y);
 
         touchedFixture = null;
-        gw.getWorld().queryAABB(touchQueryCallback, x - POINTER_SIZE, y - POINTER_SIZE, x + POINTER_SIZE, y + POINTER_SIZE);
+        Vec2 p1 = new Vec2(x - POINTER_SIZE, y - POINTER_SIZE);
+        Vec2 p2 = new Vec2(x + POINTER_SIZE, y + POINTER_SIZE);
+        AABB aabb = new AABB();
+        aabb.setLowerBound(p1);
+        aabb.setUpperBound(p2);
+        gw.getWorld().queryAABB(touchQueryCallback, aabb);
         if (touchedFixture != null) {
             // From fixture to GO
             Body touchedBody = touchedFixture.getBody();
@@ -99,7 +107,9 @@ public class TouchConsumer {
         mouseJointDef.setBodyA(touchedBody); // irrelevant but necessary
         mouseJointDef.setBodyB(touchedBody);
         mouseJointDef.setMaxForce(500 * touchedBody.getMass());
-        mouseJointDef.setTarget(x, y);
+
+        Vec2 p = new Vec2(x, y);
+        mouseJointDef.setTarget(p);
         mouseJoint = gw.getWorld().createMouseJoint(mouseJointDef);
     }
 
@@ -116,7 +126,8 @@ public class TouchConsumer {
         float x = gw.toMetersX(event.x), y = gw.toMetersY(event.y);
         if (mouseJoint!=null && event.pointer == activePointerID) {
             Log.d("MultiTouchHandler", "active pointer moved to " + x + ", " + y);
-            mouseJoint.setTarget(x, y);
+            Vec2 p = new Vec2(x, y);
+            mouseJoint.setTarget(p);
         }
     }
 }

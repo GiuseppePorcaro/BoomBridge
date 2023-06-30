@@ -25,7 +25,9 @@ public class GameLoop extends Thread {
               return 1;
           }
         };
-        gw.getWorld().rayCast(listener, -10, 0, 10, 0);
+        Vec2 p1 = new Vec2(-10, 0);
+        Vec2 p2 = new Vec2(10, 0);
+        gw.getWorld().rayCast(listener,p1 , p2);
     }
 
     @Override

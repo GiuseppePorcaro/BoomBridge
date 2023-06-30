@@ -37,10 +37,10 @@ public class DynamicTriangleGO extends GameObject {
         this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
         this.name = "Triangle" + instances;
-        body.setUserData(this);
+        //body.setUserData(this);
 
         PolygonShape triangle = new PolygonShape();
-        triangle.setAsTriangle(-semi_width, -semi_width, semi_width, -semi_width, 0, semi_width);
+        //triangle.setAsTriangle(-semi_width, -semi_width, semi_width, -semi_width, 0, semi_width);
         FixtureDef fixturedef = new FixtureDef();
         fixturedef.setShape(triangle);
         fixturedef.setFriction(0.1f);       // default 0.2
