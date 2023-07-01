@@ -15,6 +15,7 @@ import com.example.mfaella.physicsapp.R;
 import com.example.mfaella.physicsapp.joints.MyDistanceJoint;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
+import com.google.fpl.liquidfun.CircleShape;
 import com.google.fpl.liquidfun.FixtureDef;
 import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.PolygonShape;
@@ -32,8 +33,9 @@ public class BridgeElementGO extends GameObject{
     private final Paint paint = new Paint();
     private Bitmap bitmap;
     private final RectF dest = new RectF();
+    private float initAngle = 0;
 
-    public BridgeElementGO(GameWorld gw, int price, BridgeElementType bridgeElementType, float x, float y, float density, float friction, float restitution, float width,float height) {
+    public BridgeElementGO(GameWorld gw, int price, BridgeElementType bridgeElementType, float x, float y,float initAngle, float density, float friction, float restitution, float width,float height) {
         super(gw);
         this.price = price;
         this.bridgeElementType = bridgeElementType;
@@ -42,6 +44,7 @@ public class BridgeElementGO extends GameObject{
         this.restitution = restitution;
         this.width = width;
         this.height = height;
+        this.initAngle = initAngle;
 
         instances++;
         this.canvas = new Canvas(gw.getBuffer());
@@ -76,7 +79,7 @@ public class BridgeElementGO extends GameObject{
         dest.right = x + screen_semi_width;
         dest.top = y - screen_semi_height;
 
-        canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
+        //canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
 
         canvas.drawBitmap(bitmap, null, dest, null);
 
@@ -87,6 +90,7 @@ public class BridgeElementGO extends GameObject{
     private BodyDef createBodyDef(GameWorld gw, float x, float y) {
         BodyDef bdef = new BodyDef();
         bdef.setPosition(x, y);
+        bdef.setAngle((float) Math.toRadians(initAngle));
         bdef.setType(BodyType.dynamicBody);
         this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
@@ -121,7 +125,7 @@ public class BridgeElementGO extends GameObject{
                 bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.road, o);
                 break;
             case BEAM:
-                paint.setARGB(255,204,204,0);
+                bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.trave, o);
                 break;
             default:
                 paint.setARGB(255,0,0,0);

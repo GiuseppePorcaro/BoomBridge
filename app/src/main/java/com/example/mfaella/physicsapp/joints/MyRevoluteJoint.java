@@ -24,7 +24,7 @@ public class MyRevoluteJoint
 {
     Joint joint;
 
-    public MyRevoluteJoint(GameWorld gw, GameObject firstBody, GameObject secondBody, float xA, float yA, float xB, float yB)
+    public MyRevoluteJoint(GameWorld gw, GameObject firstBody, GameObject secondBody, float xA, float yA, float xB, float yB, boolean hasCollision)
     {
 
         Body a = firstBody.getBody();
@@ -39,13 +39,12 @@ public class MyRevoluteJoint
 
         jointDef.setLocalAnchorA(p1);
         jointDef.setLocalAnchorB(p2);
-        jointDef.setCollideConnected(true);
+        jointDef.setCollideConnected(hasCollision);
         jointDef.setEnableLimit(false);
 
         joint =gw.getWorld().createJoint(jointDef);
 
         gw.addJoint(joint);
-
 
         jointDef.delete();
     }

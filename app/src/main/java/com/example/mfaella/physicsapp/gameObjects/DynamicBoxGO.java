@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 
 import com.example.mfaella.physicsapp.GameWorld;
 import com.example.mfaella.physicsapp.R;
+import com.example.mfaella.physicsapp.joints.MyDistanceJoint;
+import com.example.mfaella.physicsapp.joints.MyRevoluteJoint;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.Fixture;
@@ -25,7 +27,7 @@ import com.google.fpl.liquidfun.PolygonShape;
  */
 public class DynamicBoxGO extends GameObject
 {
-    private static final float width = 2.5f, height = 2.5f, density = 7000f;
+    private static final float width = 1.0f, height = 1.0f, density = 0.0f;
     private static float screen_semi_width, screen_semi_height;
     private static int instances = 0;
 
@@ -50,7 +52,7 @@ public class DynamicBoxGO extends GameObject
         body.createFixture(fixturedef);
 
         int green = (int)(255*Math.random());
-        int color = Color.argb(200, 255, green, 0);
+        int color = Color.argb(200, 255,0, 0);
         paint.setColor(color);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
 
@@ -61,14 +63,13 @@ public class DynamicBoxGO extends GameObject
 
         Fixture f = body.getFixtureList();
 
+
+
         // Prevents scaling
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inScaled = false;
-        bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.icona, o);
 
-        // Log.i("Dragme", "size: " + bitmap.getWidth() + ", " + bitmap.getHeight());
-        // Note: top <= bottom
-        src.set(0, 0, 76, 76);
+        bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.joint, o);
     }
 
     @NonNull
@@ -82,6 +83,7 @@ public class DynamicBoxGO extends GameObject
     private static FixtureDef createFixtureDef(PolygonShape box) {
         FixtureDef fixturedef = new FixtureDef();
         fixturedef.setShape(box);
+        fixturedef.setIsSensor(true);
         fixturedef.setFriction(0.1f);       // default 0.2
         fixturedef.setRestitution(0.4f);    // default 0
         fixturedef.setDensity(density);     // default 0. Density is used to compute the mass properties of the parent body
@@ -113,7 +115,7 @@ public class DynamicBoxGO extends GameObject
         dest.right = x + screen_semi_width;
         dest.top = y - screen_semi_height;
         // Sprite
-        canvas.drawBitmap(bitmap, src, dest, null);
+        canvas.drawBitmap(bitmap, null, dest, null);
         // Simple box
         //canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
         canvas.restore();

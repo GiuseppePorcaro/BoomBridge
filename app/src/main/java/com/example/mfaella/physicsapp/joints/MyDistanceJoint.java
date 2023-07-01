@@ -12,16 +12,16 @@ public class MyDistanceJoint {
 
     Joint joint;
 
-    public MyDistanceJoint(GameWorld gw, Body a, Body b)
+    public MyDistanceJoint(GameWorld gw, Body a, Body b, float xA, float yA, float xB, float yB)
     {
         RopeJointDef ropeJointDef = new RopeJointDef();
 
         ropeJointDef.setBodyA(a);
         ropeJointDef.setBodyB(b);
-        ropeJointDef.setMaxLength(5);
+        ropeJointDef.setMaxLength(0.1f);
 
-        Vec2 p = new Vec2(a.getPositionX(), a.getPositionY());
-        Vec2 p2 = new Vec2(b.getPositionX(), b.getPositionY());
+        Vec2 p = new Vec2(xA, yA);
+        Vec2 p2 = new Vec2(xB, yB);
 
         ropeJointDef.setLocalAnchorA(p);
         ropeJointDef.setLocalAnchorB(p2);

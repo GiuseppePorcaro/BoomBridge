@@ -8,6 +8,7 @@ import com.example.mfaella.physicsapp.R;
 import com.example.mfaella.physicsapp.gameObjects.BackgroundGO;
 import com.example.mfaella.physicsapp.gameObjects.BridgeElementGO;
 import com.example.mfaella.physicsapp.gameObjects.BridgeElementType;
+import com.example.mfaella.physicsapp.gameObjects.BridgeJointElementGO;
 import com.example.mfaella.physicsapp.gameObjects.DynamicBoxGO;
 import com.example.mfaella.physicsapp.gameObjects.DynamicCircleGO;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
@@ -20,13 +21,19 @@ import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.PolygonShape;
 import com.google.fpl.liquidfun.RevoluteJointDef;
 
+import java.util.ArrayList;
+
 public class Tutorial implements Level{
 
     GameObject a;
     GameObject b;
 
-    float roadWidth = 3.65f;
+    ArrayList<GameObject> joints = new ArrayList<>();
+
+    float roadWidth = 7.45f;
     float roadHeigth = 0.5f;
+    float beamWidth = 5.0f;
+    float beamHeight = 0.5f;
 
     @Override
     public void createLevel(GameWorld gw) {
@@ -37,39 +44,50 @@ public class Tutorial implements Level{
         GameObject terrainSx = gw.addGameObject(new TerrainGO(gw,-20,10));
         GameObject terrainDx = gw.addGameObject(new TerrainGO(gw,20,10));
 
-        b = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD, terrainSx.getBody().getPositionX()+(roadWidth/2)+ terrainSx.getWidth()/2, terrainSx.getBody().getPositionY()+(roadHeigth/2)- terrainSx.getHeight()/2,0.1f, 0.3f, 0.1f,roadWidth,roadHeigth));
-        new MyRevoluteJoint(gw, terrainSx, b,terrainSx.getWidth()/2, -terrainSx.getHeight()/2,-roadWidth/2,-roadHeigth/2);
-        createBridge(gw, terrainDx);
+        createRoadBridge(gw, terrainDx,terrainSx);
 
-        /*a = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD, 0,0,0.1f, 0.3f, 0.5f,roadWidth,roadHeigth));
-        b= gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD, roadWidth/2,0,0.1f, 0.3f, 0.5f,roadWidth,roadHeigth));
-        new MyRevoluteJoint(gw,a,b,roadWidth/2,0,-roadWidth/2,0);*/
+        createBridgeScaffolding(gw,terrainDx,terrainSx);
 
-        gw.addGameObject(new DynamicBoxGO(gw,-10f,-10f));
-
-        //b = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,terrainSx.getBody().getPositionX()+(4.0f/2)+terrainSx.getWidth()/2, terrainSx.getBody().getPositionY()+(0.5f/2)-terrainSx.getHeight()/2,0.1f, 0.3f, 0.5f,4.0f,0.5f));
-
-
-        //GameObject b = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,terrainDx.getPosX()-(4.5f)-terrainDx.getWidth()/2,terrainDx.getPosY()-terrainDx.getHeight()/2, 0.1f, 0.3f, 0.5f,4.5f,1.0f));
-        //new MyRevoluteJoint(gw, terrainSx, a);
-
-
-        //GameObject c = gw.addGameObject(gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,a.getPosX()-(4.5f)-a.getWidth()/2,a.getPosY()-terrainDx.getHeight()/2, 0.1f, 0.3f, 0.5f,4.5f,1.0f)));
     }
 
-    private void createBridge(GameWorld gw, GameObject terrainDx) {
+    private void createBridgeScaffolding(GameWorld gw, GameObject terrainDx, GameObject terrainSx){
 
-        for(int i = 0; i < 3; i++){
-
-            a = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,b.getBody().getPositionX()+(roadWidth/2)+b.getWidth()/2, b.getBody().getPositionY(),2200f, 0.3f, 0.1f,roadWidth,roadHeigth));
-            new MyRevoluteJoint(gw,a,b,-roadWidth/2,0,roadWidth/2,0);
-
-            b = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,a.getBody().getPositionX()+(roadWidth/2)+a.getWidth()/2, a.getBody().getPositionY(),2200f, 0.3f, 0.1f,roadWidth,roadHeigth));
-
-            new MyRevoluteJoint(gw,a,b,roadWidth/2,0,-roadWidth/2,0);
-        }
-        GameObject last = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,b.getBody().getPositionX()+(roadWidth/2)+b.getWidth()/2, b.getBody().getPositionY(),0.1f, 0.3f, 0.5f,roadWidth,roadHeigth));
-        new MyRevoluteJoint(gw,last,b,-roadWidth/2,0,roadWidth/2,0);
-        new MyRevoluteJoint(gw, terrainDx, last,-terrainDx.getWidth()/2, -terrainDx.getHeight()/2,roadWidth/2,-roadHeigth/2);
     }
+
+    private void createRoadBridge(GameWorld gw, GameObject terrainDx, GameObject terrainSx) {
+
+        b = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD, terrainSx.getBody().getPositionX()+(roadWidth/2)+ terrainSx.getWidth()/2, terrainSx.getBody().getPositionY()+(roadHeigth/2)- terrainSx.getHeight()/2,0,0.1f, 0.3f, 0.1f,roadWidth,roadHeigth));
+
+        new MyRevoluteJoint(gw, terrainSx, b,terrainSx.getWidth()/2, -terrainSx.getHeight()/2,-roadWidth/2,-roadHeigth/2,true);
+
+        a = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,b.getBody().getPositionX()+(roadWidth/2)+b.getWidth()/2, b.getBody().getPositionY(),0,0.1f, 0.3f, 0.1f,roadWidth,roadHeigth));
+        addJointElement(gw, b, a);
+
+        b = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,a.getBody().getPositionX()+(roadWidth/2)+a.getWidth()/2, a.getBody().getPositionY(),0,0.1f, 0.3f, 0.1f,roadWidth,roadHeigth));
+        addJointElement(gw, a, b);
+
+        GameObject last = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.ROAD,b.getBody().getPositionX()+(roadWidth/2)+b.getWidth()/2, b.getBody().getPositionY(),0,0.1f, 0.3f, 0.5f,roadWidth,roadHeigth));
+        addJointElement(gw, b, last);
+        new MyRevoluteJoint(gw, terrainDx, last,-terrainDx.getWidth()/2, -terrainDx.getHeight()/2,roadWidth/2,-roadHeigth/2,true);
+    }
+
+    private void addJointElement(GameWorld gw, GameObject b, GameObject a) {
+        GameObject g = null;
+        g = gw.addGameObject(new DynamicBoxGO(gw,b.getBody().getPositionX()+(roadWidth/2), b.getBody().getPositionY()));
+        joints.add(g);
+        new MyRevoluteJoint(gw, b, g, roadWidth/2,0,0,0,false);
+        new MyRevoluteJoint(gw, a, g, -(roadWidth/2),0,0,0,false);
+    }
+
+
 }
+
+
+/*
+* GameObject firstBeam = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.BEAM,b.getBody().getPositionX()-roadWidth/2,b.getBody().getPositionY()-beamWidth/2,-45,0.0f,0.3f,0.1f,beamWidth,beamHeight));
+            GameObject seconBeam = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.BEAM,b.getBody().getPositionX()-roadWidth/2,b.getBody().getPositionY()-beamWidth/2,45,0.0f,0.3f,0.1f,beamWidth,beamHeight));
+            new MyRevoluteJoint(gw,firstBeam,seconBeam,beamWidth/2,0,-beamWidth/2,0,true);
+            new MyRevoluteJoint(gw,firstBeam,b,-beamWidth/2,0,-roadWidth/2,0,true);
+            new MyRevoluteJoint(gw,b,seconBeam,roadWidth/2,0,beamWidth/2,0,true);
+*
+* */

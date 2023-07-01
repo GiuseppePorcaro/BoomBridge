@@ -116,7 +116,7 @@ public class GameWorld {
             touchConsumer.consumeTouchEvent(event);
 
 
-        for(int i = 0; i < joints.size(); i++){
+        /*for(int i = 0; i < joints.size(); i++){
             Joint j = joints.get(i);
             //RevoluteJoint revj = (RevoluteJoint) j;
             //float reactionTorque = revj.getReactionTorque(elapsedTime);
@@ -129,8 +129,8 @@ public class GameWorld {
                 joints.remove(i);
                 this.getWorld().destroyJoint(j);
                 j = null;
-            } 
-        }
+            }
+        }*/
 
     }
 

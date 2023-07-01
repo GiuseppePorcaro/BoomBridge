@@ -92,14 +92,14 @@ public class TouchConsumer {
     }
 
     // If a DynamicBox is touched, it splits into two
-    private void splitBox(GameObject touchedGO, Body touchedBody) {
+    /*private void splitBox(GameObject touchedGO, Body touchedBody) {
         if (touchedGO instanceof DynamicBoxGO) {
             gw.getWorld().destroyBody(touchedBody);
             gw.objects.remove(touchedGO);
             gw.addGameObject(new DynamicBoxGO(gw, touchedBody.getPositionX(), touchedBody.getPositionY()));
             gw.addGameObject(new DynamicBoxGO(gw, touchedBody.getPositionX(), touchedBody.getPositionY()));
         }
-    }
+    }*/
 
     // Set up a mouse joint between the touched GameObject and the touch coordinates (x,y)
     private void setupMouseJoint(float x, float y, Body touchedBody) {
