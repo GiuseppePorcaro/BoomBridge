@@ -2,6 +2,8 @@ package com.example.mfaella.physicsapp.Levels;
 
 import com.example.mfaella.physicsapp.GameWorld;
 import com.example.mfaella.physicsapp.gameObjects.BackgroundGO;
+import com.example.mfaella.physicsapp.gameObjects.BombFragmentGO;
+import com.example.mfaella.physicsapp.gameObjects.BombGO;
 import com.example.mfaella.physicsapp.gameObjects.BridgeElementGO;
 import com.example.mfaella.physicsapp.gameObjects.BridgeElementType;
 import com.example.mfaella.physicsapp.gameObjects.DynamicBoxGO;
@@ -9,6 +11,7 @@ import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.example.mfaella.physicsapp.gameObjects.StaticTreeGO;
 import com.example.mfaella.physicsapp.gameObjects.TerrainGO;
 import com.example.mfaella.physicsapp.joints.MyRevoluteJoint;
+import com.google.fpl.liquidfun.Vec2;
 
 import java.util.ArrayList;
 
@@ -39,7 +42,7 @@ public class Tutorial implements Level{
         createRoadBridge(gw, terrainDx,terrainSx);
         createBridgeScaffolding(gw,terrainDx,terrainSx);
 
-
+        GameObject bomb = gw.addGameObject(new BombGO(gw,12,0,-8,1.5f,1.5f));
 
     }
 

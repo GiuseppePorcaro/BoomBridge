@@ -84,7 +84,7 @@ public class TouchConsumer {
             if (userData != null) {
                 GameObject touchedGO = (GameObject) userData;
                 activePointerID = pointerId;
-                Log.d("MultiTouchHandler", "touched game object " + touchedGO.getName());
+                //Log.d("MultiTouchHandler", "touched game object " + touchedGO.getName());
                 setupMouseJoint(x, y, touchedBody);
                 // splitBox(touchedGO, touchedBody);
             }

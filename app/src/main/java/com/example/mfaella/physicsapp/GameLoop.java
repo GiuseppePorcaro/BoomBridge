@@ -21,7 +21,7 @@ public class GameLoop extends Thread {
         RayCastCallback listener = new RayCastCallback() {
           @Override
           public float reportFixture(Fixture f, Vec2 point, Vec2 normal, float fraction) {
-              Log.i("MyThread", ((GameObject)f.getBody().getUserData()).getName() + " (" + fraction + ")");
+              //Log.i("MyThread", ((GameObject)f.getBody().getUserData()).getName() + " (" + fraction + ")");
               return 1;
           }
         };

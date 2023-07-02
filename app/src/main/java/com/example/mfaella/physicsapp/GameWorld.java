@@ -71,8 +71,6 @@ public class GameWorld {
         this.buffer = Bitmap.createBitmap(bufferWidth, bufferHeight, Bitmap.Config.ARGB_8888);
         this.currentView = physicalSize;
 
-        setWindowMetrics();
-
         // The particle system
         ParticleSystemDef psysdef = new ParticleSystemDef();
         this.particleSystem = world.createParticleSystem(psysdef);
@@ -90,7 +88,7 @@ public class GameWorld {
         this.joints = new ArrayList<>();
     }
 
-    private void setWindowMetrics(){
+    /*private void setWindowMetrics(){
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
@@ -98,7 +96,7 @@ public class GameWorld {
 
         //this.bufferWidth = metrics.widthPixels;
         //this.bufferHeight = metrics.heightPixels;
-    }
+    }*/
 
     public synchronized GameObject addGameObject(GameObject obj)
     {
@@ -127,9 +125,14 @@ public class GameWorld {
             touchConsumer.consumeTouchEvent(event);
 
 
+        handleJoints(elapsedTime);
+
+    }
+
+    private void handleJoints(float elapsedTime) {
         for(int i = 0; i < joints.size(); i++){
             Joint j = joints.get(i);
-            Vec2 reactionForceVec = j.getReactionForce(1/elapsedTime);
+            Vec2 reactionForceVec = j.getReactionForce(1/ elapsedTime);
             float reactionForce = reactionForceVec.lengthSquared();
             float maxMass = 15000;
             float maxForce = maxMass * 9.8f;
@@ -140,7 +143,6 @@ public class GameWorld {
                 j = null;
             }
         }
-
     }
 
     public synchronized void render()

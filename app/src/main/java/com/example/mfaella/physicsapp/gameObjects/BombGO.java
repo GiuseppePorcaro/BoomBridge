@@ -1,0 +1,113 @@
+package com.example.mfaella.physicsapp.gameObjects;
+
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+
+import androidx.annotation.NonNull;
+
+import com.example.mfaella.physicsapp.GameWorld;
+import com.google.fpl.liquidfun.BodyDef;
+import com.google.fpl.liquidfun.BodyType;
+import com.google.fpl.liquidfun.CircleShape;
+import com.google.fpl.liquidfun.Filter;
+import com.google.fpl.liquidfun.FixtureDef;
+import com.google.fpl.liquidfun.PolygonShape;
+import com.google.fpl.liquidfun.Vec2;
+
+import java.util.ArrayList;
+
+public class BombGO extends GameObject{
+
+    private Canvas canvas;
+    private Paint paint = new Paint();
+    private Bitmap bitmap;
+    private final float blastPower = 4.0f;
+    ArrayList<GameObject> bombFragments = new ArrayList<>();
+    private final RectF dest = new RectF();
+    private static int instances = 0;
+
+    public BombGO(GameWorld gw, int numRays, float x, float y, float width, float heigth) {
+        super(gw);
+
+        canvas = new Canvas(gw.getBuffer());
+        instances++;
+        this.name = "Bomb " + instances;
+        paint.setARGB(255,255,0,0);
+        paint.setStyle(Paint.Style.STROKE);
+        this.width = width;
+        this.height = heigth;
+        this.screen_semi_width = gw.toPixelsXLength(width)/2;
+        this.screen_semi_height = gw.toPixelsYLength(height)/2;
+
+        BodyDef bodyDef = createBodyDef(gw,x,y);
+        PolygonShape bombShape = createPolygonShape();
+        FixtureDef fixtureDef = createFixtureDef(bombShape);
+        body.createFixture(fixtureDef);
+
+        bodyDef.delete();
+        fixtureDef.delete();
+        bombShape.delete();
+
+        denotaneBomb(numRays,x,y);
+
+    }
+
+    private void denotaneBomb(int numRays, float x, float y){
+        for (int i = 0; i < numRays; i++) {
+            float angle = (float) (Math.toRadians((i / (float)numRays) * 360));
+            //DEGTOGRAD
+            Vec2 rayDir = new Vec2((float) Math.sin(angle), (float) Math.cos(angle));
+            bombFragments.add(gw.addGameObject(new BombFragmentGO(gw,x,y,rayDir,blastPower,numRays)));
+        }
+    }
+
+    @Override
+    public void draw(Bitmap buf, float x, float y, float angle) {
+        canvas.save();
+        canvas.rotate((float) Math.toDegrees(angle), x, y);
+        dest.left = x - screen_semi_width;
+        dest.bottom = y + screen_semi_height;
+        dest.right = x + screen_semi_width;
+        dest.top = y - screen_semi_height;
+        // Sprite
+        //canvas.drawBitmap(bitmap, null, dest, null);
+        // Simple box
+        canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
+        canvas.restore();
+    }
+
+    @NonNull
+    private PolygonShape createPolygonShape() {
+        PolygonShape box = new PolygonShape();
+        box.setAsBox(width / 2, height / 2);
+        return box;
+    }
+
+    @NonNull
+    private FixtureDef createFixtureDef(PolygonShape box) {
+
+        Filter filter = new Filter();
+        filter.setGroupIndex((short) -1);
+        FixtureDef fixturedef = new FixtureDef();
+        fixturedef.setShape(box);
+        fixturedef.setIsSensor(true);
+        fixturedef.setFriction(0.1f);       // default 0.2
+        fixturedef.setRestitution(0.4f);    // default 0
+        fixturedef.setDensity(0.0f);     // default 0. Density is used to compute the mass properties of the parent body
+        return fixturedef;
+    }
+
+    @NonNull
+    private BodyDef createBodyDef(GameWorld gw, float x, float y) {
+        BodyDef bdef = new BodyDef();
+        bdef.setPosition(x, y);
+        bdef.setType(BodyType.staticBody);
+        this.body = gw.getWorld().createBody(bdef);
+        body.setSleepingAllowed(false);
+        this.name = "Bomb" + instances;
+        body.setUserData(this);
+        return bdef;
+    }
+}

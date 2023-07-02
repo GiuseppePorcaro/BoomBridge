@@ -56,6 +56,8 @@ public class BridgeElementGO extends GameObject{
         FixtureDef fixtureDef = createFixtureDef(polygon);
         body.createFixture(fixtureDef);
 
+
+
         // clean up native objects
         deleteAllObjects(bodyDef, polygon, fixtureDef);
 
