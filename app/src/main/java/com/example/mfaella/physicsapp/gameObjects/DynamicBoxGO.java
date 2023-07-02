@@ -1,5 +1,6 @@
 package com.example.mfaella.physicsapp.gameObjects;
 
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -20,6 +21,8 @@ import com.google.fpl.liquidfun.Fixture;
 import com.google.fpl.liquidfun.FixtureDef;
 import com.google.fpl.liquidfun.PolygonShape;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * A moving box.
  *
@@ -27,20 +30,22 @@ import com.google.fpl.liquidfun.PolygonShape;
  */
 public class DynamicBoxGO extends GameObject
 {
-    private static final float width = 1.0f, height = 1.0f, density = 0.0f;
+    private float density = 0.0f;
     private static float screen_semi_width, screen_semi_height;
     private static int instances = 0;
 
     private final Canvas canvas;
     private final Paint paint = new Paint();
 
-    public DynamicBoxGO(GameWorld gw, float x, float y)
+    public DynamicBoxGO(GameWorld gw, float x, float y, float width, float height)
     {
         super(gw);
 
         instances++;
 
         this.canvas = new Canvas(gw.getBuffer()); // Is this needed?
+        this.width = width;
+        this.height = height;
         this.screen_semi_width = gw.toPixelsXLength(width)/2;
         this.screen_semi_height = gw.toPixelsYLength(height)/2;
 
@@ -51,36 +56,27 @@ public class DynamicBoxGO extends GameObject
         FixtureDef fixturedef = createFixtureDef(box);
         body.createFixture(fixturedef);
 
-        int green = (int)(255*Math.random());
-        int color = Color.argb(200, 255,0, 0);
-        paint.setColor(color);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-
         // clean up native objects
         fixturedef.delete();
         bdef.delete();
         box.delete();
 
-        Fixture f = body.getFixtureList();
+        //Fixture f = body.getFixtureList();
 
-
-
-        // Prevents scaling
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inScaled = false;
-
         bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.joint, o);
     }
 
     @NonNull
-    private static PolygonShape createPolygonShape() {
+    private PolygonShape createPolygonShape() {
         PolygonShape box = new PolygonShape();
         box.setAsBox(width / 2, height / 2);
         return box;
     }
 
     @NonNull
-    private static FixtureDef createFixtureDef(PolygonShape box) {
+    private FixtureDef createFixtureDef(PolygonShape box) {
         FixtureDef fixturedef = new FixtureDef();
         fixturedef.setShape(box);
         fixturedef.setIsSensor(true);

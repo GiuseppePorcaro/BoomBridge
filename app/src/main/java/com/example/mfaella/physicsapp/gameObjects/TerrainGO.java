@@ -1,13 +1,16 @@
 package com.example.mfaella.physicsapp.gameObjects;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.Log;
 import android.util.SparseArray;
 
 import com.example.mfaella.physicsapp.GameWorld;
+import com.example.mfaella.physicsapp.R;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.Fixture;
@@ -26,6 +29,8 @@ public class TerrainGO extends GameObject{
 
     private Canvas canvas;
     private Paint paint = new Paint();
+
+    private Bitmap bitmap;
 
 
     public TerrainGO(GameWorld gw, float x, float y) {
@@ -58,6 +63,10 @@ public class TerrainGO extends GameObject{
         fixtureDef.setDensity(density);
         body.createFixture(fixtureDef);
 
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inScaled = false;
+        bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.terreno1, o);
+
         //clearing
         bodyDef.delete();
         box.delete();
@@ -72,8 +81,14 @@ public class TerrainGO extends GameObject{
 
         //Bisogna disegnare una immagine
 
-        canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
+        //canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
+        RectF rect = new RectF();
+        rect.left = x - screen_semi_width;
+        rect.bottom = y + screen_semi_height;
+        rect.right = x + screen_semi_width;
+        rect.top = y - screen_semi_height;
 
+        canvas.drawBitmap(bitmap,null, rect,null);
     }
 }
 

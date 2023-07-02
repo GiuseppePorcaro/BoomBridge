@@ -116,21 +116,19 @@ public class GameWorld {
             touchConsumer.consumeTouchEvent(event);
 
 
-        /*for(int i = 0; i < joints.size(); i++){
+        for(int i = 0; i < joints.size(); i++){
             Joint j = joints.get(i);
-            //RevoluteJoint revj = (RevoluteJoint) j;
-            //float reactionTorque = revj.getReactionTorque(elapsedTime);
             Vec2 reactionForceVec = j.getReactionForce(1/elapsedTime);
             float reactionForce = reactionForceVec.lengthSquared();
-            float maxMass = 5000;
+            float maxMass = 15000;
             float maxForce = maxMass * 9.8f;
-            System.out.println("Reaction force: "+reactionForce);
+            //System.out.println("Reaction force: "+reactionForce);
             if(Math.abs(reactionForce) > Math.abs(maxForce)){
                 joints.remove(i);
                 this.getWorld().destroyJoint(j);
                 j = null;
             }
-        }*/
+        }
 
     }
 
@@ -181,6 +179,14 @@ public class GameWorld {
 
     public Bitmap getBuffer() {
         return buffer;
+    }
+
+    public int getBufferWidth() {
+        return bufferWidth;
+    }
+
+    public int getBufferHeight() {
+        return bufferHeight;
     }
 
     public World getWorld() {
