@@ -10,55 +10,37 @@ import androidx.annotation.NonNull;
 import com.example.mfaella.physicsapp.GameWorld;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
-import com.google.fpl.liquidfun.CircleShape;
-import com.google.fpl.liquidfun.Filter;
 import com.google.fpl.liquidfun.FixtureDef;
 import com.google.fpl.liquidfun.PolygonShape;
-import com.google.fpl.liquidfun.Vec2;
 
-import java.util.ArrayList;
-
-public class BombGO extends GameObject{
+public class ButtonGO extends GameObject{
 
     private Canvas canvas;
-    private Paint paint = new Paint();
-    private Bitmap bitmap;
-    private static final float blastPower = 4.0f;
     private final RectF dest = new RectF();
-    private static int instances = 0;
+    private Bitmap bitmap;
+    private Paint paint = new Paint();
 
-    public BombGO(GameWorld gw, int numRays, float x, float y, float width, float heigth) {
+    public ButtonGO(GameWorld gw) {
         super(gw);
 
         canvas = new Canvas(gw.getBuffer());
-        instances++;
-        paint.setARGB(255,255,0,0);
-        paint.setStyle(Paint.Style.STROKE);
-        this.width = width;
-        this.height = heigth;
+
+        this.width = 2.2f;
+        this.height = 2.2f;
         this.screen_semi_width = gw.toPixelsXLength(width)/2;
         this.screen_semi_height = gw.toPixelsYLength(height)/2;
 
-        BodyDef bodyDef = createBodyDef(gw,x,y);
-        PolygonShape bombShape = createPolygonShape();
-        FixtureDef fixtureDef = createFixtureDef(bombShape);
-        body.createFixture(fixtureDef);
+        BodyDef bdef = createBodyDef(gw, -22,-12);
+        PolygonShape box = createPolygonShape();
+        FixtureDef fixturedef = createFixtureDef(box);
+        body.createFixture(fixturedef);
 
-        bodyDef.delete();
-        fixtureDef.delete();
-        bombShape.delete();
+        bdef.delete();
+        box.delete();
+        fixturedef.delete();
 
-        //denotaneBomb(gw,numRays,x,y);
+        paint.setARGB(255,0,0,255);
 
-    }
-
-    public static void denotaneBomb(GameWorld gw, int numRays, float x, float y){
-        for (int i = 0; i < numRays; i++) {
-            float angle = (float) (Math.toRadians((i / (float)numRays) * 360));
-            //DEGTOGRAD
-            Vec2 rayDir = new Vec2((float) Math.sin(angle), (float) Math.cos(angle));
-            gw.addGameObject(new BombFragmentGO(gw,x,y,rayDir,blastPower,numRays));
-        }
     }
 
     @Override
@@ -85,14 +67,11 @@ public class BombGO extends GameObject{
 
     @NonNull
     private FixtureDef createFixtureDef(PolygonShape box) {
-
-        Filter filter = new Filter();
-        filter.setGroupIndex((short) -1);
         FixtureDef fixturedef = new FixtureDef();
         fixturedef.setShape(box);
         fixturedef.setIsSensor(true);
-        fixturedef.setFriction(0.1f);       // default 0.2
-        fixturedef.setRestitution(0.4f);    // default 0
+        fixturedef.setFriction(0.0f);       // default 0.2
+        fixturedef.setRestitution(0.0f);    // default 0
         fixturedef.setDensity(0.0f);     // default 0. Density is used to compute the mass properties of the parent body
         return fixturedef;
     }
@@ -104,8 +83,9 @@ public class BombGO extends GameObject{
         bdef.setType(BodyType.staticBody);
         this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
-        this.name = "Bomb" + instances;
+        this.name = "Bottone start";
         body.setUserData(this);
         return bdef;
     }
+
 }

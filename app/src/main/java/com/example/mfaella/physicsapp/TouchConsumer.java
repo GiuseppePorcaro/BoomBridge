@@ -3,6 +3,7 @@ package com.example.mfaella.physicsapp;
 import android.util.Log;
 
 import com.badlogic.androidgames.framework.Input;
+import com.example.mfaella.physicsapp.gameObjects.BombGO;
 import com.example.mfaella.physicsapp.gameObjects.DynamicBoxGO;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.google.fpl.liquidfun.AABB;
@@ -119,6 +120,19 @@ public class TouchConsumer {
             gw.getWorld().destroyJoint(mouseJoint);
             mouseJoint = null;
             activePointerID = 0;
+        }
+
+        //controllo start button
+        if (93 < event.x && event.x < 194 && 93 < event.y && event.y < 194) {
+            Body body = gw.getWorld().getBodyList();
+            while(body != null){
+                GameObject g = (GameObject) body.getUserData();
+                System.out.println(g.getName());
+                if(g.getName().contains("Bomb")){
+                    BombGO.denotaneBomb(gw,12,g.getBody().getPositionX(),g.getBody().getPositionY());
+                }
+                body = body.getNext();
+            }
         }
     }
 

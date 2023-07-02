@@ -127,6 +127,8 @@ public class GameWorld {
 
         handleJoints(elapsedTime);
 
+        //remove old fragments
+
     }
 
     private void handleJoints(float elapsedTime) {

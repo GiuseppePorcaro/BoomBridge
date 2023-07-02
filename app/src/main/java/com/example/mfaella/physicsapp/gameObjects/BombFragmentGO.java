@@ -25,7 +25,7 @@ public class BombFragmentGO extends GameObject{
 
         instances++;
         canvas = new Canvas(gw.getBuffer());
-        this.name = "BombFragment " + instances;
+        this.name = "Fragment " + instances;
         this.width = 0.25f;
         this.height = 0.25f;
         this.screen_semi_width = gw.toPixelsXLength(width)/2;

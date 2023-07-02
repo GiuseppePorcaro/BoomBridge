@@ -23,7 +23,7 @@ public class StaticTreeGO extends GameObject{
 
     private Canvas canvas;
     private Bitmap bitmap;
-    private int instances;
+    private int instances = 0;
     private final RectF dest = new RectF();
 
     private Paint paint = new Paint();

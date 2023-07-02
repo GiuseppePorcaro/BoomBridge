@@ -6,6 +6,7 @@ import com.example.mfaella.physicsapp.gameObjects.BombFragmentGO;
 import com.example.mfaella.physicsapp.gameObjects.BombGO;
 import com.example.mfaella.physicsapp.gameObjects.BridgeElementGO;
 import com.example.mfaella.physicsapp.gameObjects.BridgeElementType;
+import com.example.mfaella.physicsapp.gameObjects.ButtonGO;
 import com.example.mfaella.physicsapp.gameObjects.DynamicBoxGO;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.example.mfaella.physicsapp.gameObjects.StaticTreeGO;
@@ -33,6 +34,7 @@ public class Tutorial implements Level{
 
         gw.addGameObject(new BackgroundGO(gw));
         addTree(gw);
+        gw.addGameObject(new ButtonGO(gw));
 
         //Terrain
         GameObject terrainSx = gw.addGameObject(new TerrainGO(gw,-20,10));
@@ -42,7 +44,10 @@ public class Tutorial implements Level{
         createRoadBridge(gw, terrainDx,terrainSx);
         createBridgeScaffolding(gw,terrainDx,terrainSx);
 
-        GameObject bomb = gw.addGameObject(new BombGO(gw,12,0,-8,1.5f,1.5f));
+        gw.addGameObject(new BombGO(gw,12,0,-8,1.5f,1.5f));
+        gw.addGameObject(new BombGO(gw,12,3,3,1.5f,1.5f));
+
+        //IMPSOTARE CHE SI PUò PREMERE SOLO UNA VOLTA IL PULSANTE PER L'ESPLOSIONE
 
     }
 
