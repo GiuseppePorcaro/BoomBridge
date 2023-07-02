@@ -37,7 +37,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$PROJECT_DIR$/../../../../../albero1.png" />
+                                                <entry key="imagePath" value="$PROJECT_DIR$/../../../../../bottone_premuto.png" />
                                                 <entry key="opacityPercent" value="60" />
                                                 <entry key="paddingPercent" value="-10" />
                                               </map>
@@ -74,8 +74,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$PROJECT_DIR$/../../../../../albero1.png" />
-                                      <entry key="outputName" value="albero1" />
+                                      <entry key="imageAsset" value="$PROJECT_DIR$/../../../../../bottone_premuto.png" />
+                                      <entry key="outputName" value="bottone_premuto" />
                                     </map>
                                   </option>
                                 </PersistentState>

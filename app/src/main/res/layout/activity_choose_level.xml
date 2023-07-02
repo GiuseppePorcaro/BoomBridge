@@ -6,52 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".ChooseLevelActivity">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background_title" />
+
     <Button
         android:id="@+id/tutorialButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:background="@drawable/button_selector"
+        android:onClick="tutorialButtonPressed"
         android:text="@string/tutorialButton"
+        android:textColor="@color/backgroundColor"
         app:layout_constraintBottom_toTopOf="@+id/levelOneButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.738"
-        android:onClick="tutorialButtonPressed"/>
+        app:layout_constraintVertical_bias="0.681" />
 
     <Button
         android:id="@+id/levelOneButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="108dp"
+        android:background="@drawable/button_selector"
+        android:onClick="levelOneButtonPressed"
         android:text="@string/levelOneButton"
-        app:layout_constraintBottom_toTopOf="@+id/levelTwoButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
-        app:layout_constraintStart_toStartOf="parent"
-        android:onClick="levelOneButtonPressed"/>
-
-    <Button
-        android:id="@+id/levelTwoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/levelTwoButton"
-        app:layout_constraintBottom_toTopOf="@+id/levelThreeButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
-        app:layout_constraintStart_toStartOf="parent"
-        android:onClick="levelTwoButtonPressed"/>
-
-    <Button
-        android:id="@+id/levelThreeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
-        android:text="@string/levelThreeButton"
+        android:textColor="@color/backgroundColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
-        app:layout_constraintStart_toStartOf="parent"
-        android:onClick="levelThreeButtonPressed"/>
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
