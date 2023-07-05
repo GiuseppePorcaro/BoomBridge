@@ -20,6 +20,8 @@ import com.google.fpl.liquidfun.MouseJointDef;
 import com.google.fpl.liquidfun.QueryCallback;
 import com.google.fpl.liquidfun.Vec2;
 
+import java.util.Vector;
+
 /**
  * Takes care of user interaction: pulls objects using a Mouse Joint.
  */
@@ -93,7 +95,7 @@ public class TouchConsumer {
             if (userData != null) {
                 GameObject touchedGO = (GameObject) userData;
                 activePointerID = pointerId;
-                if(touchedGO.getName().contains("BEAM")){
+                if(touchedGO.getName().contains("BEAM")  || touchedGO.getName().contains("ROAD")){
                     startingPoint.setX(x);
                     startingPoint.setY(y);
                 }
@@ -127,31 +129,41 @@ public class TouchConsumer {
     private void consumeTouchUp(Input.TouchEvent event) {
 
         float x = gw.toMetersX(event.x), y = gw.toMetersY(event.y);
+        endPoint.setX(x);
+        endPoint.setY(y);
+
+        dxy.setX(endPoint.getX() - startingPoint.getX());
+        dxy.setY(endPoint.getY() - startingPoint.getY());
         touchedFixture = null;
         Vec2 p1 = new Vec2(x - POINTER_SIZE, y - POINTER_SIZE);
         Vec2 p2 = new Vec2(x + POINTER_SIZE, y + POINTER_SIZE);
         AABB aabb = new AABB();
         aabb.setLowerBound(p1);
         aabb.setUpperBound(p2);
+
+
         gw.getWorld().queryAABB(touchQueryCallback, aabb);
         if (touchedFixture != null) {
             Body touchedBody = touchedFixture.getBody();
             Object userData = touchedBody.getUserData();
             if (userData != null) {
                 GameObject touchedGO = (GameObject) userData;
-                if(touchedGO.getName().contains("BEAM")){
+                if(touchedGO.getName().contains("BEAM") || touchedGO.getName().contains("ROAD")){
 
-
-                    //BISOGNA CONTROLLARE I CALCOLI DATO CHE I BEAM VENGONO MESSI UN PO' A CAZZO DI CANE
-                    //UNA PRIMA COSA CHE POTREI PROVARE è DISEGNARE UN BEAM SENZA CHE PRIMA SI CLICCHI SU UN ALTRO BEAM E SI RILASCI SU UN ALTRO BEAM. QUINDI PROVARE A CREARNE 1 IN MODO LIBERO
-                    float bodyX = (startingPoint.getX() + endPoint.getX()/2);
-                    float bodyY = (startingPoint.getY() + endPoint.getY()/2);
+                    float bodyX = ((startingPoint.getX() + endPoint.getX())/2);
+                    float bodyY = ((startingPoint.getY() + endPoint.getY())/2);
                     float distance = (float) Math.sqrt(Math.pow(endPoint.getX()-startingPoint.getX(),2)+Math.pow(endPoint.getY()- startingPoint.getY(),2 ));
-                    GameObject newBeam = gw.addGameObject(new BridgeElementGO(gw,100, BridgeElementType.BEAM, bodyX, bodyY, (float) Math.atan2(dxy.getY(),dxy.getX()),0.01f,0.01f,0.01f,distance,0.5f));
-                    GameObject g = null;
-                    g = gw.addGameObject(new DynamicBoxGO(gw, newBeam.getBody().getPositionX()+(distance/2), newBeam.getBody().getPositionY()-0.5f/2,1.0f,1.0f));
-                    new MyRevoluteJoint(gw, newBeam, g, distance/2,0,0,0,false);
-                    new MyRevoluteJoint(gw, touchedGO, g,5.0f ,0,0,0,false);
+
+                    System.out.println("startingPoint: "+startingPoint.getX()+" - "+startingPoint.getY()+"\nendingPoint: "+endPoint.getX()+" - "+endPoint.getY()+"\nDistance: "+distance+"\nmedian point"+bodyX+" - "+bodyY+"\nAngle: "+ Math.toDegrees(Math.atan2(dxy.getY(),dxy.getX()))+"\n\n");
+
+                    GameObject newBeam = gw.addGameObject(new BridgeElementGO(gw,100, BridgeElementType.BEAM, bodyX, bodyY, (float) Math.toDegrees(Math.atan2(dxy.getY(),dxy.getX())),0.01f,0.01f,0.01f,distance,0.5f));
+                    GameObject firstJoint = gw.addGameObject(new DynamicBoxGO(gw, newBeam.getBody().getPositionX()+(distance/2), newBeam.getBody().getPositionY(),1.0f,1.0f));
+                    GameObject secondJoint = gw.addGameObject(new DynamicBoxGO(gw,newBeam.getBody().getPositionX()-(distance/2), newBeam.getBody().getPositionY(),1.0f,1.0f));
+                    new MyRevoluteJoint(gw, newBeam, firstJoint, distance/2,0,0,0,false);
+                    new MyRevoluteJoint(gw, newBeam, secondJoint, -distance/2,0,0,0, false);
+                    //new MyRevoluteJoint(gw, touchedGO, g,5.0f ,0,0,0,false);
+
+                    //touchedGO.getBody().getLocalPoint();
 
                 }
             }
@@ -178,8 +190,6 @@ public class TouchConsumer {
         endPoint.setX(x);
         endPoint.setY(y);
 
-        dxy.setX(endPoint.getX() - startingPoint.getX());
-        dxy.setY(endPoint.getY() - startingPoint.getY());
 
     }
 }

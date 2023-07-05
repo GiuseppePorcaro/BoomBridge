@@ -90,7 +90,7 @@ public class BridgeElementGO extends GameObject{
     private BodyDef createBodyDef(GameWorld gw, float x, float y) {
         BodyDef bdef = new BodyDef();
         bdef.setPosition(x, y);
-        bdef.setAngle((float) Math.PI/180 * initAngle);
+        bdef.setAngle((float) Math.toRadians(initAngle));
         bdef.setType(BodyType.dynamicBody);
         this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);

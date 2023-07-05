@@ -14,6 +14,8 @@ import com.google.fpl.liquidfun.FixtureDef;
 import com.google.fpl.liquidfun.PolygonShape;
 import com.google.fpl.liquidfun.Vec2;
 
+import java.sql.Ref;
+
 public class BombFragmentGO extends GameObject{
 
     private Canvas canvas;

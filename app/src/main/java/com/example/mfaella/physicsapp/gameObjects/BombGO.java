@@ -25,7 +25,7 @@ public class BombGO extends GameObject{
     private Bitmap bitmap;
     private static final float blastPower = 4.0f;
 
-    private static final int numRays = 12;
+    private static final int numRays = 24;
     private final RectF dest = new RectF();
     private static int instances = 0;
 
@@ -55,7 +55,6 @@ public class BombGO extends GameObject{
     public static void denotaneBomb(GameWorld gw, float x, float y){
         for (int i = 0; i < numRays; i++) {
             float angle = (float) (Math.toRadians((i / (float)numRays) * 360));
-            //DEGTOGRAD
             Vec2 rayDir = new Vec2((float) Math.sin(angle), (float) Math.cos(angle));
             gw.addGameObject(new BombFragmentGO(gw,x,y,rayDir,blastPower,numRays));
         }
