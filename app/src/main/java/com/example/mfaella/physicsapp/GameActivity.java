@@ -6,17 +6,13 @@ import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.badlogic.androidgames.framework.Audio;
 import com.badlogic.androidgames.framework.Music;
@@ -24,11 +20,8 @@ import com.badlogic.androidgames.framework.impl.AndroidAudio;
 import com.badlogic.androidgames.framework.impl.MultiTouchHandler;
 import com.example.mfaella.physicsapp.Levels.Level;
 import com.example.mfaella.physicsapp.Levels.FirstLevel;
-import com.example.mfaella.physicsapp.Levels.SecondLevel;
-import com.example.mfaella.physicsapp.Levels.ThirdLevel;
 import com.example.mfaella.physicsapp.Levels.Tutorial;
 import com.example.mfaella.physicsapp.gameObjects.EnclosureGO;
-import com.example.mfaella.physicsapp.gameObjects.TerrainGO;
 
 import java.nio.ByteOrder;
 
@@ -99,12 +92,6 @@ public class GameActivity extends Activity {
                 break;
             case 1:
                 level = new FirstLevel();
-                break;
-            case 2:
-                level = new SecondLevel();
-                break;
-            case 3:
-                level = new ThirdLevel();
                 break;
         }
     }
