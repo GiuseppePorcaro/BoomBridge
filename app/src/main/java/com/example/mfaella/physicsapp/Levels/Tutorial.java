@@ -33,7 +33,9 @@ public class Tutorial implements Level{
     @Override
     public void createLevel(GameWorld gw) {
 
-        GameWorld.isPlayButtonPressed = false;
+        gw.setPlayButtonPressed(false);
+        gw.setBudget(1000);
+        gw.setBeamPrice(100);
 
         gw.addGameObject(new BackgroundGO(gw));
         addTree(gw);
@@ -50,7 +52,7 @@ public class Tutorial implements Level{
         gw.addGameObject(new BombGO(gw,0,-8,1.5f,1.5f));
         gw.addGameObject(new BombGO(gw,3,3,1.5f,1.5f));
 
-        //IMPSOTARE CHE SI PUò PREMERE SOLO UNA VOLTA IL PULSANTE PER L'ESPLOSIONE
+        //BISOGNA DISEGNARE IL BUDGET E METTERE LA GRAFICA ALLA BOMBA, AI FRAGMENT E AL PULSANTE PLAY. Magare mettere un pulsante che torna indietro dalla partita.
 
     }
 

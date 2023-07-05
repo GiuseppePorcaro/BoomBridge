@@ -62,9 +62,12 @@ public class GameWorld {
     private static final int POSITION_ITERATIONS = 3;
     private static final int PARTICLE_ITERATIONS = 3;
 
-    public static boolean isPlayButtonPressed;
-
+    //For the game
+    private boolean isPlayButtonPressed;
+    private int budget;
+    private int beamPrice;
     final Activity activity;
+
 
 
     public GameWorld(Box physicalSize, Box screenSize, Activity theActivity) {
@@ -186,7 +189,32 @@ public class GameWorld {
 
     }
 
+    public int getBudget() {
+        return budget;
+    }
+
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
+
+    public boolean isPlayButtonPressed() {
+        return isPlayButtonPressed;
+    }
+
+    public void setPlayButtonPressed(boolean playButtonPressed) {
+        isPlayButtonPressed = playButtonPressed;
+    }
+
     // Conversions between screen coordinates and physical coordinates
+
+
+    public int getBeamPrice() {
+        return beamPrice;
+    }
+
+    public void setBeamPrice(int beamPrice) {
+        this.beamPrice = beamPrice;
+    }
 
     public float toMetersX(float x) { return currentView.xmin + x * (currentView.width/screenSize.width); }
     public float toMetersY(float y) { return currentView.ymin + y * (currentView.height/screenSize.height); }
