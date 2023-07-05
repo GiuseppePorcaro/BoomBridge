@@ -77,4 +77,9 @@ public class BridgeJointElementGO extends GameObject{
         canvas.restore();
     }
 
+    @Override
+    public void delete() {
+
+    }
+
 }

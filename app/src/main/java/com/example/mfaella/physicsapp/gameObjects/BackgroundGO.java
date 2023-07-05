@@ -28,12 +28,11 @@ public class BackgroundGO extends GameObject{
 
     @Override
     public void draw(Bitmap buf, float x, float y, float angle) {
-
-        //TO DO: use a background image instead of just color
-        //canvas.drawBitmap(BitmapFactory.decodeResource(gw.getActivity().getResources(),R.drawable.background_tutorial),0,0,null);
-
-
         canvas.drawBitmap(bitmap,null,rect,null);
-        //canvas.drawColor(gw.getActivity().getColor(R.color.backgroundColor));
+    }
+
+    @Override
+    public void delete() {
+        //Do nothing
     }
 }

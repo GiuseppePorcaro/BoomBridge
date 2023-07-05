@@ -64,4 +64,9 @@ public class EnclosureGO extends GameObject
         Canvas canvas = new Canvas(buffer);
         canvas.drawRect(screen_xmin, screen_ymin, screen_xmax, screen_ymax, paint);
     }
+
+    @Override
+    public void delete() {
+        paint.setARGB(0,0,0,0);
+    }
 }

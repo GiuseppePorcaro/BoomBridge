@@ -88,4 +88,9 @@ public class ButtonGO extends GameObject{
         return bdef;
     }
 
+    @Override
+    public void delete() {
+        paint.setARGB(0,0,0,0);
+    }
+
 }

@@ -8,6 +8,7 @@ import android.graphics.RectF;
 import com.example.mfaella.physicsapp.GameWorld;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
+import com.google.fpl.liquidfun.Color;
 import com.google.fpl.liquidfun.Filter;
 import com.google.fpl.liquidfun.FixtureDef;
 import com.google.fpl.liquidfun.PolygonShape;
@@ -80,4 +81,11 @@ public class BombFragmentGO extends GameObject{
         canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
         canvas.restore();
     }
+
+    @Override
+    public void delete() {
+        paint.setARGB(0,0,0,0);
+    }
+
+
 }

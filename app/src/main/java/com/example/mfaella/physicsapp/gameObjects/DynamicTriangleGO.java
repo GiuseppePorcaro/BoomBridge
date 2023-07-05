@@ -74,4 +74,9 @@ public class DynamicTriangleGO extends GameObject {
         canvas.drawPath(path, paint);
         canvas.restore();
     }
+
+    @Override
+    public void delete() {
+        paint.setARGB(0,0,0,0);
+    }
 }

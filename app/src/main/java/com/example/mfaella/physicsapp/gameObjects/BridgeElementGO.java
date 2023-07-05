@@ -81,8 +81,6 @@ public class BridgeElementGO extends GameObject{
         dest.right = x + screen_semi_width;
         dest.top = y - screen_semi_height;
 
-        //canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
-
         canvas.drawBitmap(bitmap, null, dest, null);
 
         canvas.restore();
@@ -123,7 +121,6 @@ public class BridgeElementGO extends GameObject{
         o.inScaled = false;
         switch (bridgeElementType){
             case ROAD:
-                //paint.setARGB(255,255,0,0);
                 bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.road, o);
                 break;
             case BEAM:
@@ -140,5 +137,10 @@ public class BridgeElementGO extends GameObject{
         bodyDef.delete();
         polygon.delete();
 
+    }
+
+    @Override
+    public void delete() {
+        paint.setARGB(0,0,0,0);
     }
 }

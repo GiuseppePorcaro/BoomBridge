@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import com.badlogic.androidgames.framework.Input;
 import com.badlogic.androidgames.framework.Sound;
 import com.badlogic.androidgames.framework.impl.TouchHandler;
+import com.example.mfaella.physicsapp.gameObjects.BombGO;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
+import com.google.fpl.liquidfun.Body;
 import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.ParticleSystem;
 import com.google.fpl.liquidfun.ParticleSystemDef;
@@ -60,14 +62,16 @@ public class GameWorld {
     private static final int POSITION_ITERATIONS = 3;
     private static final int PARTICLE_ITERATIONS = 3;
 
-    final Activity activity; // just for loading bitmaps in game objects
+    public static boolean isPlayButtonPressed;
 
-    // Arguments are in physical simulation units.
+    final Activity activity;
+
+
     public GameWorld(Box physicalSize, Box screenSize, Activity theActivity) {
         this.physicalSize = physicalSize;
         this.screenSize = screenSize;
         this.activity = theActivity;
-        this.world = new World(0, 0);  // gravity vector
+        this.world = new World(0, 0);
         this.buffer = Bitmap.createBitmap(bufferWidth, bufferHeight, Bitmap.Config.ARGB_8888);
         this.currentView = physicalSize;
 
@@ -127,8 +131,20 @@ public class GameWorld {
 
         handleJoints(elapsedTime);
 
-        //remove old fragments
+        removeOldFragments();
 
+    }
+
+    private void removeOldFragments(){
+        Body body = getWorld().getBodyList();
+        while(body != null){
+            GameObject g = (GameObject) body.getUserData();
+            if(g.getName().contains("Fragment") && body.getLinearVelocity().length() == 0){
+                g.delete();
+                world.destroyBody(body);
+            }
+            body = body.getNext();
+        }
     }
 
     private void handleJoints(float elapsedTime) {

@@ -78,4 +78,9 @@ public class DynamicCircleGO extends GameObject {
 
         canvas.restore();
     }
+
+    @Override
+    public void delete() {
+        paint.setARGB(0,0,0,0);
+    }
 }

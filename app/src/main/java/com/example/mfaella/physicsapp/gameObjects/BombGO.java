@@ -24,10 +24,12 @@ public class BombGO extends GameObject{
     private Paint paint = new Paint();
     private Bitmap bitmap;
     private static final float blastPower = 4.0f;
+
+    private static final int numRays = 12;
     private final RectF dest = new RectF();
     private static int instances = 0;
 
-    public BombGO(GameWorld gw, int numRays, float x, float y, float width, float heigth) {
+    public BombGO(GameWorld gw, float x, float y, float width, float heigth) {
         super(gw);
 
         canvas = new Canvas(gw.getBuffer());
@@ -48,11 +50,9 @@ public class BombGO extends GameObject{
         fixtureDef.delete();
         bombShape.delete();
 
-        //denotaneBomb(gw,numRays,x,y);
-
     }
 
-    public static void denotaneBomb(GameWorld gw, int numRays, float x, float y){
+    public static void denotaneBomb(GameWorld gw, float x, float y){
         for (int i = 0; i < numRays; i++) {
             float angle = (float) (Math.toRadians((i / (float)numRays) * 360));
             //DEGTOGRAD
@@ -107,5 +107,10 @@ public class BombGO extends GameObject{
         this.name = "Bomb" + instances;
         body.setUserData(this);
         return bdef;
+    }
+
+    @Override
+    public void delete() {
+        paint.setARGB(0,0,0,0);
     }
 }

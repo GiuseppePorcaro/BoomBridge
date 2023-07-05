@@ -1,5 +1,6 @@
 package com.example.mfaella.physicsapp.Levels;
 
+import com.badlogic.androidgames.framework.Game;
 import com.example.mfaella.physicsapp.GameWorld;
 import com.example.mfaella.physicsapp.gameObjects.BackgroundGO;
 import com.example.mfaella.physicsapp.gameObjects.BombFragmentGO;
@@ -32,6 +33,8 @@ public class Tutorial implements Level{
     @Override
     public void createLevel(GameWorld gw) {
 
+        GameWorld.isPlayButtonPressed = false;
+
         gw.addGameObject(new BackgroundGO(gw));
         addTree(gw);
         gw.addGameObject(new ButtonGO(gw));
@@ -44,8 +47,8 @@ public class Tutorial implements Level{
         createRoadBridge(gw, terrainDx,terrainSx);
         createBridgeScaffolding(gw,terrainDx,terrainSx);
 
-        gw.addGameObject(new BombGO(gw,12,0,-8,1.5f,1.5f));
-        gw.addGameObject(new BombGO(gw,12,3,3,1.5f,1.5f));
+        gw.addGameObject(new BombGO(gw,0,-8,1.5f,1.5f));
+        gw.addGameObject(new BombGO(gw,3,3,1.5f,1.5f));
 
         //IMPSOTARE CHE SI PUò PREMERE SOLO UNA VOLTA IL PULSANTE PER L'ESPLOSIONE
 
@@ -129,13 +132,3 @@ public class Tutorial implements Level{
 
 
 }
-
-
-/*
-* GameObject firstBeam = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.BEAM,b.getBody().getPositionX()-roadWidth/2,b.getBody().getPositionY()-beamWidth/2,-45,0.0f,0.3f,0.1f,beamWidth,beamHeight));
-            GameObject seconBeam = gw.addGameObject(new BridgeElementGO(gw, 0, BridgeElementType.BEAM,b.getBody().getPositionX()-roadWidth/2,b.getBody().getPositionY()-beamWidth/2,45,0.0f,0.3f,0.1f,beamWidth,beamHeight));
-            new MyRevoluteJoint(gw,firstBeam,seconBeam,beamWidth/2,0,-beamWidth/2,0,true);
-            new MyRevoluteJoint(gw,firstBeam,b,-beamWidth/2,0,-roadWidth/2,0,true);
-            new MyRevoluteJoint(gw,b,seconBeam,roadWidth/2,0,beamWidth/2,0,true);
-*
-* */

@@ -113,7 +113,11 @@ public class DynamicBoxGO extends GameObject
         // Sprite
         canvas.drawBitmap(bitmap, null, dest, null);
         // Simple box
-        //canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
         canvas.restore();
+    }
+
+    @Override
+    public void delete() {
+        paint.setARGB(0,0,0,0);
     }
 }

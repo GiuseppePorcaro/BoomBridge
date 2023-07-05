@@ -123,4 +123,9 @@ public class MarblesGO extends GameObject
                 */
         bufferOffset = 4; // forced
     }
+
+    @Override
+    public void delete() {
+        paint.setARGB(0,0,0,0);
+    }
 }

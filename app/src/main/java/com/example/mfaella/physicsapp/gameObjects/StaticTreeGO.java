@@ -121,5 +121,9 @@ public class StaticTreeGO extends GameObject{
         canvas.restore();
     }
 
+    @Override
+    public void delete() {
+        paint.setARGB(0,0,0,0);
+    }
 
 }

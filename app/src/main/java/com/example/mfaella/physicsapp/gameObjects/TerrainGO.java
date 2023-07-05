@@ -79,9 +79,6 @@ public class TerrainGO extends GameObject{
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(2);
 
-        //Bisogna disegnare una immagine
-
-        //canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
         RectF rect = new RectF();
         rect.left = x - screen_semi_width;
         rect.bottom = y + screen_semi_height;
@@ -90,15 +87,8 @@ public class TerrainGO extends GameObject{
 
         canvas.drawBitmap(bitmap,null, rect,null);
     }
+    @Override
+    public void delete() {
+        paint.setARGB(0,0,0,0);
+    }
 }
-
-/*
-*
-* Paint textPaint = new Paint();
-        textPaint.setARGB(255,0,0,0);
-        canvas.drawText("Posizione in pixel: ("+x+","+y+")",30f,30f,textPaint);
-        canvas.drawText("Posizione in metri: ("+gw.toMetersX(x)+","+gw.toMetersY(y)+")",30f,60f,textPaint);
-
-
-        canvas.drawText("Posizione presa dal body: ("+this.getBody().getPositionX()+","+this.getBody().getPositionY()+")",30f,90f,textPaint);
-* */

@@ -90,4 +90,6 @@ public abstract class GameObject {
     public float getHeight() {
         return height;
     }
+
+    public abstract void delete();
 }
