@@ -119,7 +119,6 @@ public class TouchConsumer {
             gw.setPlayButtonPressed(true);
             while(body != null){
                 GameObject g = (GameObject) body.getUserData();
-                System.out.println(g.getName());
                 if(g.getName().contains("Bomb")){
                     BombGO.denotaneBomb(gw,g.getBody().getPositionX(),g.getBody().getPositionY());
                 }

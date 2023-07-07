@@ -1,11 +1,9 @@
 <resources>
-    <string name="app_name">DragMe!</string>
+    <string name="app_name">Boom Bridge</string>
     <string name="action_settings">Settings</string>
     <string name="important_info">IMPORTANTINFO</string>
     <string name="playButtonString">PLAY</string>
     <string name="aboutButtonString">ABOUT</string>
     <string name="tutorialButton">TUTORIAL</string>
     <string name="levelOneButton">LEVEL 1</string>
-    <string name="levelTwoButton">LEVEL 2</string>
-    <string name="levelThreeButton">LEVEL 3</string>
 </resources>

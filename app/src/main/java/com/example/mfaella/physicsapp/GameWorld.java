@@ -1,6 +1,7 @@
 package com.example.mfaella.physicsapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -64,6 +65,7 @@ public class GameWorld {
     private boolean isPlayButtonPressed;
     private int budget;
     private int beamPrice;
+    public boolean playerHasLost;
     final Activity activity;
 
 
@@ -76,6 +78,8 @@ public class GameWorld {
         this.buffer = Bitmap.createBitmap(bufferWidth, bufferHeight, Bitmap.Config.ARGB_8888);
         this.currentView = physicalSize;
 
+        playerHasLost = false;
+
         // The particle system
         ParticleSystemDef psysdef = new ParticleSystemDef();
         this.particleSystem = world.createParticleSystem(psysdef);
@@ -84,7 +88,7 @@ public class GameWorld {
         psysdef.delete();
 
         // stored to prevent GC
-        contactListener = new MyContactListener();
+        contactListener = new MyContactListener(this);
         world.setContactListener(contactListener);
 
         touchConsumer = new TouchConsumer(this);
@@ -148,9 +152,18 @@ public class GameWorld {
 
         removeOldFragments();
 
+        checkPlayerHasLost();
+
     }
 
-
+    private void checkPlayerHasLost(){
+        if(playerHasLost == true){
+            playerHasLost = false;
+            Intent i = new Intent(activity, GameOverActivity.class);
+            activity.startActivity(i);
+            activity.finish();
+        }
+    }
 
     public void resetGame(){
         for(GameObject g: newBeamsAddedByPlayer){
@@ -285,6 +298,14 @@ public class GameWorld {
 
     public Activity getActivity() {
         return activity;
+    }
+
+    public boolean isPlayerHasLost() {
+        return playerHasLost;
+    }
+
+    public void setPlayerHasLost(boolean playerHasLost) {
+        this.playerHasLost = playerHasLost;
     }
 
     @Override

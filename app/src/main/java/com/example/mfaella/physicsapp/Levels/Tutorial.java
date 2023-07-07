@@ -1,5 +1,7 @@
 package com.example.mfaella.physicsapp.Levels;
 
+import android.graphics.Paint;
+
 import com.example.mfaella.physicsapp.GameWorld;
 import com.example.mfaella.physicsapp.gameObjects.BackgroundGO;
 import com.example.mfaella.physicsapp.gameObjects.BombGO;
@@ -9,6 +11,7 @@ import com.example.mfaella.physicsapp.gameObjects.ButtonGO;
 import com.example.mfaella.physicsapp.gameObjects.ButtonType;
 import com.example.mfaella.physicsapp.gameObjects.DynamicJointGO;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
+import com.example.mfaella.physicsapp.gameObjects.StaticBudgetBoxGO;
 import com.example.mfaella.physicsapp.gameObjects.StaticTreeGO;
 import com.example.mfaella.physicsapp.gameObjects.TerrainGO;
 import com.example.mfaella.physicsapp.joints.MyRevoluteJoint;
@@ -34,9 +37,10 @@ public class Tutorial implements Level{
         gw.setPlayButtonPressed(false);
         gw.setBudget(1000);
         gw.setBeamPrice(100);
-
         gw.addGameObject(new BackgroundGO(gw));
         addTree(gw);
+        gw.addGameObject(new StaticBudgetBoxGO(gw));
+
         gw.addGameObject(new ButtonGO(gw, ButtonType.PLAY,-22,-13));
         //gw.addGameObject(new ButtonGO(gw, ButtonType.RESET,-18,-13));
         gw.addGameObject(new ButtonGO(gw,ButtonType.EXIT,22,-13));

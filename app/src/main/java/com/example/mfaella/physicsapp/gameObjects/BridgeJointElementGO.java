@@ -47,7 +47,7 @@ public class BridgeJointElementGO extends GameObject{
     private void createBodyDef(GameWorld gw, float x, float y) {
         BodyDef bdef = new BodyDef();
         bdef.setPosition(x,y);
-        bdef.setType(BodyType.staticBody);
+        bdef.setType(BodyType.dynamicBody);
         this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
         this.name =  "Circle Joint N° "+instances;

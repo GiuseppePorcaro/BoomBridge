@@ -53,7 +53,7 @@ public class BombFragmentGO extends GameObject{
 
         FixtureDef fd = new FixtureDef();
         fd.setShape(circleShape);
-        fd.setDensity(6 / (float)numRays); // very high - shared across all particles
+        fd.setDensity(60 / (float)numRays); // very high - shared across all particles
         fd.setFriction(0); // friction not necessary
         fd.setRestitution(0.99f); // high restitution to reflect off obstacles
         Filter filter = new Filter();

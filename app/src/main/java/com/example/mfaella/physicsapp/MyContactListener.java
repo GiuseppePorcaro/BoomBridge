@@ -14,6 +14,12 @@ import java.util.HashSet;
  */
 public class MyContactListener extends ContactListener {
 
+    GameWorld gw;
+
+    public MyContactListener(GameWorld gw) {
+        this.gw = gw;
+    }
+
     private Collection<Collision> cache = new HashSet<>();
 
     public Collection<Collision> getCollisions() {
@@ -35,7 +41,11 @@ public class MyContactListener extends ContactListener {
         GameObject a = (GameObject)userdataA,
                    b = (GameObject)userdataB;
 
-
+        String nameA = a.getName();
+        String nameB = b.getName();
+        if((nameA.contains("ROAD")&&nameB.contains("Enclosure"))||(nameB.contains("ROAD")&&nameA.contains("Enclosure"))){
+            gw.setPlayerHasLost(true);
+        }
 
         // TO DO: use an object pool instead
         cache.add(new Collision(a, b));
