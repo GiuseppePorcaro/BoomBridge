@@ -16,8 +16,6 @@ public class GameOverActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_over);
 
-
-
         hideNotificationBar();
     }
 

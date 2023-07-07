@@ -48,7 +48,7 @@ public class StaticTimerGO extends GameObject{
         }
 
         if(deltaTime <= timer && gw.isPlayButtonPressed() == false){
-            canvas.drawText("TIMER: "+deltaTime+"s / "+timer+"s",this.x,this.y,paint);
+            canvas.drawText("TIMER: "+deltaTime+"s / "+(int)timer+"s",this.x,this.y,paint);
         }
 
         if(deltaTime >= timer || gw.isPlayButtonPressed() == true){
@@ -56,7 +56,7 @@ public class StaticTimerGO extends GameObject{
             float timerBombsExploded = 5;
             int deltaTimeBombsExploded = (int) gw.getDeltaTimeFromBombsExploded();
             if(deltaTimeBombsExploded <= timerBombsExploded){
-                canvas.drawText("TO WIN: "+deltaTimeBombsExploded+"s / "+timerBombsExploded+"s",this.x,this.y,paint);
+                canvas.drawText("TO WIN: "+deltaTimeBombsExploded+"s / "+(int)timerBombsExploded+"s",this.x,this.y,paint);
             }
 
         }

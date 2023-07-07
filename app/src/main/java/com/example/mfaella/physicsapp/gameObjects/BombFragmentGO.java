@@ -21,6 +21,7 @@ public class BombFragmentGO extends GameObject{
     private Canvas canvas;
     private Paint paint = new Paint();
     private static int instances = 0;
+    private final float density = 60;
     private final RectF dest = new RectF();
 
     public BombFragmentGO(GameWorld gw, float x, float y, Vec2 rayDir, float blastPower, float numRays) {
@@ -29,8 +30,8 @@ public class BombFragmentGO extends GameObject{
         instances++;
         canvas = new Canvas(gw.getBuffer());
         this.name = "Fragment " + instances;
-        this.width = 0.25f;
-        this.height = 0.25f;
+        this.width = 0.15f;
+        this.height = 0.15f;
         this.screen_semi_width = gw.toPixelsXLength(width)/2;
         this.screen_semi_height = gw.toPixelsYLength(height)/2;
 
@@ -53,7 +54,7 @@ public class BombFragmentGO extends GameObject{
 
         FixtureDef fd = new FixtureDef();
         fd.setShape(circleShape);
-        fd.setDensity(60 / (float)numRays); // very high - shared across all particles
+        fd.setDensity(density / (float)numRays); // very high - shared across all particles
         fd.setFriction(0); // friction not necessary
         fd.setRestitution(0.99f); // high restitution to reflect off obstacles
         Filter filter = new Filter();
@@ -62,7 +63,7 @@ public class BombFragmentGO extends GameObject{
         body.createFixture(fd);
 
         paint = new Paint();
-        paint.setARGB(255,0,255,0);
+        paint.setARGB(255,129,129,129);
 
         bd.delete();
         fd.delete();

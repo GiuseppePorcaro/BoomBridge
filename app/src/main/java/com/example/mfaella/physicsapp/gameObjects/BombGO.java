@@ -1,16 +1,20 @@
 package com.example.mfaella.physicsapp.gameObjects;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.RectF;
 
 import androidx.annotation.NonNull;
 
 import com.example.mfaella.physicsapp.GameWorld;
+import com.example.mfaella.physicsapp.R;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.CircleShape;
+import com.google.fpl.liquidfun.Color;
 import com.google.fpl.liquidfun.Filter;
 import com.google.fpl.liquidfun.FixtureDef;
 import com.google.fpl.liquidfun.PolygonShape;
@@ -23,9 +27,9 @@ public class BombGO extends GameObject{
     private Canvas canvas;
     private Paint paint = new Paint();
     private Bitmap bitmap;
-    private static final float blastPower = 1.0f;
+    private static final float blastPower = 100.0f;
 
-    private static final int numRays = 24;
+    private static final int numRays = 32;
     private final RectF dest = new RectF();
     private static int instances = 0;
 
@@ -46,6 +50,11 @@ public class BombGO extends GameObject{
         FixtureDef fixtureDef = createFixtureDef(bombShape);
         body.createFixture(fixtureDef);
 
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inScaled = false;
+        o.inMutable = true;
+        bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.bomb, o);
+
         bodyDef.delete();
         fixtureDef.delete();
         bombShape.delete();
@@ -57,6 +66,7 @@ public class BombGO extends GameObject{
             float angle = (float) (Math.toRadians((i / (float)numRays) * 360));
             Vec2 rayDir = new Vec2((float) Math.sin(angle), (float) Math.cos(angle));
             gw.addGameObject(new BombFragmentGO(gw,x,y,rayDir,blastPower,numRays));
+
         }
     }
 
@@ -68,10 +78,7 @@ public class BombGO extends GameObject{
         dest.bottom = y + screen_semi_height;
         dest.right = x + screen_semi_width;
         dest.top = y - screen_semi_height;
-        // Sprite
-        //canvas.drawBitmap(bitmap, null, dest, null);
-        // Simple box
-        canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
+        canvas.drawBitmap(bitmap, null, dest, null);
         canvas.restore();
     }
 
@@ -90,9 +97,9 @@ public class BombGO extends GameObject{
         FixtureDef fixturedef = new FixtureDef();
         fixturedef.setShape(box);
         fixturedef.setIsSensor(true);
-        fixturedef.setFriction(0.1f);       // default 0.2
-        fixturedef.setRestitution(0.4f);    // default 0
-        fixturedef.setDensity(0.0f);     // default 0. Density is used to compute the mass properties of the parent body
+        fixturedef.setFriction(0.1f);
+        fixturedef.setRestitution(0.4f);
+        fixturedef.setDensity(0.0f);
         return fixturedef;
     }
 
@@ -110,6 +117,6 @@ public class BombGO extends GameObject{
 
     @Override
     public void delete() {
-        paint.setARGB(0,0,0,0);
+        bitmap.eraseColor(0);
     }
 }

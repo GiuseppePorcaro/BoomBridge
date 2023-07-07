@@ -220,10 +220,10 @@ public class GameWorld {
 
     public void resetGame(){
         for(GameObject g: newBeamsAddedByPlayer){
+            g.delete();
             world.destroyBody(g.getBody());
         }
 
-        /**/
     }
 
     private void removeOldFragments(){
@@ -284,6 +284,7 @@ public class GameWorld {
             GameObject g = (GameObject) body.getUserData();
             if(g.getName().contains("Bomb")){
                 BombGO.denotaneBomb(this,g.getBody().getPositionX(),g.getBody().getPositionY());
+                g.delete();
             }
             body = body.getNext();
         }

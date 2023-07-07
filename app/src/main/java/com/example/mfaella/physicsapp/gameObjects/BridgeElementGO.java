@@ -53,7 +53,6 @@ public class BridgeElementGO extends GameObject{
         body.createFixture(fixtureDef);
 
         deleteAllObjects(bodyDef, polygon, fixtureDef);
-
         setElementImage(bridgeElementType);
 
     }
@@ -87,7 +86,7 @@ public class BridgeElementGO extends GameObject{
         bdef.setType(BodyType.dynamicBody);
         this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
-        this.name = bridgeElementType + "N° "+instances;
+        this.name = bridgeElementType + " N ° "+instances;
         body.setUserData(this);
         return bdef;
     }
@@ -112,6 +111,7 @@ public class BridgeElementGO extends GameObject{
     private void setElementImage(BridgeElementType bridgeElementType) {
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inScaled = false;
+        o.inMutable = true;
         switch (bridgeElementType){
             case ROAD:
                 bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.road, o);
@@ -134,6 +134,6 @@ public class BridgeElementGO extends GameObject{
 
     @Override
     public void delete() {
-        canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        bitmap.eraseColor(0);
     }
 }

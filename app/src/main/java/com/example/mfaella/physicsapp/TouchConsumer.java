@@ -116,7 +116,6 @@ public class TouchConsumer {
         }
 
         /*if(isResetButtonAreaPressed(event)){
-            System.out.println("Reset cliccato");
             gw.resetGame();
         }*/
 
