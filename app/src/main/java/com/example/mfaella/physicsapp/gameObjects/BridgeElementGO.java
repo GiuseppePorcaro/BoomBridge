@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.SparseArray;
@@ -16,6 +17,7 @@ import com.example.mfaella.physicsapp.joints.MyDistanceJoint;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.CircleShape;
+import com.google.fpl.liquidfun.Color;
 import com.google.fpl.liquidfun.FixtureDef;
 import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.PolygonShape;
@@ -23,25 +25,19 @@ import com.google.fpl.liquidfun.PolygonShape;
 
 public class BridgeElementGO extends GameObject{
 
-    private int price;
     private BridgeElementType bridgeElementType;
-    private float density, friction, restitution;
+    private final float density  = 0.1f, friction = 0.1f, restitution = 0.2f;
 
     private static int instances = 0;
-
     private final Canvas canvas;
     private final Paint paint = new Paint();
     private Bitmap bitmap;
     private final RectF dest = new RectF();
-    private float initAngle = 0;
+    private float initAngle;
 
-    public BridgeElementGO(GameWorld gw, int price, BridgeElementType bridgeElementType, float x, float y,float initAngle, float density, float friction, float restitution, float width,float height) {
+    public BridgeElementGO(GameWorld gw, BridgeElementType bridgeElementType, float x, float y,float initAngle, float width,float height) {
         super(gw);
-        this.price = price;
         this.bridgeElementType = bridgeElementType;
-        this.density = density;
-        this.friction = friction;
-        this.restitution = restitution;
         this.width = width;
         this.height = height;
         this.initAngle = initAngle;
@@ -56,9 +52,6 @@ public class BridgeElementGO extends GameObject{
         FixtureDef fixtureDef = createFixtureDef(polygon);
         body.createFixture(fixtureDef);
 
-
-
-        // clean up native objects
         deleteAllObjects(bodyDef, polygon, fixtureDef);
 
         setElementImage(bridgeElementType);
@@ -110,9 +103,9 @@ public class BridgeElementGO extends GameObject{
     private FixtureDef createFixtureDef(PolygonShape box) {
         FixtureDef fixturedef = new FixtureDef();
         fixturedef.setShape(box);
-        fixturedef.setFriction(friction);       // default 0.2
-        fixturedef.setRestitution(restitution);    // default 0
-        fixturedef.setDensity(density);     // default 0. Density is used to compute the mass properties of the parent body
+        fixturedef.setFriction(friction);
+        fixturedef.setRestitution(restitution);
+        fixturedef.setDensity(density);
         return fixturedef;
     }
 
@@ -141,6 +134,6 @@ public class BridgeElementGO extends GameObject{
 
     @Override
     public void delete() {
-        paint.setARGB(0,0,0,0);
+        canvas.drawColor(0, PorterDuff.Mode.CLEAR);
     }
 }

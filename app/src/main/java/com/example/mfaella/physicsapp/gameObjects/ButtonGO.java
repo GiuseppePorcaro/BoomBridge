@@ -17,20 +17,22 @@ public class ButtonGO extends GameObject{
 
     private Canvas canvas;
     private final RectF dest = new RectF();
+    private ButtonType buttonType;
     private Bitmap bitmap;
     private Paint paint = new Paint();
 
-    public ButtonGO(GameWorld gw) {
+    public ButtonGO(GameWorld gw, ButtonType buttonType, float x, float y) {
         super(gw);
 
         canvas = new Canvas(gw.getBuffer());
 
         this.width = 2.2f;
         this.height = 2.2f;
+        this.buttonType = buttonType;
         this.screen_semi_width = gw.toPixelsXLength(width)/2;
         this.screen_semi_height = gw.toPixelsYLength(height)/2;
 
-        BodyDef bdef = createBodyDef(gw, -22,-12);
+        BodyDef bdef = createBodyDef(gw, x,y);
         PolygonShape box = createPolygonShape();
         FixtureDef fixturedef = createFixtureDef(box);
         body.createFixture(fixturedef);
@@ -39,7 +41,7 @@ public class ButtonGO extends GameObject{
         box.delete();
         fixturedef.delete();
 
-        paint.setARGB(255,0,0,255);
+        setButtonImage();
 
     }
 
@@ -56,6 +58,21 @@ public class ButtonGO extends GameObject{
         // Simple box
         canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
         canvas.restore();
+    }
+
+    private void setButtonImage(){
+        switch (buttonType){
+            case PLAY:
+                paint.setARGB(255,0,0,255);
+                break;
+            case RESET:
+                paint.setARGB(255,0,255,0);
+                break;
+            case EXIT:
+                paint.setARGB(255,255,0,0);
+            default:
+                paint.setARGB(255,0,0,0);
+        }
     }
 
     @NonNull

@@ -4,8 +4,8 @@ package com.example.mfaella.physicsapp.gameObjects;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
@@ -13,22 +13,17 @@ import androidx.annotation.NonNull;
 
 import com.example.mfaella.physicsapp.GameWorld;
 import com.example.mfaella.physicsapp.R;
-import com.example.mfaella.physicsapp.joints.MyDistanceJoint;
-import com.example.mfaella.physicsapp.joints.MyRevoluteJoint;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
-import com.google.fpl.liquidfun.Fixture;
 import com.google.fpl.liquidfun.FixtureDef;
 import com.google.fpl.liquidfun.PolygonShape;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * A moving box.
  *
  * Created by mfaella on 27/02/16.
  */
-public class DynamicBoxGO extends GameObject
+public class DynamicJointGO extends GameObject
 {
     private float density = 0.0f;
     private static float screen_semi_width, screen_semi_height;
@@ -37,7 +32,7 @@ public class DynamicBoxGO extends GameObject
     private final Canvas canvas;
     private final Paint paint = new Paint();
 
-    public DynamicBoxGO(GameWorld gw, float x, float y, float width, float height)
+    public DynamicJointGO(GameWorld gw, float x, float y, float width, float height)
     {
         super(gw);
 
@@ -93,7 +88,7 @@ public class DynamicBoxGO extends GameObject
         bdef.setType(BodyType.dynamicBody);
         this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
-        this.name = "Box" + instances;
+        this.name = "JOINT " + instances;
         body.setUserData(this);
         return bdef;
     }
@@ -118,6 +113,6 @@ public class DynamicBoxGO extends GameObject
 
     @Override
     public void delete() {
-        paint.setARGB(0,0,0,0);
+        canvas.drawColor(0, PorterDuff.Mode.CLEAR);
     }
 }

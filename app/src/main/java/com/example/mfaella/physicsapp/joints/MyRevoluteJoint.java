@@ -16,10 +16,6 @@ import com.google.fpl.liquidfun.RevoluteJoint;
 import com.google.fpl.liquidfun.RevoluteJointDef;
 import com.google.fpl.liquidfun.Vec2;
 
-/**
- *
- * Created by mfaella on 27/02/16.
- */
 public class MyRevoluteJoint
 {
     Joint joint;
@@ -44,8 +40,12 @@ public class MyRevoluteJoint
 
         joint =gw.getWorld().createJoint(jointDef);
 
-        gw.addJoint(joint);
+        //gw.addJoint(joint);
 
         jointDef.delete();
+    }
+
+    public Joint getJoint() {
+        return joint;
     }
 }

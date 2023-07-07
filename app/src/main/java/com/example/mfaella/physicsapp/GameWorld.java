@@ -4,27 +4,23 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.DisplayMetrics;
-import android.util.SparseArray;
 import android.widget.ImageView;
 
 import com.badlogic.androidgames.framework.Input;
 import com.badlogic.androidgames.framework.Sound;
 import com.badlogic.androidgames.framework.impl.TouchHandler;
-import com.example.mfaella.physicsapp.gameObjects.BombGO;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.google.fpl.liquidfun.Body;
+import com.google.fpl.liquidfun.Fixture;
 import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.ParticleSystem;
 import com.google.fpl.liquidfun.ParticleSystemDef;
-import com.google.fpl.liquidfun.RevoluteJoint;
 import com.google.fpl.liquidfun.Vec2;
 import com.google.fpl.liquidfun.World;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * The game objects and the viewport.
@@ -42,6 +38,8 @@ public class GameWorld {
     // Simulation
     List<GameObject> objects;
     List<Joint> joints;
+    List<GameObject> newBeamsAddedByPlayer;
+    List<Joint> newJointsAddedByPlayer;
     private World world;
     final Box physicalSize;
     final Box screenSize;
@@ -93,6 +91,8 @@ public class GameWorld {
         this.canvas = new Canvas(buffer);
         this.objects = new ArrayList<>();
         this.joints = new ArrayList<>();
+        this.newBeamsAddedByPlayer = new ArrayList<>();
+        this.newJointsAddedByPlayer = new ArrayList<>();
     }
 
     /*private void setWindowMetrics(){
@@ -109,6 +109,18 @@ public class GameWorld {
     {
         objects.add(obj);
         return obj;
+    }
+
+    public synchronized GameObject addNewBeam(GameObject obj)
+    {
+        newBeamsAddedByPlayer.add(obj);
+        return obj;
+    }
+
+    public synchronized Joint addNewBeamJoint(Joint joint)
+    {
+        newJointsAddedByPlayer.add(joint);
+        return joint;
     }
 
     public synchronized void addParticleGroup(GameObject obj)
@@ -138,6 +150,16 @@ public class GameWorld {
 
     }
 
+
+
+    public void resetGame(){
+        for(GameObject g: newBeamsAddedByPlayer){
+            world.destroyBody(g.getBody());
+        }
+
+        /**/
+    }
+
     private void removeOldFragments(){
         Body body = getWorld().getBodyList();
         while(body != null){
@@ -157,7 +179,6 @@ public class GameWorld {
             float reactionForce = reactionForceVec.lengthSquared();
             float maxMass = 15000;
             float maxForce = maxMass * 9.8f;
-            //System.out.println("Reaction force: "+reactionForce);
             if(Math.abs(reactionForce) > Math.abs(maxForce)){
                 joints.remove(i);
                 this.getWorld().destroyJoint(j);
@@ -171,6 +192,8 @@ public class GameWorld {
         // clear the screen (with black)
         canvas.drawARGB(255, 0, 0, 0);
         for (GameObject obj: objects)
+            obj.draw(buffer);
+        for (GameObject obj: newBeamsAddedByPlayer)
             obj.draw(buffer);
         // drawParticles();
     }
