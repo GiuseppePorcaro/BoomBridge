@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RatingBar;
 
 public class WinActivity extends AppCompatActivity {
+
+    private RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,6 +16,28 @@ public class WinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_win);
 
         hideNotificationBar();
+
+        ratingBar = (RatingBar) findViewById(R.id.winActivityRatingBar);
+        ratingBar.setNumStars(3);
+        //ratingBar.setBackgroundColor(getResources().getColor(R.color.yellow));
+
+        float timer = getIntent().getFloatExtra("timer",0);
+        float usedTime = getIntent().getFloatExtra("usedTime",0);
+        float budget = getIntent().getFloatExtra("budget",0);
+        float totalBudget = getIntent().getFloatExtra("totalBudget",0);
+
+        float rating = 1;
+
+        if(usedTime <= timer/2){
+            rating++;
+        }
+
+        if(budget <= totalBudget/2){
+            rating++;
+        }
+
+        ratingBar.setRating(rating);
+
     }
 
     public void closeButtonWinActivityPressed(View view){

@@ -65,6 +65,7 @@ public class GameWorld {
 
     //For the game
     private boolean isPlayButtonPressed;
+    private int totalBudget;
     private int budget;
     private int beamPrice;
     private boolean playerHasLost;
@@ -205,6 +206,10 @@ public class GameWorld {
         if(playerHasWin == true){
             playerHasWin = false;
             Intent i = new Intent(activity, WinActivity.class);
+            i.putExtra("usedTime",deltaTime);
+            i.putExtra("budget",budget);
+            i.putExtra("totalBudget",totalBudget);
+            i.putExtra("timer",timer);
             activity.startActivity(i);
             activity.finish();
         }
@@ -296,6 +301,7 @@ public class GameWorld {
 
     public void setBudget(int budget) {
         this.budget = budget;
+        this.totalBudget = budget;
     }
 
     public boolean isPlayButtonPressed() {
