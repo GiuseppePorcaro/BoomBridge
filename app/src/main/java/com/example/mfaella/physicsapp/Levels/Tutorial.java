@@ -57,8 +57,8 @@ public class Tutorial implements Level{
         createRoadBridge(gw, terrainDx,terrainSx);
         createBridgeScaffolding(gw,terrainDx,terrainSx);
 
-        gw.addGameObject(new BombGO(gw,0,-8,1.5f,1.5f));
-        gw.addGameObject(new BombGO(gw,3,3,1.5f,1.5f));
+        //gw.addGameObject(new BombGO(gw,0,-8,1.5f,1.5f));
+        gw.addGameObject(new BombGO(gw,3.6f,0f,1.5f,1.5f));
 
     }
 
