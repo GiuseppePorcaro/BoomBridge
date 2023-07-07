@@ -38,7 +38,7 @@ public class Tutorial implements Level{
         gw.setPlayButtonPressed(false);
         gw.setBudget(1000);
         gw.setBeamPrice(100);
-        gw.setTimer(10);
+        gw.setTimer(60);
         gw.setTimerToWin(5);
         gw.addGameObject(new BackgroundGO(gw));
         addTree(gw);
@@ -59,8 +59,6 @@ public class Tutorial implements Level{
 
         gw.addGameObject(new BombGO(gw,0,-8,1.5f,1.5f));
         gw.addGameObject(new BombGO(gw,3,3,1.5f,1.5f));
-
-        //DEVO FARE IN MODO CHE QUANDO SI PREME IL BOTTONE, OPPURE SCADE IL TEMPO
 
     }
 

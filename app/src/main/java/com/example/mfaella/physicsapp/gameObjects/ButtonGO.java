@@ -1,6 +1,7 @@
 package com.example.mfaella.physicsapp.gameObjects;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
@@ -8,6 +9,7 @@ import android.graphics.RectF;
 import androidx.annotation.NonNull;
 
 import com.example.mfaella.physicsapp.GameWorld;
+import com.example.mfaella.physicsapp.R;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
 import com.google.fpl.liquidfun.FixtureDef;
@@ -53,23 +55,23 @@ public class ButtonGO extends GameObject{
         dest.bottom = y + screen_semi_height;
         dest.right = x + screen_semi_width;
         dest.top = y - screen_semi_height;
-        // Sprite
-        //canvas.drawBitmap(bitmap, null, dest, null);
-        // Simple box
-        canvas.drawRect(x- screen_semi_width, y- screen_semi_height, x + screen_semi_width, y + screen_semi_height, paint);
+
+        canvas.drawBitmap(bitmap, null, dest, null);
         canvas.restore();
     }
 
     private void setButtonImage(){
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inScaled = false;
         switch (buttonType){
             case PLAY:
-                paint.setARGB(255,0,0,255);
+                bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.bottone_play, o);
                 break;
             case RESET:
                 paint.setARGB(255,0,255,0);
                 break;
             case EXIT:
-                paint.setARGB(255,255,0,0);
+                bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.bottone_exit, o);
             default:
                 paint.setARGB(255,0,0,0);
         }

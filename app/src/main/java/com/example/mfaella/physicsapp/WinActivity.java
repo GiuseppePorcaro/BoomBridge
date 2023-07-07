@@ -15,6 +15,10 @@ public class WinActivity extends AppCompatActivity {
         hideNotificationBar();
     }
 
+    public void closeButtonWinActivityPressed(View view){
+        finish();
+    }
+
     private void hideNotificationBar(){
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
