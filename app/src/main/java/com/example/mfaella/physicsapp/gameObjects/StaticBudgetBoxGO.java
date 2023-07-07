@@ -39,15 +39,14 @@ public class StaticBudgetBoxGO extends GameObject{
         paint.setARGB(255,255,255,255);
         paint.setStyle(Paint.Style.FILL);
         paint.setTextSize(50);
-        paint.setTypeface(Typeface.DEFAULT);
+        paint.setTypeface(Typeface.SANS_SERIF);
         paint.setTextAlign(Paint.Align.CENTER);
 
         DisplayMetrics metrics = new DisplayMetrics();
         gw.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        x = gw.getBufferWidth()/2;
+        x = gw.getBufferWidth()/2-400;
         y = 100;
-        System.out.println("cREATO");
 
     }
 
@@ -55,7 +54,7 @@ public class StaticBudgetBoxGO extends GameObject{
     @Override
     public void draw(Bitmap buffer, float x, float y, float angle) {
         canvas.save();
-        canvas.drawText("Budget: "+gw.getBudget(),this.x,this.y,paint);
+        canvas.drawText("BUDGET: "+gw.getBudget(),this.x,this.y,paint);
         canvas.restore();
     }
 

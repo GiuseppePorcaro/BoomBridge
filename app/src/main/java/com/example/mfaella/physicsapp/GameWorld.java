@@ -5,14 +5,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.widget.ImageView;
 
 import com.badlogic.androidgames.framework.Input;
 import com.badlogic.androidgames.framework.Sound;
 import com.badlogic.androidgames.framework.impl.TouchHandler;
+import com.example.mfaella.physicsapp.gameObjects.BombGO;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.google.fpl.liquidfun.Body;
-import com.google.fpl.liquidfun.Fixture;
 import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.ParticleSystem;
 import com.google.fpl.liquidfun.ParticleSystemDef;
@@ -34,6 +35,7 @@ public class GameWorld {
     int bufferWidth = 1920, bufferHeight = 1080;    // actual pixels
     private Bitmap buffer;
     private Canvas canvas;
+    private Paint paint;
     private Paint particlePaint;
 
     // Simulation
@@ -65,7 +67,16 @@ public class GameWorld {
     private boolean isPlayButtonPressed;
     private int budget;
     private int beamPrice;
-    public boolean playerHasLost;
+    private boolean playerHasLost;
+    private boolean playerHasWin;
+    private float startingTime;
+    private float startingTimeWhenBombExploded;
+
+    private float deltaTimeFromBombsExploded;
+    private float deltaTime;
+
+    private float timer = 60;
+    private float timerToWin = 5;
     final Activity activity;
 
 
@@ -77,8 +88,17 @@ public class GameWorld {
         this.world = new World(0, 0);
         this.buffer = Bitmap.createBitmap(bufferWidth, bufferHeight, Bitmap.Config.ARGB_8888);
         this.currentView = physicalSize;
+        this.canvas = new Canvas(buffer);
+        this.paint = new Paint();
+        paint.setARGB(255,255,255,255);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setTextSize(50);
+        paint.setTypeface(Typeface.SANS_SERIF);
+        paint.setTextAlign(Paint.Align.CENTER);
+        this.startingTime = System.nanoTime() / 1000000000f;
 
         playerHasLost = false;
+        playerHasWin = false;
 
         // The particle system
         ParticleSystemDef psysdef = new ParticleSystemDef();
@@ -154,8 +174,41 @@ public class GameWorld {
 
         checkPlayerHasLost();
 
+        checkPlayerHasWin();
+
+        clock();
     }
 
+
+
+    private void clock(){
+        deltaTime = (System.nanoTime() / 1000000000f) - startingTime;
+
+        if(deltaTime >= timer && isPlayButtonPressed == false){
+            setPlayButtonPressed(true);
+            detonateBombs();
+        }
+
+        if(isPlayButtonPressed()){
+            deltaTimeFromBombsExploded = (System.nanoTime() / 1000000000f) - startingTimeWhenBombExploded;
+
+            if(deltaTimeFromBombsExploded >= timerToWin){
+                playerHasWin = true;
+            }
+        }
+
+
+
+    }
+
+    private void checkPlayerHasWin(){
+        if(playerHasWin == true){
+            playerHasWin = false;
+            Intent i = new Intent(activity, WinActivity.class);
+            activity.startActivity(i);
+            activity.finish();
+        }
+    }
     private void checkPlayerHasLost(){
         if(playerHasLost == true){
             playerHasLost = false;
@@ -203,7 +256,6 @@ public class GameWorld {
     public synchronized void render()
     {
         // clear the screen (with black)
-        canvas.drawARGB(255, 0, 0, 0);
         for (GameObject obj: objects)
             obj.draw(buffer);
         for (GameObject obj: newBeamsAddedByPlayer)
@@ -225,6 +277,18 @@ public class GameWorld {
 
     }
 
+    public void detonateBombs(){
+        Body body = getWorld().getBodyList();
+        setPlayButtonPressed(true);
+        while(body != null){
+            GameObject g = (GameObject) body.getUserData();
+            if(g.getName().contains("Bomb")){
+                BombGO.denotaneBomb(this,g.getBody().getPositionX(),g.getBody().getPositionY());
+            }
+            body = body.getNext();
+        }
+    }
+
     public int getBudget() {
         return budget;
     }
@@ -238,7 +302,16 @@ public class GameWorld {
     }
 
     public void setPlayButtonPressed(boolean playButtonPressed) {
+        startingTimeWhenBombExploded = System.nanoTime() / 1000000000f;
         isPlayButtonPressed = playButtonPressed;
+    }
+
+    public float getStartingTimeWhenBombExploded() {
+        return startingTimeWhenBombExploded;
+    }
+
+    public float getDeltaTimeFromBombsExploded() {
+        return deltaTimeFromBombsExploded;
     }
 
     // Conversions between screen coordinates and physical coordinates
@@ -250,6 +323,10 @@ public class GameWorld {
 
     public void setBeamPrice(int beamPrice) {
         this.beamPrice = beamPrice;
+    }
+
+    public float getDeltaTime() {
+        return deltaTime;
     }
 
     public float toMetersX(float x) { return currentView.xmin + x * (currentView.width/screenSize.width); }
@@ -320,5 +397,21 @@ public class GameWorld {
 
     public void addJoint(Joint joint) {
         joints.add(joint);
+    }
+
+    public void setTimer(float timer) {
+        this.timer = timer;
+    }
+
+    public float getTimer() {
+        return timer;
+    }
+
+    public float getTimerToWin() {
+        return timerToWin;
+    }
+
+    public void setTimerToWin(float timerToWin) {
+        this.timerToWin = timerToWin;
     }
 }

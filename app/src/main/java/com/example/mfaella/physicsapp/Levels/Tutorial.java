@@ -12,6 +12,7 @@ import com.example.mfaella.physicsapp.gameObjects.ButtonType;
 import com.example.mfaella.physicsapp.gameObjects.DynamicJointGO;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.example.mfaella.physicsapp.gameObjects.StaticBudgetBoxGO;
+import com.example.mfaella.physicsapp.gameObjects.StaticTimerGO;
 import com.example.mfaella.physicsapp.gameObjects.StaticTreeGO;
 import com.example.mfaella.physicsapp.gameObjects.TerrainGO;
 import com.example.mfaella.physicsapp.joints.MyRevoluteJoint;
@@ -37,9 +38,12 @@ public class Tutorial implements Level{
         gw.setPlayButtonPressed(false);
         gw.setBudget(1000);
         gw.setBeamPrice(100);
+        gw.setTimer(10);
+        gw.setTimerToWin(5);
         gw.addGameObject(new BackgroundGO(gw));
         addTree(gw);
         gw.addGameObject(new StaticBudgetBoxGO(gw));
+        gw.addGameObject(new StaticTimerGO(gw));
 
         gw.addGameObject(new ButtonGO(gw, ButtonType.PLAY,-22,-13));
         //gw.addGameObject(new ButtonGO(gw, ButtonType.RESET,-18,-13));
@@ -56,7 +60,7 @@ public class Tutorial implements Level{
         gw.addGameObject(new BombGO(gw,0,-8,1.5f,1.5f));
         gw.addGameObject(new BombGO(gw,3,3,1.5f,1.5f));
 
-        //BISOGNA DISEGNARE IL BUDGET E METTERE LA GRAFICA ALLA BOMBA, AI FRAGMENT E AL PULSANTE PLAY. Magare mettere un pulsante che torna indietro dalla partita.
+        //DEVO FARE IN MODO CHE QUANDO SI PREME IL BOTTONE, OPPURE SCADE IL TEMPO
 
     }
 

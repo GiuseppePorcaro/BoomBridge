@@ -1,7 +1,6 @@
 package com.example.mfaella.physicsapp;
 
 import com.badlogic.androidgames.framework.Input;
-import com.example.mfaella.physicsapp.gameObjects.BombGO;
 import com.example.mfaella.physicsapp.gameObjects.BridgeElementGO;
 import com.example.mfaella.physicsapp.gameObjects.BridgeElementType;
 import com.example.mfaella.physicsapp.gameObjects.DynamicJointGO;
@@ -10,8 +9,6 @@ import com.example.mfaella.physicsapp.joints.MyRevoluteJoint;
 import com.google.fpl.liquidfun.AABB;
 import com.google.fpl.liquidfun.Body;
 import com.google.fpl.liquidfun.Fixture;
-import com.google.fpl.liquidfun.Joint;
-import com.google.fpl.liquidfun.MouseJoint;
 import com.google.fpl.liquidfun.QueryCallback;
 import com.google.fpl.liquidfun.Vec2;
 
@@ -115,15 +112,7 @@ public class TouchConsumer {
 
         //controllo start button
         if (isPlayButtonAreaPressed(event)) {
-            Body body = gw.getWorld().getBodyList();
-            gw.setPlayButtonPressed(true);
-            while(body != null){
-                GameObject g = (GameObject) body.getUserData();
-                if(g.getName().contains("Bomb")){
-                    BombGO.denotaneBomb(gw,g.getBody().getPositionX(),g.getBody().getPositionY());
-                }
-                body = body.getNext();
-            }
+            gw.detonateBombs();
         }
 
         /*if(isResetButtonAreaPressed(event)){
