@@ -25,8 +25,8 @@ import com.example.mfaella.physicsapp.CollisionSounds;
 import com.example.mfaella.physicsapp.MyRaycast;
 import com.example.mfaella.physicsapp.GameWorld;
 import com.example.mfaella.physicsapp.Levels.Level;
+import com.example.mfaella.physicsapp.Levels.SecondLevel;
 import com.example.mfaella.physicsapp.Levels.FirstLevel;
-import com.example.mfaella.physicsapp.Levels.Tutorial;
 import com.example.mfaella.physicsapp.R;
 import com.example.mfaella.physicsapp.gameObjects.EnclosureGO;
 
@@ -95,10 +95,10 @@ public class GameActivity extends Activity {
     private void factoryLevel() {
         switch (gameLevel){
             case 0:
-                level = new Tutorial();
+                level = new FirstLevel();
                 break;
             case 1:
-                level = new FirstLevel();
+                level = new SecondLevel();
                 break;
         }
     }

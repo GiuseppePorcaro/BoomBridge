@@ -32,6 +32,11 @@ public class ChooseLevelActivity extends AppCompatActivity {
         startGameActivity(1);
     }
 
+    public void howToPlayButtonPressed(View view){
+        Intent intent = new Intent(this, HowToPlayActivity.class);
+        startActivity(intent);
+    }
+
     public void startGameActivity(int level){
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("level",level);

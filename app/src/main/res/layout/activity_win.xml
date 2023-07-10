@@ -37,7 +37,7 @@
         android:layout_marginTop="28dp"
         android:background="@drawable/button_selector"
         android:onClick="closeButtonWinActivityPressed"
-        android:text="Select Level"
+        android:text="@string/selectLevelButton"
         android:textColor="@color/backgroundColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"

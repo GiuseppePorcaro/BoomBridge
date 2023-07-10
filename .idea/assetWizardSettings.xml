@@ -37,7 +37,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$PROJECT_DIR$/../../../../../bomb.png" />
+                                                <entry key="imagePath" value="$PROJECT_DIR$/../Assets/newAssets/background_title.png" />
                                                 <entry key="opacityPercent" value="60" />
                                                 <entry key="paddingPercent" value="-10" />
                                               </map>
@@ -74,7 +74,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$PROJECT_DIR$/../../../../../bomb.png" />
+                                      <entry key="imageAsset" value="$PROJECT_DIR$/../Assets/newAssets/background_title.png" />
                                       <entry key="outputName" value="bomb" />
                                     </map>
                                   </option>
@@ -103,6 +103,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="imagePath" value="$PROJECT_DIR$/../Assets/newAssets/background_title.png" />
+                                                <entry key="scalingPercent" value="74" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -298,11 +300,6 @@
                                 </PersistentState>
                               </value>
                             </entry>
-                          </map>
-                        </option>
-                        <option name="values">
-                          <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>

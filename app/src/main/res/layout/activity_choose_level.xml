@@ -21,28 +21,40 @@
         android:id="@+id/tutorialButton"
         android:layout_width="145dp"
         android:layout_height="65dp"
+        android:layout_marginBottom="44dp"
         android:background="@drawable/button_selector"
         android:onClick="tutorialButtonPressed"
-        android:text="@string/tutorialButton"
+        android:text="@string/levelOneButton"
         android:textColor="@color/backgroundColor"
         app:layout_constraintBottom_toTopOf="@+id/levelOneButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.681" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/levelOneButton"
         android:layout_width="145dp"
         android:layout_height="65dp"
-        android:layout_marginBottom="96dp"
+        android:layout_marginBottom="48dp"
         android:background="@drawable/button_selector"
         android:onClick="levelOneButtonPressed"
-        android:text="@string/levelOneButton"
+        android:text="@string/levelTwoButton"
         android:textColor="@color/backgroundColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="145dp"
+        android:layout_height="65dp"
+        android:background="@drawable/button_selector"
+        android:text="@string/howToPlayButton"
+        android:textColor="@color/backgroundColor"
+        app:layout_constraintBottom_toTopOf="@+id/tutorialButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.628"
+        android:onClick="howToPlayButtonPressed"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

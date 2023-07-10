@@ -4,6 +4,9 @@
     <string name="important_info">IMPORTANTINFO</string>
     <string name="playButtonString">PLAY</string>
     <string name="aboutButtonString">ABOUT</string>
-    <string name="tutorialButton">TUTORIAL</string>
     <string name="levelOneButton">LEVEL 1</string>
+    <string name="levelTwoButton">LEVEL 2</string>
+    <string name="exitButton">EXIT</string>
+    <string name="selectLevelButton">SELECT LEVEL</string>
+    <string name="howToPlayButton">HOW TO PLAY</string>
 </resources>
