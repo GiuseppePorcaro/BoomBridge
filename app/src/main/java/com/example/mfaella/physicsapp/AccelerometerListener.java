@@ -5,9 +5,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.util.Log;
 
-/**
- * Created by mfaella on 28/02/16.
- */
 public class AccelerometerListener implements SensorEventListener {
 
     private final GameWorld gw;

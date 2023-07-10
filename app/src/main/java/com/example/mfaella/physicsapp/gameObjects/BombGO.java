@@ -27,9 +27,9 @@ public class BombGO extends GameObject{
     private Canvas canvas;
     private Paint paint = new Paint();
     private Bitmap bitmap;
-    private static final float blastPower = 1.0f;
+    private static final float blastPower = 70.0f;
 
-    private static final int numRays = 32;
+    private static final int numRays = 36;
     private final RectF dest = new RectF();
     private static int instances = 0;
 

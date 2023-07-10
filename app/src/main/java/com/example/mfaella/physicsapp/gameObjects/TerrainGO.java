@@ -50,7 +50,7 @@ public class TerrainGO extends GameObject{
         bodyDef.setPosition(x,y);
         this.body = gw.getWorld().createBody(bodyDef);
         body.setSleepingAllowed(false);
-        this.name = "Terreno "+ instances;
+        this.name = "Terrain "+ instances;
         body.setUserData(this);
 
 

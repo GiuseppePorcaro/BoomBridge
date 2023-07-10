@@ -5,7 +5,7 @@
     android:id="@+id/youWinImageView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WinActivity">
+    tools:context=".activities.WinActivity">
 
     <ImageView
         android:id="@+id/winBackgroundImageView"
@@ -32,8 +32,8 @@
 
     <Button
         android:id="@+id/winActivityButton"
-        android:layout_width="170dp"
-        android:layout_height="67dp"
+        android:layout_width="145dp"
+        android:layout_height="65dp"
         android:layout_marginTop="28dp"
         android:background="@drawable/button_selector"
         android:onClick="closeButtonWinActivityPressed"

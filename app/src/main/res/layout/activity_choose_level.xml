@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChooseLevelActivity">
+    tools:context=".activities.ChooseLevelActivity">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -19,8 +19,8 @@
 
     <Button
         android:id="@+id/tutorialButton"
-        android:layout_width="110dp"
-        android:layout_height="60dp"
+        android:layout_width="145dp"
+        android:layout_height="65dp"
         android:background="@drawable/button_selector"
         android:onClick="tutorialButtonPressed"
         android:text="@string/tutorialButton"
@@ -34,16 +34,15 @@
 
     <Button
         android:id="@+id/levelOneButton"
-        android:layout_width="110dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="108dp"
+        android:layout_width="145dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="96dp"
         android:background="@drawable/button_selector"
         android:onClick="levelOneButtonPressed"
         android:text="@string/levelOneButton"
         android:textColor="@color/backgroundColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

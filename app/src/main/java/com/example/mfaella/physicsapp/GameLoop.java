@@ -1,50 +1,82 @@
 package com.example.mfaella.physicsapp;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 
-import com.example.mfaella.physicsapp.gameObjects.GameObject;
-import com.google.fpl.liquidfun.Fixture;
-import com.google.fpl.liquidfun.RayCastCallback;
-import com.google.fpl.liquidfun.Vec2;
-
-public class GameLoop extends Thread {
-    public volatile int counter;
-    private GameWorld gw;
-
-    public GameLoop(GameWorld gw)
-    {
-        this.gw = gw;
+public class GameLoop extends SurfaceView implements Runnable {
+    private Bitmap framebuffer;
+    private Thread renderThread = null;
+    private SurfaceHolder holder;
+    private GameWorld gameworld;
+    private volatile boolean running = false;
+    
+    public GameLoop(Context context, GameWorld gw) {
+        super(context);
+        this.gameworld = gw;
+        this.framebuffer = gw.getBuffer();
+        this.holder = getHolder();
     }
 
-    private void testRayCasting() {
-        Log.i("MyThread", "Objects across the short middle line:");
-        RayCastCallback listener = new RayCastCallback() {
-          @Override
-          public float reportFixture(Fixture f, Vec2 point, Vec2 normal, float fraction) {
-              //Log.i("MyThread", ((GameObject)f.getBody().getUserData()).getName() + " (" + fraction + ")");
-              return 1;
-          }
-        };
-        Vec2 p1 = new Vec2(-10, 0);
-        Vec2 p2 = new Vec2(10, 0);
-        gw.getWorld().rayCast(listener,p1 , p2);
+    /** Starts the game loop in a separate thread.
+     */
+    public void resume() {
+        running = true;
+        renderThread = new Thread(this);
+        renderThread.start();         
     }
 
-    @Override
-    public void run() {
-
-        while (true) {
+    /** Stops the game loop and waits for it to finish
+     */
+    public void pause() {
+        running = false;
+        while(true) {
             try {
-                sleep(1000/60);
-                counter++;
-                Log.i("MyThread", "counter: " + counter);
-                // inverts gravity
-                /* float gravity_x = -4 + 8*(counter%2),
-                        gravity_y = 0;
-                   gw.setGravity(gravity_x, gravity_y); */
-                testRayCasting();
+                renderThread.join();
+                break;
             } catch (InterruptedException e) {
-                return;
+                // just retry
+            }
+        }
+    }
+
+    public void run() {
+        Rect dstRect = new Rect();
+        long startTime = System.nanoTime(), fpsTime = startTime, frameCounter = 0;
+
+        /*** The Game Main Loop ***/
+        while (running) {
+            if(!holder.getSurface().isValid()) {
+                // too soon (busy waiting), this only happens on startup and resume
+                continue;
+            }
+
+            long currentTime = System.nanoTime();
+            // deltaTime is in seconds
+            float deltaTime = (currentTime-startTime) / 1000000000f,
+                  fpsDeltaTime = (currentTime-fpsTime) / 1000000000f;
+            startTime = currentTime;
+
+            gameworld.update(deltaTime);
+            gameworld.render();
+
+            // Draw framebuffer on screen
+            Canvas canvas = holder.lockCanvas();
+            canvas.getClipBounds(dstRect);
+            // Scales to actual screen resolution
+            canvas.drawBitmap(framebuffer, null, dstRect, null);
+            holder.unlockCanvasAndPost(canvas);
+
+            // Measure FPS
+            frameCounter++;
+            if (fpsDeltaTime > 1) { // Print every second
+                Log.d("FastRenderView", "Current FPS = " + frameCounter);
+                frameCounter = 0;
+                fpsTime = currentTime;
             }
         }
     }

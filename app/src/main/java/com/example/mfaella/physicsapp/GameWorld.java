@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import com.badlogic.androidgames.framework.Input;
 import com.badlogic.androidgames.framework.Sound;
 import com.badlogic.androidgames.framework.impl.TouchHandler;
+import com.example.mfaella.physicsapp.activities.GameOverActivity;
+import com.example.mfaella.physicsapp.activities.WinActivity;
 import com.example.mfaella.physicsapp.gameObjects.BombGO;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
 import com.google.fpl.liquidfun.Body;
@@ -119,16 +121,6 @@ public class GameWorld {
         this.newBeamsAddedByPlayer = new ArrayList<>();
         this.newJointsAddedByPlayer = new ArrayList<>();
     }
-
-    /*private void setWindowMetrics(){
-        DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-        System.out.println("Width: "+metrics.widthPixels+" - Height: "+metrics.heightPixels+" - dpi: "+metrics.xdpi);
-
-        //this.bufferWidth = metrics.widthPixels;
-        //this.bufferHeight = metrics.heightPixels;
-    }*/
 
     public synchronized GameObject addGameObject(GameObject obj)
     {

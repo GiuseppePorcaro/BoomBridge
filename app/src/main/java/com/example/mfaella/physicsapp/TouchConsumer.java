@@ -102,9 +102,10 @@ public class TouchConsumer {
                 Object userData = touchedBody.getUserData();
                 if (userData != null) {
                     GameObject touchedGO = (GameObject) userData;
-                    if(isTouchedElementValid(touchedGO)){
+                    if(isTouchedElementValid(touchedGO) && firstTouchedGO != null){
                         addNewBeam(touchedGO);
                         gw.setBudget(gw.getBudget()-gw.getBeamPrice());
+                        firstTouchedGO = null;
                     }
                 }
             }
@@ -165,7 +166,7 @@ public class TouchConsumer {
     }
 
     private boolean isNewBeamPossible() {
-        return gw.getBudget() > gw.getBeamPrice() && gw.isPlayButtonPressed() == false;
+        return gw.getBudget() >= gw.getBeamPrice() && gw.isPlayButtonPressed() == false;
     }
     private void getAABB(float x, float y) {
         p1.setX(x - POINTER_SIZE);
@@ -177,7 +178,7 @@ public class TouchConsumer {
     }
 
     private static boolean isTouchedElementValid(GameObject touchedGO) {
-        return touchedGO.getName().contains("BEAM") || touchedGO.getName().contains("ROAD") || touchedGO.getName().contains("JOINT");
+        return touchedGO.getName().contains("BEAM") || touchedGO.getName().contains("ROAD") || touchedGO.getName().contains("JOINT") || touchedGO.getName().contains("Terrain");
     }
 
 }

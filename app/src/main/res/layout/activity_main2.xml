@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -22,32 +22,32 @@
 
     <Button
         android:id="@+id/buttonGioca"
-        android:layout_width="97dp"
-        android:layout_height="51dp"
+        android:layout_width="140dp"
+        android:layout_height="65dp"
         android:background="@drawable/button_selector"
         android:onClick="playButtonPressed"
         android:text="@string/playButtonString"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.348"
+        app:layout_constraintHorizontal_bias="0.326"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.744" />
+        app:layout_constraintVertical_bias="0.739" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="93dp"
-        android:layout_height="48dp"
+        android:layout_width="145dp"
+        android:layout_height="65dp"
         android:background="@drawable/button_selector"
         android:onClick="aboutButtonPressed"
         android:text="@string/aboutButtonString"
         android:textColor="@color/backgroundColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.309"
+        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toEndOf="@+id/buttonGioca"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.738" />
+        app:layout_constraintVertical_bias="0.739" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
