@@ -83,7 +83,6 @@ public class GameWorld {
     final Activity activity;
 
 
-
     public GameWorld(Box physicalSize, Box screenSize, Activity theActivity) {
         this.physicalSize = physicalSize;
         this.screenSize = screenSize;
@@ -173,7 +172,6 @@ public class GameWorld {
     }
 
 
-
     private void clock(){
         deltaTime = (System.nanoTime() / 1000000000f) - startingTime;
 
@@ -189,9 +187,6 @@ public class GameWorld {
                 playerHasWin = true;
             }
         }
-
-
-
     }
 
     private void checkPlayerHasWin(){

@@ -93,10 +93,10 @@ public class BombGO extends GameObject{
     private FixtureDef createFixtureDef(PolygonShape box) {
 
         Filter filter = new Filter();
-        filter.setGroupIndex((short) -1);
+        //filter.setGroupIndex((short) -1);
         FixtureDef fixturedef = new FixtureDef();
         fixturedef.setShape(box);
-        fixturedef.setIsSensor(true);
+        //fixturedef.setIsSensor(true);
         fixturedef.setFriction(0.1f);
         fixturedef.setRestitution(0.4f);
         fixturedef.setDensity(0.0f);
@@ -107,7 +107,7 @@ public class BombGO extends GameObject{
     private BodyDef createBodyDef(GameWorld gw, float x, float y) {
         BodyDef bdef = new BodyDef();
         bdef.setPosition(x, y);
-        bdef.setType(BodyType.staticBody);
+        bdef.setType(BodyType.dynamicBody);
         this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
         this.name = "Bomb" + instances;
