@@ -21,6 +21,7 @@ public class WinActivity extends AppCompatActivity {
 
         ratingBar = (RatingBar) findViewById(R.id.winActivityRatingBar);
         ratingBar.setNumStars(3);
+        ratingBar.setIsIndicator(true);
 
         float timer = getIntent().getFloatExtra("timer",0);
         float usedTime = getIntent().getFloatExtra("usedTime",0);

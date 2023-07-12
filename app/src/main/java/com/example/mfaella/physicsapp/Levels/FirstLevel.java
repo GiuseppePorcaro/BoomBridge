@@ -59,6 +59,8 @@ public class FirstLevel implements Level{
 
         gw.addGameObject(new BombGO(gw,3.6f,0f,1.5f,1.5f));
 
+
+
     }
 
     private void addTree(GameWorld gw){

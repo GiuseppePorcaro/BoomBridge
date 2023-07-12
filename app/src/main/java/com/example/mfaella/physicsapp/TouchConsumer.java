@@ -78,7 +78,7 @@ public class TouchConsumer {
         float x = gw.toMetersX(event.x), y = gw.toMetersY(event.y);
         touchedFixture = null;
 
-
+        System.out.println("Posizione: "+event.x+","+event.y+" - Posizione to meter: "+x+","+y);
         getAABB(x, y);
         gw.getWorld().queryAABB(touchQueryCallback, aabb);
         if (touchedFixture != null) {

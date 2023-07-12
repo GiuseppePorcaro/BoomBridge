@@ -27,7 +27,7 @@ public class BombGO extends GameObject{
     private Canvas canvas;
     private Paint paint = new Paint();
     private Bitmap bitmap;
-    private static final float blastPower = 90.0f;
+    private static final float blastPower = 100.0f;
 
     private static final int numRays = 36;
     private final RectF dest = new RectF();
@@ -114,6 +114,8 @@ public class BombGO extends GameObject{
         body.setUserData(this);
         return bdef;
     }
+
+
 
     @Override
     public void delete() {

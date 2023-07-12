@@ -28,7 +28,8 @@
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scoreImageView"
-        android:theme="@style/RatingBar"/>
+        android:theme="@style/RatingBar"
+        android:contentDescription="Your rating" />
 
     <Button
         android:id="@+id/winActivityButton"

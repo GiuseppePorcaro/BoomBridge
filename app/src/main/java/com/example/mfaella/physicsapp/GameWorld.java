@@ -203,6 +203,14 @@ public class GameWorld {
         }
     }
     private void checkPlayerHasLost(){
+        Body body = getWorld().getBodyList();
+        while(body!=null){
+            GameObject g = (GameObject) body.getUserData();
+            if(g.getName().contains("ROAD") && g.getPosY() > toPixelsY(10)){
+                playerHasLost = true;
+            }
+            body = body.getNext();
+        }
         if(playerHasLost == true){
             playerHasLost = false;
             Intent i = new Intent(activity, GameOverActivity.class);
