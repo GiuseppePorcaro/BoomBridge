@@ -19,6 +19,10 @@ public class GameOverActivity extends AppCompatActivity {
         setContentView(R.layout.game_over);
 
         hideNotificationBar();
+
+        if(!MainActivity.mainTheme.isPlaying()){
+            MainActivity.mainTheme.play();
+        }
     }
 
     public void closeButtonPressed(View view){

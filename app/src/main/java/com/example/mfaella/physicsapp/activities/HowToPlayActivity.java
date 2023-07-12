@@ -16,6 +16,10 @@ public class HowToPlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_how_to_play);
 
         hideNotificationBar();
+
+        if(!MainActivity.mainTheme.isPlaying()){
+            MainActivity.mainTheme.play();
+        }
     }
 
     public void exitButtonPressed(View view){

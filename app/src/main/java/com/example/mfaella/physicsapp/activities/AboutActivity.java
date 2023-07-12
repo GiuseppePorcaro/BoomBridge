@@ -16,6 +16,10 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
 
         hideNotificationBar();
+
+        if(!MainActivity.mainTheme.isPlaying()){
+            MainActivity.mainTheme.play();
+        }
     }
 
     public void backButtonPressed(View view){

@@ -60,8 +60,6 @@ public class GameActivity extends Activity {
         // Sound
         audio = new AndroidAudio(this);
         CollisionSounds.init(audio);
-        backgroundMusic = audio.newMusic("soundtrack.mp3");
-        backgroundMusic.play();
 
         // Game world
         GameWorld gw = createGameWorld();
@@ -96,11 +94,14 @@ public class GameActivity extends Activity {
         switch (gameLevel){
             case 0:
                 level = new FirstLevel();
+                backgroundMusic = audio.newMusic("level1.mp3");
                 break;
             case 1:
                 level = new SecondLevel();
+                backgroundMusic = audio.newMusic("level2.mp3");
                 break;
         }
+        backgroundMusic.play();
     }
 
     @NonNull

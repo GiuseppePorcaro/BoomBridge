@@ -39,6 +39,10 @@ public class WinActivity extends AppCompatActivity {
 
         ratingBar.setRating(rating);
 
+        if(!MainActivity.mainTheme.isPlaying()){
+            MainActivity.mainTheme.play();
+        }
+
     }
 
     public void closeButtonWinActivityPressed(View view){

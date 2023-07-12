@@ -23,20 +23,62 @@
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="390dp"
-                android:background="@drawable/background_title" />
+                android:background="@drawable/tutorial1" />
 
             <View
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="390dp"
-                android:background="@drawable/background_title2" />
+                android:background="@drawable/tutorial2" />
 
             <View
                 android:id="@+id/view3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="390"
-                android:background="@drawable/gameover_background" />
+                android:background="@drawable/tutorial3" />
+
+            <ImageView
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="390dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/tutorial4" />
+
+            <ImageView
+                android:id="@+id/view5"
+                android:layout_width="wrap_content"
+                android:layout_height="390dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/tutorial5" />
+
+            <ImageView
+                android:id="@+id/view6"
+                android:layout_width="wrap_content"
+                android:layout_height="390dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/tutorial6" />
+
+            <ImageView
+                android:id="@+id/view7"
+                android:layout_width="wrap_content"
+                android:layout_height="390dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/tutorial7" />
+
+            <ImageView
+                android:id="@+id/view8"
+                android:layout_width="wrap_content"
+                android:layout_height="390dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/tutorial8" />
+
+            <ImageView
+                android:id="@+id/view9"
+                android:layout_width="wrap_content"
+                android:layout_height="390dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/tutorial9" />
 
             <Button
                 android:id="@+id/button4"

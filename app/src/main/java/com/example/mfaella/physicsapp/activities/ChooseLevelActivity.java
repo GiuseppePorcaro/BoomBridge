@@ -16,6 +16,10 @@ public class ChooseLevelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_level);
 
         hideNotificationBar();
+
+        if(!MainActivity.mainTheme.isPlaying()){
+            MainActivity.mainTheme.play();
+        }
     }
 
     private void hideNotificationBar(){
@@ -41,5 +45,6 @@ public class ChooseLevelActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("level",level);
         startActivity(intent);
+        MainActivity.mainTheme.stop();
     }
 }

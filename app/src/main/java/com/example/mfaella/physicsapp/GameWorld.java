@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.badlogic.androidgames.framework.Input;
 import com.badlogic.androidgames.framework.Sound;
+import com.badlogic.androidgames.framework.impl.AndroidAudio;
 import com.badlogic.androidgames.framework.impl.TouchHandler;
 import com.example.mfaella.physicsapp.activities.GameOverActivity;
 import com.example.mfaella.physicsapp.activities.WinActivity;
@@ -272,9 +273,13 @@ public class GameWorld {
     public void detonateBombs(){
         Body body = getWorld().getBodyList();
         setPlayButtonPressed(true);
+        AndroidAudio audio = new AndroidAudio(activity);
+        Sound sound;
         while(body != null){
             GameObject g = (GameObject) body.getUserData();
             if(g.getName().contains("Bomb")){
+                sound = audio.newSound("explosionEffect.mp3");
+                sound.play(20f);
                 BombGO.denotaneBomb(this,g.getBody().getPositionX(),g.getBody().getPositionY());
                 g.delete();
             }
