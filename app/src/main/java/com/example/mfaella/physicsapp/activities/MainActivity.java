@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static Music mainTheme = null;
-    private AndroidAudio audio;
+    public static AndroidAudio audio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

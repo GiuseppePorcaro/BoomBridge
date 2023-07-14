@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.badlogic.androidgames.framework.impl.AndroidAudio;
 import com.example.mfaella.physicsapp.R;
 
 public class ChooseLevelActivity extends AppCompatActivity {
@@ -16,6 +17,11 @@ public class ChooseLevelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_level);
 
         hideNotificationBar();
+
+        if(MainActivity.mainTheme == null){
+            MainActivity.audio = new AndroidAudio(this);
+            MainActivity.mainTheme = MainActivity.audio.newMusic("menuTheme.mp4");
+        }
 
         if(!MainActivity.mainTheme.isPlaying()){
             MainActivity.mainTheme.play();

@@ -68,7 +68,7 @@ public class ButtonGO extends GameObject{
                 bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.bottone_play, o);
                 break;
             case RESET:
-                bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.bottone_exit, o);
+                bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.refresh_button, o);
                 break;
             case EXIT:
                 bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.bottone_exit, o);

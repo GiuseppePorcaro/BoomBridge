@@ -35,6 +35,7 @@ public class SecondLevel implements Level{
     public void createLevel(GameWorld gw) {
         gw.setPlayButtonPressed(false);
         gw.setBudget(600);
+        gw.setTotalBudget(600);
         gw.setBeamPrice(100);
         gw.setTimer(40);
         gw.setTimerToWin(5);
@@ -45,7 +46,7 @@ public class SecondLevel implements Level{
         gw.addGameObject(new TerroristGO(gw,-16,0.0f));
 
         gw.addGameObject(new ButtonGO(gw, ButtonType.PLAY,-22,-13));
-        //gw.addGameObject(new ButtonGO(gw, ButtonType.RESET,-18,-13));
+        gw.addGameObject(new ButtonGO(gw, ButtonType.RESET,-18,-13));
         gw.addGameObject(new ButtonGO(gw,ButtonType.EXIT,22,-13));
 
         //Terrain

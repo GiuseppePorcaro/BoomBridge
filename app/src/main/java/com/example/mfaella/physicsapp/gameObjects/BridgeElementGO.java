@@ -26,7 +26,7 @@ import com.google.fpl.liquidfun.PolygonShape;
 public class BridgeElementGO extends GameObject{
 
     private BridgeElementType bridgeElementType;
-    private final float density  = 1.0f, friction = 0.1f, restitution = 0.2f;
+    private final float density  = 0.5f, friction = 0.1f, restitution = 0.2f;
 
     private static int instances = 0;
     private final Canvas canvas;

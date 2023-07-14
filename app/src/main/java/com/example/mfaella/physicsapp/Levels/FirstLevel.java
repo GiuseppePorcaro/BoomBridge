@@ -36,6 +36,7 @@ public class FirstLevel implements Level{
 
         gw.setPlayButtonPressed(false);
         gw.setBudget(1000);
+        gw.setTotalBudget(1000);
         gw.setBeamPrice(100);
         gw.setTimer(60);
         gw.setTimerToWin(5);
@@ -46,7 +47,7 @@ public class FirstLevel implements Level{
         gw.addGameObject(new TerroristGO(gw,-17,0.0f));
 
         gw.addGameObject(new ButtonGO(gw, ButtonType.PLAY,-22,-13));
-        //gw.addGameObject(new ButtonGO(gw, ButtonType.RESET,-18,-13));
+        gw.addGameObject(new ButtonGO(gw, ButtonType.RESET,-18,-13));
         gw.addGameObject(new ButtonGO(gw,ButtonType.EXIT,22,-13));
 
         //Terrain

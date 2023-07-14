@@ -27,7 +27,7 @@ public class BombGO extends GameObject{
     private Canvas canvas;
     private Paint paint = new Paint();
     private Bitmap bitmap;
-    private static final float blastPower = 100.0f;
+    private static final float blastPower = 300.0f;
 
     private static final int numRays = 36;
     private final RectF dest = new RectF();
@@ -99,7 +99,7 @@ public class BombGO extends GameObject{
         //fixturedef.setIsSensor(true);
         fixturedef.setFriction(0.1f);
         fixturedef.setRestitution(0.4f);
-        fixturedef.setDensity(0.0f);
+        fixturedef.setDensity(0.5f);
         return fixturedef;
     }
 

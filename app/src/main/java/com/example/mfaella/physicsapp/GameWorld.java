@@ -206,7 +206,7 @@ public class GameWorld {
         Body body = getWorld().getBodyList();
         while(body!=null){
             GameObject g = (GameObject) body.getUserData();
-            if(g.getName().contains("ROAD") && g.getPosY() > toPixelsY(10)){
+            if(g.getName().contains("ROAD") && g.getPosY() > toPixelsY(5)){
                 playerHasLost = true;
             }
             body = body.getNext();
@@ -220,10 +220,19 @@ public class GameWorld {
     }
 
     public void resetGame(){
-        for(GameObject g: newBeamsAddedByPlayer){
+        for(int i = 0; i < newJointsAddedByPlayer.size(); i++){
+            Joint j = newJointsAddedByPlayer.remove(i);
+            j.delete();
+            System.out.println("Removed all joints");
+        }
+
+        for(int i = 0; i < newBeamsAddedByPlayer.size(); i++){
+            GameObject g = newBeamsAddedByPlayer.remove(i);
             g.delete();
             world.destroyBody(g.getBody());
+            System.out.println("Removed all beams");
         }
+        budget = totalBudget;
 
     }
 
@@ -244,7 +253,7 @@ public class GameWorld {
             Joint j = joints.get(i);
             Vec2 reactionForceVec = j.getReactionForce(1/ elapsedTime);
             float reactionForce = reactionForceVec.lengthSquared();
-            float maxMass = 15000;
+            float maxMass = 150000;
             float maxForce = maxMass * 9.8f;
             if(Math.abs(reactionForce) > Math.abs(maxForce)){
                 joints.remove(i);
@@ -301,7 +310,10 @@ public class GameWorld {
 
     public void setBudget(int budget) {
         this.budget = budget;
-        this.totalBudget = budget;
+    }
+
+    public void setTotalBudget(int totalBudget) {
+        this.totalBudget = totalBudget;
     }
 
     public boolean isPlayButtonPressed() {

@@ -126,7 +126,6 @@ public class TouchConsumer {
                         addNewBeam(touchedGO, bodyX, bodyY, distance, price);
                     }
                     firstTouchedGO = null;
-
                 }
             }
 
@@ -137,9 +136,9 @@ public class TouchConsumer {
             gw.detonateBombs();
         }
 
-        /*if(isResetButtonAreaPressed(event)){
+        if(isResetButtonAreaPressed(event)){
             gw.resetGame();
-        }*/
+        }
 
         if(isExitButtonPressed(event)){
             gw.getActivity().finish();
@@ -181,9 +180,9 @@ public class TouchConsumer {
         return 2198 < event.x && event.x < 2300 && 93 < event.y && event.y < 194;
     }
 
-    /*private boolean isResetButtonAreaPressed(Input.TouchEvent event) {
+    private boolean isResetButtonAreaPressed(Input.TouchEvent event) {
         return 280 < event.x && event.x < 386 && 93 < event.y && event.y < 194 && gw.isPlayButtonPressed() == false;
-    }*/
+    }
 
     private boolean isPlayButtonAreaPressed(Input.TouchEvent event) {
         return 93 < event.x && event.x < 194 && 93 < event.y && event.y < 194 && gw.isPlayButtonPressed() == false;

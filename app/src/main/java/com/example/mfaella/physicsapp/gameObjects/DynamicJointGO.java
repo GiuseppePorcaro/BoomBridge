@@ -60,6 +60,7 @@ public class DynamicJointGO extends GameObject
 
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inScaled = false;
+        o.inMutable = true;
         bitmap = BitmapFactory.decodeResource(gw.getActivity().getResources(), R.drawable.joint, o);
     }
 
@@ -113,6 +114,6 @@ public class DynamicJointGO extends GameObject
 
     @Override
     public void delete() {
-        canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        bitmap.eraseColor(0);
     }
 }
