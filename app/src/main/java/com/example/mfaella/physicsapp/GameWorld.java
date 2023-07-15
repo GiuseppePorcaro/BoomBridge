@@ -82,6 +82,7 @@ public class GameWorld {
     private float timer = 60;
     private float timerToWin = 5;
     final Activity activity;
+    private boolean refreshLevel;
 
 
     public GameWorld(Box physicalSize, Box screenSize, Activity theActivity) {
@@ -102,6 +103,7 @@ public class GameWorld {
 
         playerHasLost = false;
         playerHasWin = false;
+        refreshLevel = false;
 
         // The particle system
         ParticleSystemDef psysdef = new ParticleSystemDef();
@@ -163,7 +165,7 @@ public class GameWorld {
 
         handleJoints(elapsedTime);
 
-        removeOldFragments();
+        checkBodiesToRemove();
 
         checkPlayerHasLost();
 
@@ -219,24 +221,37 @@ public class GameWorld {
         }
     }
 
-    public void resetGame(){
+    private void checkBodiesToRemove(){
+        removeBombFragments();
+
+        if(refreshLevel == true){
+            removeAllBodiesAddedByPlayer();
+            if(newBeamsAddedByPlayer.size() == 0 && newJointsAddedByPlayer.size() == 0){
+                refreshLevel = false;
+            }
+        }
+    }
+
+    public void removeAllBodiesAddedByPlayer(){
         for(int i = 0; i < newJointsAddedByPlayer.size(); i++){
             Joint j = newJointsAddedByPlayer.remove(i);
             j.delete();
-            System.out.println("Removed all joints");
         }
 
         for(int i = 0; i < newBeamsAddedByPlayer.size(); i++){
             GameObject g = newBeamsAddedByPlayer.remove(i);
             g.delete();
             world.destroyBody(g.getBody());
-            System.out.println("Removed all beams");
         }
         budget = totalBudget;
 
     }
 
-    private void removeOldFragments(){
+    public void resetGame(){
+        this.refreshLevel = true;
+    }
+
+    private void removeBombFragments() {
         Body body = getWorld().getBodyList();
         while(body != null){
             GameObject g = (GameObject) body.getUserData();
