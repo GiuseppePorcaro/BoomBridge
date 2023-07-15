@@ -78,7 +78,6 @@ public class TouchConsumer {
         float x = gw.toMetersX(event.x), y = gw.toMetersY(event.y);
         touchedFixture = null;
 
-        System.out.println("Posizione: "+event.x+","+event.y+" - Posizione to meter: "+x+","+y);
         getAABB(x, y);
         gw.getWorld().queryAABB(touchQueryCallback, aabb);
         if (touchedFixture != null) {
@@ -98,7 +97,6 @@ public class TouchConsumer {
     private void consumeTouchUp(Input.TouchEvent event) {
         touchedFixture = null;
         float x = gw.toMetersX(event.x), y = gw.toMetersY(event.y);
-        System.out.println(event.x+" - "+event.y);
 
         endPoint.setX(x);
         endPoint.setY(y);
@@ -129,20 +127,23 @@ public class TouchConsumer {
                 }
             }
 
+
+            if (isPlayButtonAreaPressed(touchedFixture)) {
+                gw.detonateBombs();
+            }
+
+            if(isResetButtonAreaPressed(touchedFixture)){
+                gw.resetGame();
+            }
+
+            if(isExitButtonPressed(touchedFixture)){
+                gw.getActivity().finish();
+            }
+
         }
 
-        //controllo start button
-        if (isPlayButtonAreaPressed(event)) {
-            gw.detonateBombs();
-        }
 
-        if(isResetButtonAreaPressed(event)){
-            gw.resetGame();
-        }
 
-        if(isExitButtonPressed(event)){
-            gw.getActivity().finish();
-        }
     }
 
     private float getDistance() {
@@ -176,16 +177,19 @@ public class TouchConsumer {
         return (int) ((beamStandardPrice*distance)/beamStandardLength);
     }
 
-    private boolean isExitButtonPressed(Input.TouchEvent event) {
-        return 2198 < event.x && event.x < 2300 && 93 < event.y && event.y < 194;
+    private boolean isExitButtonPressed(Fixture touchedFixture) {
+        GameObject g = (GameObject) touchedFixture.getBody().getUserData();
+        return g.getName().contains("EXIT") && gw.isPlayButtonPressed() == false;
     }
 
-    private boolean isResetButtonAreaPressed(Input.TouchEvent event) {
-        return 280 < event.x && event.x < 386 && 93 < event.y && event.y < 194 && gw.isPlayButtonPressed() == false;
+    private boolean isResetButtonAreaPressed(Fixture touchedFixture) {
+        GameObject g = (GameObject) touchedFixture.getBody().getUserData();
+        return g.getName().contains("RESET") && gw.isPlayButtonPressed() == false;
     }
 
-    private boolean isPlayButtonAreaPressed(Input.TouchEvent event) {
-        return 93 < event.x && event.x < 194 && 93 < event.y && event.y < 194 && gw.isPlayButtonPressed() == false;
+    private boolean isPlayButtonAreaPressed(Fixture touchedFixture) {
+        GameObject g = (GameObject) touchedFixture.getBody().getUserData();
+        return g.getName().contains("PLAY") && gw.isPlayButtonPressed() == false;
     }
 
 

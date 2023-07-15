@@ -18,13 +18,10 @@ import com.google.fpl.liquidfun.PolygonShape;
 
 public class TerroristGO extends GameObject{
 
-    private Bitmap[] frames;
     private Canvas canvas;
     private Paint paint;
-
-    BitmapFactory.Options o;
-
-    RectF dest;
+    private BitmapFactory.Options o;
+    private RectF dest;
 
 
 
@@ -82,10 +79,8 @@ public class TerroristGO extends GameObject{
     private FixtureDef createFixtureDef(PolygonShape box) {
 
         Filter filter = new Filter();
-        //filter.setGroupIndex((short) -1);
         FixtureDef fixturedef = new FixtureDef();
         fixturedef.setShape(box);
-        //fixturedef.setIsSensor(true);
         fixturedef.setFriction(0.5f);
         fixturedef.setRestitution(0.0f);
         fixturedef.setDensity(0.5f);

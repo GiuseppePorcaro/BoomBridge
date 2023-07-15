@@ -102,7 +102,7 @@ public class ButtonGO extends GameObject{
         bdef.setType(BodyType.staticBody);
         this.body = gw.getWorld().createBody(bdef);
         body.setSleepingAllowed(false);
-        this.name = "Bottone start";
+        this.name = this.buttonType+"";
         body.setUserData(this);
         return bdef;
     }

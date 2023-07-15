@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.util.DisplayMetrics;
 import android.widget.ImageView;
 
 import com.badlogic.androidgames.framework.Input;
@@ -38,8 +39,6 @@ public class GameWorld {
     int bufferWidth = 1920, bufferHeight = 1080;    // actual pixels
     private Bitmap buffer;
     private Canvas canvas;
-    private Paint paint;
-    private Paint particlePaint;
 
     // Simulation
     List<GameObject> objects;
@@ -49,7 +48,6 @@ public class GameWorld {
     private World world;
     final Box physicalSize;
     final Box screenSize;
-
     final Box currentView;
     private MyContactListener contactListener;
     private TouchConsumer touchConsumer;
@@ -57,11 +55,6 @@ public class GameWorld {
 
     // Particles
     ParticleSystem particleSystem;
-    private static final int MAXPARTICLECOUNT = 1000;
-    private static final float PARTICLE_RADIUS = 0.3f;
-
-    // Parameters for world simulation
-    private static final float TIME_STEP = 1 / 50f; // 50 fps
     private static final int VELOCITY_ITERATIONS = 8;
     private static final int POSITION_ITERATIONS = 3;
     private static final int PARTICLE_ITERATIONS = 3;
@@ -90,15 +83,9 @@ public class GameWorld {
         this.screenSize = screenSize;
         this.activity = theActivity;
         this.world = new World(0, 0);
-        this.buffer = Bitmap.createBitmap(bufferWidth, bufferHeight, Bitmap.Config.ARGB_8888);
+        this.buffer = Bitmap.createBitmap(bufferWidth,bufferHeight, Bitmap.Config.ARGB_8888);
         this.currentView = physicalSize;
         this.canvas = new Canvas(buffer);
-        this.paint = new Paint();
-        paint.setARGB(255,255,255,255);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setTextSize(50);
-        paint.setTypeface(Typeface.SANS_SERIF);
-        paint.setTextAlign(Paint.Align.CENTER);
         this.startingTime = System.nanoTime() / 1000000000f;
 
         playerHasLost = false;

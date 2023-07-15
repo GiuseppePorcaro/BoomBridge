@@ -8,9 +8,6 @@ import com.example.mfaella.physicsapp.GameWorld;
 import com.google.fpl.liquidfun.Body;
 import com.google.fpl.liquidfun.Joint;
 
-/**
- * Created by mfaella on 27/02/16.
- */
 public abstract class GameObject {
 
     Body body;
@@ -65,18 +62,6 @@ public abstract class GameObject {
     @Override
     public String toString() {
         return name;
-    }
-
-    public float getScreen_semi_width() {
-        return screen_semi_width;
-    }
-
-    public float getScreen_semi_height() {
-        return screen_semi_height;
-    }
-
-    public float getPosX() {
-        return posX;
     }
 
     public float getPosY() {

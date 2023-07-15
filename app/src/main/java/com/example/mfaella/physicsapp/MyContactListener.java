@@ -9,9 +9,6 @@ import com.google.fpl.liquidfun.Fixture;
 import java.util.Collection;
 import java.util.HashSet;
 
-/**
- * Created by mfaella on 01/03/16.
- */
 public class MyContactListener extends ContactListener {
 
     GameWorld gw;
@@ -28,12 +25,8 @@ public class MyContactListener extends ContactListener {
         return result;
     }
 
-    /** Warning: this method runs inside world.step
-     *  Hence, it cannot change the physical world.
-     */
     @Override
     public void beginContact(Contact contact) {
-        //Log.d("MyContactListener", "Begin contact");
         Fixture fa = contact.getFixtureA(),
                 fb = contact.getFixtureB();
         Body ba = fa.getBody(), bb = fb.getBody();
@@ -46,13 +39,6 @@ public class MyContactListener extends ContactListener {
         if((nameA.contains("ROAD")&&nameB.contains("Enclosure"))||(nameB.contains("ROAD")&&nameA.contains("Enclosure"))){
             gw.setPlayerHasLost(true);
         }
-
-        // TO DO: use an object pool instead
         cache.add(new Collision(a, b));
-
-        // Sound sound = CollisionSounds.getSound(a.getClass(), b.getClass());
-        //if (sound!=null)
-        //    sound.play(0.7f);
-        // Log.d("MyContactListener", "contact bwt " + a.name + " and " + b.name);
     }
 }

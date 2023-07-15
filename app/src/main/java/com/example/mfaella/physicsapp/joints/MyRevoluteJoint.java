@@ -40,8 +40,6 @@ public class MyRevoluteJoint
 
         joint =gw.getWorld().createJoint(jointDef);
 
-        //gw.addJoint(joint);
-
         jointDef.delete();
     }
 

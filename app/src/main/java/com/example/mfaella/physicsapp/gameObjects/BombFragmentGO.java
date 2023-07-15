@@ -19,7 +19,7 @@ import java.sql.Ref;
 public class BombFragmentGO extends GameObject{
 
     private Canvas canvas;
-    private Paint paint = new Paint();
+    private Paint paint;
     private static int instances = 0;
     private final float density = 60;
     private final RectF dest = new RectF();

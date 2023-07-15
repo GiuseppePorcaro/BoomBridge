@@ -4,22 +4,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.graphics.RectF;
-import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 
 import com.example.mfaella.physicsapp.GameWorld;
 import com.example.mfaella.physicsapp.R;
-import com.example.mfaella.physicsapp.joints.MyDistanceJoint;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
-import com.google.fpl.liquidfun.CircleShape;
-import com.google.fpl.liquidfun.Color;
 import com.google.fpl.liquidfun.FixtureDef;
-import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.PolygonShape;
 
 
