@@ -105,13 +105,6 @@ public class GameWorld {
         playerHasWin = false;
         refreshLevel = false;
 
-        // The particle system
-        ParticleSystemDef psysdef = new ParticleSystemDef();
-        this.particleSystem = world.createParticleSystem(psysdef);
-        particleSystem.setRadius(PARTICLE_RADIUS);
-        particleSystem.setMaxParticleCount(MAXPARTICLECOUNT);
-        psysdef.delete();
-
         // stored to prevent GC
         contactListener = new MyContactListener(this);
         world.setContactListener(contactListener);
@@ -140,11 +133,6 @@ public class GameWorld {
     {
         newJointsAddedByPlayer.add(joint);
         return joint;
-    }
-
-    public synchronized void addParticleGroup(GameObject obj)
-    {
-        objects.add(obj);
     }
 
     // To distance sounds from each other
@@ -280,12 +268,10 @@ public class GameWorld {
 
     public synchronized void render()
     {
-        // clear the screen (with black)
         for (GameObject obj: objects)
             obj.draw(buffer);
         for (GameObject obj: newBeamsAddedByPlayer)
             obj.draw(buffer);
-        // drawParticles();
     }
 
     private void handleCollisions(Collection<Collision> collisions) {
@@ -340,17 +326,9 @@ public class GameWorld {
         isPlayButtonPressed = playButtonPressed;
     }
 
-    public float getStartingTimeWhenBombExploded() {
-        return startingTimeWhenBombExploded;
-    }
-
     public float getDeltaTimeFromBombsExploded() {
         return deltaTimeFromBombsExploded;
     }
-
-    // Conversions between screen coordinates and physical coordinates
-
-
     public int getBeamPrice() {
         return beamPrice;
     }
@@ -411,10 +389,6 @@ public class GameWorld {
         return activity;
     }
 
-    public boolean isPlayerHasLost() {
-        return playerHasLost;
-    }
-
     public void setPlayerHasLost(boolean playerHasLost) {
         this.playerHasLost = playerHasLost;
     }
@@ -439,10 +413,6 @@ public class GameWorld {
 
     public float getTimer() {
         return timer;
-    }
-
-    public float getTimerToWin() {
-        return timerToWin;
     }
 
     public void setTimerToWin(float timerToWin) {
