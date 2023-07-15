@@ -75,7 +75,7 @@
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="imageAsset" value="$PROJECT_DIR$/../../../../../refresh_button.png" />
-                                      <entry key="outputName" value="refresh_button" />
+                                      <entry key="outputName" value="s" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -91,6 +91,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
+                                                <entry key="color" value="000000" />
                                                 <entry key="imagePath" value="/private/var/folders/6m/mwv1z4gx6rx4mhltz0bk4c8m0000gn/T/ic_android_black_24dp.xml" />
                                               </map>
                                             </option>
@@ -103,8 +104,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$PROJECT_DIR$/../Assets/newAssets/background_title.png" />
-                                                <entry key="scalingPercent" value="74" />
+                                                <entry key="imagePath" value="$PROJECT_DIR$/../../../../../ic_launcher.png" />
+                                                <entry key="scalingPercent" value="89" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -300,11 +301,6 @@
                                 </PersistentState>
                               </value>
                             </entry>
-                          </map>
-                        </option>
-                        <option name="values">
-                          <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>
