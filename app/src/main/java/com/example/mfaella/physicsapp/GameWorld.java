@@ -28,53 +28,37 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * The game objects and the viewport.
- *
- * Created by mfaella on 27/02/16.
- */
 public class GameWorld {
-    // Rendering
-    ImageView screenImageView;
-    int bufferWidth = 1920, bufferHeight = 1080;    // actual pixels
+    int bufferWidth = 1920, bufferHeight = 1080;
     private Bitmap buffer;
-    private Canvas canvas;
+    final Activity activity;
 
     // Simulation
     List<GameObject> objects;
     List<Joint> joints;
-    List<GameObject> newBeamsAddedByPlayer;
-    List<Joint> newJointsAddedByPlayer;
+    private List<GameObject> newBeamsAddedByPlayer;
+    private List<Joint> newJointsAddedByPlayer;
     private World world;
-    final Box physicalSize;
-    final Box screenSize;
-    final Box currentView;
+    final Box physicalSize, screenSize, currentView;
     private MyContactListener contactListener;
     private TouchConsumer touchConsumer;
     private TouchHandler touchHandler;
 
-    // Particles
-    ParticleSystem particleSystem;
     private static final int VELOCITY_ITERATIONS = 8;
     private static final int POSITION_ITERATIONS = 3;
     private static final int PARTICLE_ITERATIONS = 3;
 
     //For the game
-    private boolean isPlayButtonPressed;
+    private boolean isPlayButtonPressed, playerHasLost, playerHasWin ;
     private int totalBudget;
     private int budget;
     private int beamPrice;
-    private boolean playerHasLost;
-    private boolean playerHasWin;
     private float startingTime;
     private float startingTimeWhenBombExploded;
-
     private float deltaTimeFromBombsExploded;
     private float deltaTime;
-
-    private float timer = 60;
+    private float timer = 60; //Standard time
     private float timerToWin = 5;
-    final Activity activity;
     private boolean refreshLevel;
 
 
@@ -85,23 +69,22 @@ public class GameWorld {
         this.world = new World(0, 0);
         this.buffer = Bitmap.createBitmap(bufferWidth,bufferHeight, Bitmap.Config.ARGB_8888);
         this.currentView = physicalSize;
-        this.canvas = new Canvas(buffer);
         this.startingTime = System.nanoTime() / 1000000000f;
-
-        playerHasLost = false;
-        playerHasWin = false;
-        refreshLevel = false;
 
         // stored to prevent GC
         contactListener = new MyContactListener(this);
         world.setContactListener(contactListener);
 
         touchConsumer = new TouchConsumer(this);
-        this.canvas = new Canvas(buffer);
         this.objects = new ArrayList<>();
         this.joints = new ArrayList<>();
         this.newBeamsAddedByPlayer = new ArrayList<>();
         this.newJointsAddedByPlayer = new ArrayList<>();
+
+        //Setting all condition
+        playerHasLost = false;
+        playerHasWin = false;
+        refreshLevel = false; //To know if engine has to refresh level
     }
 
     public synchronized GameObject addGameObject(GameObject obj)
@@ -366,10 +349,6 @@ public class GameWorld {
 
     public Box getCurrentView() {
         return currentView;
-    }
-
-    public ParticleSystem getParticleSystem() {
-        return particleSystem;
     }
 
     public Activity getActivity() {

@@ -21,7 +21,7 @@ public class BombFragmentGO extends GameObject{
     private Canvas canvas;
     private Paint paint;
     private static int instances = 0;
-    private final float density = 60;
+    private final float density = 100;
     private final RectF dest = new RectF();
 
     public BombFragmentGO(GameWorld gw, float x, float y, Vec2 rayDir, float blastPower, float numRays) {

@@ -33,9 +33,6 @@ public class TouchConsumer {
     private GameObject firstTouchedGO = null;
     private final static float POINTER_SIZE = 0.2f;
 
-    Canvas canvas;
-    Paint paint;
-
     private class TouchQueryCallback extends QueryCallback
     {
         public boolean reportFixture(Fixture fixture) {
@@ -50,13 +47,6 @@ public class TouchConsumer {
         p1 = new Vec2();
         p2 = new Vec2();
         aabb = new AABB();
-        canvas = new Canvas(gw.getBuffer());
-        paint = new Paint();
-        paint.setARGB(255,0,0,0);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setTextSize(10.0f);
-        paint.setTypeface(Typeface.SANS_SERIF);
-        paint.setTextAlign(Paint.Align.CENTER);
     }
 
     public void consumeTouchEvent(Input.TouchEvent event)
@@ -104,7 +94,6 @@ public class TouchConsumer {
         dxy.setX(endPoint.getX() - startingPoint.getX());
         dxy.setY(endPoint.getY() - startingPoint.getY());
 
-
         getAABB(x, y);
 
         gw.getWorld().queryAABB(touchQueryCallback, aabb);
@@ -127,7 +116,6 @@ public class TouchConsumer {
                 }
             }
 
-
             if (isPlayButtonAreaPressed(touchedFixture)) {
                 gw.detonateBombs();
             }
@@ -139,35 +127,18 @@ public class TouchConsumer {
             if(isExitButtonPressed(touchedFixture)){
                 gw.getActivity().finish();
             }
-
         }
-
-
-
     }
 
-    private float getDistance() {
-        return (float) Math.sqrt(Math.pow(endPoint.getX() - startingPoint.getX(), 2) + Math.pow(endPoint.getY() - startingPoint.getY(), 2));
+    private void consumeTouchMove(Input.TouchEvent event) {
+        float x = gw.toMetersX(event.x), y = gw.toMetersY(event.y);
+        endPoint.setX(x);
+        endPoint.setY(y);
+
     }
 
     public boolean areTouchedGOBothTerrain(GameObject firstTouchedGO, GameObject secondTouchedGO){
         return firstTouchedGO.getName().contains("Terrain") && secondTouchedGO.getName().contains("Terrain");
-    }
-
-    private void addNewBeam(GameObject touchedGO, float bodyX, float bodyY, float distance, int price) {
-        GameObject newBeam = gw.addNewBeam(new BridgeElementGO(gw, BridgeElementType.BEAM, bodyX, bodyY, (float) Math.toDegrees(Math.atan2(dxy.getY(),dxy.getX())), distance,0.5f));
-        GameObject firstJoint = gw.addNewBeam(new DynamicJointGO(gw, newBeam.getBody().getPositionX()+(distance /2), newBeam.getBody().getPositionY(),1.0f,1.0f));
-        GameObject secondJoint = gw.addNewBeam(new DynamicJointGO(gw,newBeam.getBody().getPositionX()-(distance /2), newBeam.getBody().getPositionY(),1.0f,1.0f));
-        gw.addNewBeamJoint(new MyRevoluteJoint(gw, newBeam, firstJoint, distance /2,0,0,0,false).getJoint());
-        gw.addNewBeamJoint(new MyRevoluteJoint(gw, newBeam, secondJoint, -distance /2,0,0,0, false).getJoint());
-
-        Vec2 localPointLastTouchedGO = touchedGO.getBody().getLocalPoint(new Vec2(endPoint.getX(), endPoint.getY()));
-        Vec2 localPointFirstTouchedGO = firstTouchedGO.getBody().getLocalPoint(new Vec2(startingPoint.getX(), startingPoint.getY()));
-
-        gw.addNewBeamJoint(new MyRevoluteJoint(gw, firstJoint, touchedGO,0,0,localPointLastTouchedGO.getX(),localPointLastTouchedGO.getY(), false).getJoint());
-        gw.addNewBeamJoint(new MyRevoluteJoint(gw, secondJoint, firstTouchedGO, 0,0, localPointFirstTouchedGO.getX(), localPointFirstTouchedGO.getY(), false).getJoint());
-
-        gw.setBudget(gw.getBudget()- price);
     }
 
     public int getPrice(float distance){
@@ -192,18 +163,12 @@ public class TouchConsumer {
         return g.getName().contains("PLAY") && gw.isPlayButtonPressed() == false;
     }
 
-
-
-
-    private void consumeTouchMove(Input.TouchEvent event) {
-        float x = gw.toMetersX(event.x), y = gw.toMetersY(event.y);
-        endPoint.setX(x);
-        endPoint.setY(y);
-
-    }
-
     private boolean isNewBeamPossible(float price) {
         return gw.getBudget() >= price && gw.isPlayButtonPressed() == false;
+    }
+
+    private static boolean isTouchedElementValid(GameObject touchedGO) {
+        return touchedGO.getName().contains("BEAM") || touchedGO.getName().contains("ROAD") || touchedGO.getName().contains("JOINT") || touchedGO.getName().contains("Terrain");
     }
     private void getAABB(float x, float y) {
         p1.setX(x - POINTER_SIZE);
@@ -214,8 +179,28 @@ public class TouchConsumer {
         aabb.setUpperBound(p2);
     }
 
-    private static boolean isTouchedElementValid(GameObject touchedGO) {
-        return touchedGO.getName().contains("BEAM") || touchedGO.getName().contains("ROAD") || touchedGO.getName().contains("JOINT") || touchedGO.getName().contains("Terrain");
+    private void addNewBeam(GameObject touchedGO, float bodyX, float bodyY, float distance, int price) {
+        GameObject newBeam = gw.addNewBeam(new BridgeElementGO(gw, BridgeElementType.BEAM, bodyX, bodyY, getInitAngle(), distance,0.5f));
+        GameObject firstJoint = gw.addNewBeam(new DynamicJointGO(gw, newBeam.getBody().getPositionX()+(distance /2), newBeam.getBody().getPositionY(),1.0f,1.0f));
+        GameObject secondJoint = gw.addNewBeam(new DynamicJointGO(gw,newBeam.getBody().getPositionX()-(distance /2), newBeam.getBody().getPositionY(),1.0f,1.0f));
+        gw.addNewBeamJoint(new MyRevoluteJoint(gw, newBeam, firstJoint, distance /2,0,0,0,false).getJoint());
+        gw.addNewBeamJoint(new MyRevoluteJoint(gw, newBeam, secondJoint, -distance /2,0,0,0, false).getJoint());
+
+        Vec2 localPointLastTouchedGO = touchedGO.getBody().getLocalPoint(new Vec2(endPoint.getX(), endPoint.getY()));
+        Vec2 localPointFirstTouchedGO = firstTouchedGO.getBody().getLocalPoint(new Vec2(startingPoint.getX(), startingPoint.getY()));
+
+        gw.addNewBeamJoint(new MyRevoluteJoint(gw, firstJoint, touchedGO,0,0,localPointLastTouchedGO.getX(),localPointLastTouchedGO.getY(), false).getJoint());
+        gw.addNewBeamJoint(new MyRevoluteJoint(gw, secondJoint, firstTouchedGO, 0,0, localPointFirstTouchedGO.getX(), localPointFirstTouchedGO.getY(), false).getJoint());
+
+        gw.setBudget(gw.getBudget()- price);
+    }
+
+    private float getInitAngle() {
+        return (float) Math.toDegrees(Math.atan2(dxy.getY(), dxy.getX()));
+    }
+
+    private float getDistance() {
+        return (float) Math.sqrt(Math.pow(endPoint.getX() - startingPoint.getX(), 2) + Math.pow(endPoint.getY() - startingPoint.getY(), 2));
     }
 
 }

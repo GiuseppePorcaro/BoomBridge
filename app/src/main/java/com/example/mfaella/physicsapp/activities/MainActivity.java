@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        //mainTheme.pause();
+        mainTheme.pause();
     }
 
     @Override
@@ -64,6 +64,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        //mainTheme.play();
+        mainTheme.play();
     }
 }
