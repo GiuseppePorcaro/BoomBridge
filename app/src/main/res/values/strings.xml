@@ -9,4 +9,7 @@
     <string name="exitButton">EXIT</string>
     <string name="selectLevelButton">SELECT LEVEL</string>
     <string name="howToPlayButton">HOW TO PLAY</string>
+    <string name="mainTheme">menuTheme.mp4</string>
+    <string name="level1Music">level1.mp3</string>
+    <string name="level2Music">level2.mp3</string>
 </resources>

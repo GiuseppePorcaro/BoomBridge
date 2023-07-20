@@ -94,11 +94,11 @@ public class GameActivity extends Activity {
         switch (gameLevel){
             case 0:
                 level = new FirstLevel();
-                backgroundMusic = audio.newMusic("level1.mp3");
+                backgroundMusic = audio.newMusic(getResources().getString(R.string.level1Music));
                 break;
             case 1:
                 level = new SecondLevel();
-                backgroundMusic = audio.newMusic("level2.mp3");
+                backgroundMusic = audio.newMusic(getResources().getString(R.string.level2Music));
                 break;
         }
         backgroundMusic.play();

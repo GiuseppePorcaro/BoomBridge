@@ -1,5 +1,7 @@
 package com.example.mfaella.physicsapp.activities;
 
+import static com.example.mfaella.physicsapp.activities.MainActivity.mainTheme;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -18,13 +20,13 @@ public class ChooseLevelActivity extends AppCompatActivity {
 
         hideNotificationBar();
 
-        if(MainActivity.mainTheme == null){
+        if(mainTheme == null){
             MainActivity.audio = new AndroidAudio(this);
-            MainActivity.mainTheme = MainActivity.audio.newMusic("menuTheme.mp4");
+            mainTheme = MainActivity.audio.newMusic(getResources().getString(R.string.mainTheme));
         }
 
-        if(!MainActivity.mainTheme.isPlaying()){
-            MainActivity.mainTheme.play();
+        if(!mainTheme.isPlaying()){
+            mainTheme.play();
         }
     }
 
@@ -51,6 +53,26 @@ public class ChooseLevelActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("level",level);
         startActivity(intent);
-        MainActivity.mainTheme.stop();
+        mainTheme.stop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mainTheme.pause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!mainTheme.isPlaying()){
+            mainTheme = MainActivity.audio.newMusic(getResources().getString(R.string.mainTheme));
+        }
+        mainTheme.play();
     }
 }

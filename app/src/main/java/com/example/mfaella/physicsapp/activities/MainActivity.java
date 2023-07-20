@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         audio = new AndroidAudio(this);
-        mainTheme = audio.newMusic("menuTheme.mp4");
+        mainTheme = audio.newMusic(getResources().getString(R.string.mainTheme));
         mainTheme.setLooping(true);
         mainTheme.play();
 

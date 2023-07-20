@@ -1,5 +1,7 @@
 package com.example.mfaella.physicsapp.activities;
 
+import static com.example.mfaella.physicsapp.activities.MainActivity.mainTheme;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -20,8 +22,8 @@ public class GameOverActivity extends AppCompatActivity {
 
         hideNotificationBar();
 
-        if(!MainActivity.mainTheme.isPlaying()){
-            MainActivity.mainTheme.play();
+        if(!mainTheme.isPlaying()){
+            mainTheme.play();
         }
     }
 
@@ -33,5 +35,24 @@ public class GameOverActivity extends AppCompatActivity {
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(mainTheme != null){
+            mainTheme.pause();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mainTheme.play();
     }
 }

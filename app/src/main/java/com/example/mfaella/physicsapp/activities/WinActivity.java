@@ -1,5 +1,7 @@
 package com.example.mfaella.physicsapp.activities;
 
+import static com.example.mfaella.physicsapp.activities.MainActivity.mainTheme;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -40,8 +42,8 @@ public class WinActivity extends AppCompatActivity {
 
         ratingBar.setRating(rating);
 
-        if(!MainActivity.mainTheme.isPlaying()){
-            MainActivity.mainTheme.play();
+        if(!mainTheme.isPlaying()){
+            mainTheme.play();
         }
 
     }
@@ -54,5 +56,22 @@ public class WinActivity extends AppCompatActivity {
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mainTheme.pause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mainTheme.play();
     }
 }
