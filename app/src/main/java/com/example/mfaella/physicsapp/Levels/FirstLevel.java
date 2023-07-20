@@ -20,8 +20,7 @@ import java.util.ArrayList;
 
 public class FirstLevel implements Level{
 
-    GameObject a;
-    GameObject b;
+    GameObject a, b;
 
     ArrayList<GameObject> roadJoints = new ArrayList<>();
     ArrayList<GameObject> scaffoldingJoints = new ArrayList<>();
