@@ -17,6 +17,7 @@ import com.example.mfaella.physicsapp.activities.GameOverActivity;
 import com.example.mfaella.physicsapp.activities.WinActivity;
 import com.example.mfaella.physicsapp.gameObjects.BombGO;
 import com.example.mfaella.physicsapp.gameObjects.GameObject;
+import com.example.mfaella.physicsapp.gameObjects.TerroristGO;
 import com.google.fpl.liquidfun.Body;
 import com.google.fpl.liquidfun.Joint;
 import com.google.fpl.liquidfun.ParticleSystem;
@@ -57,9 +58,13 @@ public class GameWorld {
     private float startingTimeWhenBombExploded;
     private float deltaTimeFromBombsExploded;
     private float deltaTime;
+    public TerroristGO terrorist;
+    public boolean playerCanPlay;
     private float timer = 60; //Standard time
     private float timerToWin = 5;
     private boolean refreshLevel;
+
+    private int level;
 
 
     public GameWorld(Box physicalSize, Box screenSize, Activity theActivity) {
@@ -85,6 +90,7 @@ public class GameWorld {
         playerHasLost = false;
         playerHasWin = false;
         refreshLevel = false; //To know if engine has to refresh level
+        playerCanPlay = false;
     }
 
     public synchronized GameObject addGameObject(GameObject obj)
@@ -130,6 +136,12 @@ public class GameWorld {
         checkPlayerHasWin();
 
         clock();
+
+        executeTerrorisAI();
+    }
+
+    private void executeTerrorisAI(){
+        terrorist.terroristAI(level);
     }
 
 
@@ -166,7 +178,7 @@ public class GameWorld {
         Body body = getWorld().getBodyList();
         while(body!=null){
             GameObject g = (GameObject) body.getUserData();
-            if(g.getName().contains("ROAD") && g.getPosY() > toPixelsY(5)){
+            if((g.getName().contains("ROAD") && g.getPosY() > toPixelsY(5))){
                 playerHasLost = true;
             }
             body = body.getNext();
@@ -383,5 +395,13 @@ public class GameWorld {
 
     public void setTimerToWin(float timerToWin) {
         this.timerToWin = timerToWin;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

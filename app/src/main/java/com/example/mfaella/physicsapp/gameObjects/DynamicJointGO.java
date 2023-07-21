@@ -15,6 +15,7 @@ import com.example.mfaella.physicsapp.GameWorld;
 import com.example.mfaella.physicsapp.R;
 import com.google.fpl.liquidfun.BodyDef;
 import com.google.fpl.liquidfun.BodyType;
+import com.google.fpl.liquidfun.Filter;
 import com.google.fpl.liquidfun.FixtureDef;
 import com.google.fpl.liquidfun.PolygonShape;
 
@@ -73,7 +74,10 @@ public class DynamicJointGO extends GameObject
 
     @NonNull
     private FixtureDef createFixtureDef(PolygonShape box) {
+        Filter filter = new Filter();
+        filter.setGroupIndex((short) -1);
         FixtureDef fixturedef = new FixtureDef();
+        fixturedef.setFilter(filter);
         fixturedef.setShape(box);
         fixturedef.setIsSensor(true);
         fixturedef.setFriction(0.1f);       // default 0.2

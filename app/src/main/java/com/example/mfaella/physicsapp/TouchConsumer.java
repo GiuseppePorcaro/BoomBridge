@@ -87,7 +87,6 @@ public class TouchConsumer {
     private void consumeTouchUp(Input.TouchEvent event) {
         touchedFixture = null;
         float x = gw.toMetersX(event.x), y = gw.toMetersY(event.y);
-
         endPoint.setX(x);
         endPoint.setY(y);
 
@@ -116,7 +115,7 @@ public class TouchConsumer {
                 }
             }
 
-            if (isPlayButtonAreaPressed(touchedFixture)) {
+            if (isPlayButtonAreaPressed(touchedFixture) && gw.playerCanPlay) {
                 gw.detonateBombs();
             }
 

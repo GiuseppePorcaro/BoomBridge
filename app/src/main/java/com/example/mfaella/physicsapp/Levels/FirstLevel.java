@@ -43,7 +43,8 @@ public class FirstLevel implements Level{
         addTree(gw);
         gw.addGameObject(new StaticBudgetBoxGO(gw));
         gw.addGameObject(new StaticTimerGO(gw));
-        gw.addGameObject(new TerroristGO(gw,-17,0.0f));
+        gw.terrorist = new TerroristGO(gw,-17,1.0f);
+        gw.addGameObject(gw.terrorist);
 
         gw.addGameObject(new ButtonGO(gw, ButtonType.PLAY,-22,-13));
         gw.addGameObject(new ButtonGO(gw, ButtonType.RESET,-18,-13));
@@ -57,7 +58,6 @@ public class FirstLevel implements Level{
         createRoadBridge(gw, terrainDx,terrainSx);
         createBridgeScaffolding(gw,terrainDx,terrainSx);
 
-        gw.addGameObject(new BombGO(gw,3.6f,0f,1.5f,1.5f));
 
 
 

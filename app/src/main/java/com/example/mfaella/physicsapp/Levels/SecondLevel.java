@@ -37,13 +37,14 @@ public class SecondLevel implements Level{
         gw.setBudget(600);
         gw.setTotalBudget(600);
         gw.setBeamPrice(100);
-        gw.setTimer(40);
+        gw.setTimer(50);
         gw.setTimerToWin(5);
         gw.addGameObject(new BackgroundGO(gw));
         addTree(gw);
         gw.addGameObject(new StaticBudgetBoxGO(gw));
         gw.addGameObject(new StaticTimerGO(gw));
-        gw.addGameObject(new TerroristGO(gw,-16,0.0f));
+        gw.terrorist = new TerroristGO(gw,-16,1.0f);
+        gw.addGameObject(gw.terrorist);
 
         gw.addGameObject(new ButtonGO(gw, ButtonType.PLAY,-22,-13));
         gw.addGameObject(new ButtonGO(gw, ButtonType.RESET,-18,-13));
@@ -53,8 +54,6 @@ public class SecondLevel implements Level{
         GameObject terrainSx = gw.addGameObject(new TerrainGO(gw,-20,10));
         GameObject terrainDx = gw.addGameObject(new TerrainGO(gw,20,10));
         GameObject terrainCenter = gw.addGameObject(new TerrainGO(gw,0,14.3f));
-        gw.addGameObject(new BombGO(gw,5.5f,2.9f,1.5f,1.5f));
-        gw.addGameObject(new BombGO(gw,-4.8f,4f,1.5f,1.5f));
 
         Vec2 point = new Vec2(-14.76f,12.42f);
         createRoadBridge(gw,terrainDx,terrainSx);

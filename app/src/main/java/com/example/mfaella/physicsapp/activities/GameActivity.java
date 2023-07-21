@@ -67,6 +67,7 @@ public class GameActivity extends Activity {
         //Create world based on level
         factoryLevel();
         level.createLevel(gw);
+        gw.setLevel(gameLevel);
 
         // Just for info
         logRefreshRate();
